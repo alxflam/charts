@@ -32,8 +32,10 @@ const arcElementsKey =
     AttributeKey<List<ArcRendererElement<Object>>>('ArcRenderer.elements');
 
 class ArcRenderer<D> extends BaseArcRenderer<D> {
+  @override
   final ArcRendererConfig<D> config;
 
+  @override
   final List<ArcRendererDecorator<D>> arcRendererDecorators;
 
   /// Store a map of series drawn on the chart, mapped by series name.
@@ -62,7 +64,7 @@ class ArcRenderer<D> extends BaseArcRenderer<D> {
 
   @override
   void preprocessSeries(List<MutableSeries<D>> seriesList) {
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       var elements = <ArcRendererElement<D>>[];
 
       var domainFn = series.domainFn;
@@ -130,7 +132,7 @@ class ArcRenderer<D> extends BaseArcRenderer<D> {
       }
 
       series.setAttr(arcElementsKey, elements);
-    });
+    }
   }
 
   @override
@@ -153,7 +155,7 @@ class ArcRenderer<D> extends BaseArcRenderer<D> {
 
     final innerRadius = _calculateInnerRadius(radius);
 
-    seriesList.forEach((ImmutableSeries<D> series) {
+    for (var series in seriesList) {
       var colorFn = series.colorFn;
       var arcListKey = series.id;
 
@@ -264,7 +266,7 @@ class ArcRenderer<D> extends BaseArcRenderer<D> {
           animatingArc.setNewTarget(arcElement);
         }
       }
-    });
+    }
 
     // Animate out arcs that don't exist anymore.
     _seriesArcMap.forEach((String key, AnimatedArcList<D> arcList) {
@@ -320,19 +322,19 @@ class ArcRenderer<D> extends BaseArcRenderer<D> {
       {required bool emptyCategoryUsesSinglePalette}) {
     var maxMissing = 0;
 
-    seriesList.forEach((series) {
+    for (var series in seriesList) {
       if (series.colorFn == null) {
         maxMissing = max(maxMissing, series.data.length);
       }
-    });
+    }
 
     if (maxMissing > 0) {
       final colorPalettes = StyleFactory.style.getOrderedPalettes(1);
       final colorPalette = colorPalettes[0].makeShades(maxMissing);
 
-      seriesList.forEach((series) {
+      for (var series in seriesList) {
         series.colorFn ??= (index) => colorPalette[index!];
-      });
+      }
     }
   }
 

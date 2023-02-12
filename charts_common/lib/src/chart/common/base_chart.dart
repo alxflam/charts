@@ -264,7 +264,7 @@ abstract class BaseChart<D> {
         selectAcrossAllDrawAreaComponents ? drawableLayoutAreaBounds : null;
 
     final details = <DatumDetails<D>>[];
-    _usingRenderers.forEach((String rendererId) {
+    for (var rendererId in _usingRenderers) {
       details
           .addAll(getSeriesRenderer(rendererId).getNearestDatumDetailPerSeries(
         drawAreaPoint,
@@ -273,7 +273,7 @@ abstract class BaseChart<D> {
         selectOverlappingPoints: selectOverlappingPoints,
         selectExactEventLocation: selectExactEventLocation,
       ));
-    });
+    }
 
     details.sort((DatumDetails<D> a, DatumDetails<D> b) {
       // Sort so that the nearest one is first.
@@ -362,7 +362,7 @@ abstract class BaseChart<D> {
   void addBehavior(ChartBehavior<D> behavior) {
     final role = behavior.role;
 
-    if (role != null && _behaviorRoleMap[role] != behavior) {
+    if (_behaviorRoleMap[role] != behavior) {
       // Remove any old behavior with the same role.
       removeBehavior(_behaviorRoleMap[role]);
       // Add the behavior.
@@ -385,7 +385,7 @@ abstract class BaseChart<D> {
     }
 
     final role = behavior.role;
-    if (role != null && _behaviorRoleMap[role] == behavior) {
+    if (_behaviorRoleMap[role] == behavior) {
       _behaviorRoleMap.remove(role);
     }
 
@@ -405,8 +405,7 @@ abstract class BaseChart<D> {
   void registerTappable(ChartBehavior<D> behavior) {
     final role = behavior.role;
 
-    if (role != null &&
-        _behaviorRoleMap[role] == behavior &&
+    if (_behaviorRoleMap[role] == behavior &&
         _behaviorTappableMap[role] != behavior) {
       _behaviorTappableMap[role] = behavior;
     }
@@ -415,7 +414,7 @@ abstract class BaseChart<D> {
   /// Tells the chart that this behavior no longer responds to tap events.
   void unregisterTappable(ChartBehavior<D> behavior) {
     final role = behavior.role;
-    if (role != null && _behaviorTappableMap[role] == behavior) {
+    if (_behaviorTappableMap[role] == behavior) {
       _behaviorTappableMap.remove(role);
     }
   }
@@ -497,7 +496,9 @@ abstract class BaseChart<D> {
     // This can be used by listeners of selection to determine the order of
     // series, because the selection details are not returned in this order.
     var seriesIndex = 0;
-    processedSeriesList.forEach((series) => series.seriesIndex = seriesIndex++);
+    for (var series in processedSeriesList) {
+      series.seriesIndex = seriesIndex++;
+    }
 
     // Initially save a reference to processedSeriesList. After drawInternal
     // finishes, we expect _currentSeriesList to contain a new, possibly
@@ -572,10 +573,10 @@ abstract class BaseChart<D> {
     // Build map of rendererIds to SeriesLists. This map can't be re-used later
     // in the preprocessSeries call because some behaviors might alter the
     // seriesList.
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       final rendererId = series.getAttr(rendererIdKey);
       rendererToSeriesList.putIfAbsent(rendererId, () => []).add(series);
-    });
+    }
 
     // Have each renderer add missing color functions to their seriesLists.
     rendererToSeriesList
@@ -595,17 +596,18 @@ abstract class BaseChart<D> {
     _usingRenderers = <String>{};
 
     // Build map of rendererIds to SeriesLists.
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       final rendererId = series.getAttr(rendererIdKey)!;
       rendererToSeriesList.putIfAbsent(rendererId, () => []).add(series);
 
       _usingRenderers.add(rendererId);
       unusedRenderers.remove(rendererId);
-    });
+    }
 
     // Allow unused renderers to render out content.
-    unusedRenderers
-        .forEach((rendererId) => rendererToSeriesList[rendererId] = []);
+    for (var rendererId in unusedRenderers) {
+      rendererToSeriesList[rendererId] = [];
+    }
 
     // Have each renderer preprocess their seriesLists.
     rendererToSeriesList.forEach((rendererId, seriesList) {
@@ -640,10 +642,10 @@ abstract class BaseChart<D> {
 
   void paint(ChartCanvas canvas) {
     canvas.drawingView = 'BaseView';
-    _layoutManager.paintOrderedViews.forEach((LayoutView view) {
+    for (var view in _layoutManager.paintOrderedViews) {
       canvas.drawingView = view.runtimeType.toString();
       view.paint(canvas, animatingThisDraw ? animationPercent : 1.0);
-    });
+    }
 
     canvas.drawingView = 'PostRender';
     fireOnPostrender(canvas);
@@ -655,50 +657,49 @@ abstract class BaseChart<D> {
   }
 
   bool get animatingThisDraw =>
-      transition != null &&
       transition.inMilliseconds > 0 &&
       !_animationsTemporarilyDisabled;
 
   @protected
   void fireOnDraw(List<MutableSeries<D>> seriesList) {
-    _lifecycleListeners.forEach((LifecycleListener<D> listener) {
+    for (var listener in _lifecycleListeners) {
       listener.onData?.call(seriesList);
-    });
+    }
   }
 
   @protected
   void fireOnPreprocess(List<MutableSeries<D>> seriesList) {
-    _lifecycleListeners.forEach((LifecycleListener<D> listener) {
+    for (var listener in _lifecycleListeners) {
       listener.onPreprocess?.call(seriesList);
-    });
+    }
   }
 
   @protected
   void fireOnPostprocess(List<MutableSeries<D>> seriesList) {
-    _lifecycleListeners.forEach((LifecycleListener<D> listener) {
+    for (var listener in _lifecycleListeners) {
       listener.onPostprocess?.call(seriesList);
-    });
+    }
   }
 
   @protected
   void fireOnAxisConfigured() {
-    _lifecycleListeners.forEach((LifecycleListener<D> listener) {
+    for (var listener in _lifecycleListeners) {
       listener.onAxisConfigured?.call();
-    });
+    }
   }
 
   @protected
   void fireOnPostrender(ChartCanvas canvas) {
-    _lifecycleListeners.forEach((LifecycleListener<D> listener) {
+    for (var listener in _lifecycleListeners) {
       listener.onPostrender?.call(canvas);
-    });
+    }
   }
 
   @protected
   void fireOnAnimationComplete() {
-    _lifecycleListeners.forEach((LifecycleListener<D> listener) {
+    for (var listener in _lifecycleListeners) {
       listener.onAnimationComplete?.call();
-    });
+    }
   }
 
   /// Called to free up any resources due to chart going away.
@@ -709,8 +710,9 @@ abstract class BaseChart<D> {
     }
     _behaviorStack.clear();
     _behaviorRoleMap.clear();
-    _selectionModels.values
-        .forEach((selectionModel) => selectionModel.clearAllListeners());
+    for (var selectionModel in _selectionModels.values) {
+      selectionModel.clearAllListeners();
+    }
   }
 }
 

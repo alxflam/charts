@@ -21,54 +21,54 @@ import 'package:charts_common/src/common/proxy_gesture_listener.dart';
 import 'package:test/test.dart';
 
 void main() {
-  ProxyGestureListener _proxy;
-  Point<double> _point;
+  ProxyGestureListener proxy;
+  Point<double> point;
   setUp(() {
-    _proxy = ProxyGestureListener();
-    _point = Point<double>(10.0, 12.0);
+    proxy = ProxyGestureListener();
+    point = Point<double>(10.0, 12.0);
   });
 
   group('Tap gesture', () {
     test('notified for simple case', () {
       // Setup
       final tapListener = MockListener(consumeEvent: true);
-      _proxy.add(GestureListener(onTap: tapListener.callback));
+      proxy.add(GestureListener(onTap: tapListener.callback));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onTap(point);
 
       // Verify
-      tapListener.verify(arg1: _point);
+      tapListener.verify(arg1: point);
     });
 
     test('notifies listener for second event', () {
       // Setup
       final tapListener1 = MockListener();
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTap: tapListener1.callback,
       ));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onTap(point);
 
       // Verify
-      tapListener1.verify(arg1: _point);
+      tapListener1.verify(arg1: point);
 
       // Setup Another
       final tapListener2 = MockListener();
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTap: tapListener2.callback,
       ));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onTap(point);
 
       // Verify
-      tapListener1.verify(callCount: 2, arg1: _point);
-      tapListener2.verify(arg1: _point);
+      tapListener1.verify(callCount: 2, arg1: point);
+      tapListener2.verify(arg1: point);
     });
 
     test('notifies claiming listener registered first', () {
@@ -76,7 +76,7 @@ void main() {
       final claimingTapDownListener = MockListener(consumeEvent: true);
       final claimingTapListener = MockListener(consumeEvent: true);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: claimingTapDownListener.callback,
         onTap: claimingTapListener.callback,
       ));
@@ -84,19 +84,19 @@ void main() {
       final nonclaimingTapDownListener = MockListener(consumeEvent: false);
       final nonclaimingTapListener = MockListener(consumeEvent: false);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: nonclaimingTapDownListener.callback,
         onTap: nonclaimingTapListener.callback,
       ));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onTap(point);
 
       // Verify
-      claimingTapDownListener.verify(arg1: _point);
-      claimingTapListener.verify(arg1: _point);
-      nonclaimingTapDownListener.verify(arg1: _point);
+      claimingTapDownListener.verify(arg1: point);
+      claimingTapListener.verify(arg1: point);
+      nonclaimingTapDownListener.verify(arg1: point);
       nonclaimingTapListener.verify(callCount: 0);
     });
 
@@ -105,7 +105,7 @@ void main() {
       final nonclaimingTapDownListener = MockListener(consumeEvent: false);
       final nonclaimingTapListener = MockListener(consumeEvent: false);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: nonclaimingTapDownListener.callback,
         onTap: nonclaimingTapListener.callback,
       ));
@@ -113,20 +113,20 @@ void main() {
       final claimingTapDownListener = MockListener(consumeEvent: true);
       final claimingTapListener = MockListener(consumeEvent: true);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: claimingTapDownListener.callback,
         onTap: claimingTapListener.callback,
       ));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onTap(point);
 
       // Verify
-      nonclaimingTapDownListener.verify(arg1: _point);
+      nonclaimingTapDownListener.verify(arg1: point);
       nonclaimingTapListener.verify(callCount: 0);
-      claimingTapDownListener.verify(arg1: _point);
-      claimingTapListener.verify(arg1: _point);
+      claimingTapDownListener.verify(arg1: point);
+      claimingTapListener.verify(arg1: point);
     });
   });
 
@@ -137,7 +137,7 @@ void main() {
       final tap = MockListener(consumeEvent: true);
       final tapCancel = MockListener(consumeEvent: true);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: tapDown.callback,
         onTap: tap.callback,
         onTapCancel: tapCancel.callback,
@@ -147,24 +147,24 @@ void main() {
       final longPress = MockListener(consumeEvent: true);
       final pressCancel = MockListener(consumeEvent: true);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: pressTapDown.callback,
         onLongPress: longPress.callback,
         onTapCancel: pressCancel.callback,
       ));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onLongPress(_point);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onLongPress(point);
+      proxy.onTap(point);
 
       // Verify
-      tapDown.verify(arg1: _point);
+      tapDown.verify(arg1: point);
       tap.verify(callCount: 0);
       tapCancel.verify(callCount: 1);
 
-      pressTapDown.verify(arg1: _point);
-      longPress.verify(arg1: _point);
+      pressTapDown.verify(arg1: point);
+      longPress.verify(arg1: point);
       pressCancel.verify(callCount: 0);
     });
   });
@@ -176,7 +176,7 @@ void main() {
       final tap = MockListener(consumeEvent: true);
       final tapCancel = MockListener(consumeEvent: true);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: tapDown.callback,
         onTap: tap.callback,
         onTapCancel: tapCancel.callback,
@@ -188,7 +188,7 @@ void main() {
       final dragEnd = MockListener(consumeEvent: true);
       final dragCancel = MockListener(consumeEvent: true);
 
-      _proxy.add(GestureListener(
+      proxy.add(GestureListener(
         onTapTest: dragTapDown.callback,
         onDragStart: dragStart.callback,
         onDragUpdate: dragUpdate.callback,
@@ -197,22 +197,22 @@ void main() {
       ));
 
       // Act
-      _proxy.onTapTest(_point);
-      _proxy.onDragStart(_point);
-      _proxy.onDragUpdate(_point, 1.0);
-      _proxy.onDragUpdate(_point, 1.0);
-      _proxy.onDragEnd(_point, 2.0, 3.0);
-      _proxy.onTap(_point);
+      proxy.onTapTest(point);
+      proxy.onDragStart(point);
+      proxy.onDragUpdate(point, 1.0);
+      proxy.onDragUpdate(point, 1.0);
+      proxy.onDragEnd(point, 2.0, 3.0);
+      proxy.onTap(point);
 
       // Verify
-      tapDown.verify(arg1: _point);
+      tapDown.verify(arg1: point);
       tap.verify(callCount: 0);
       tapCancel.verify(callCount: 1);
 
-      dragTapDown.verify(arg1: _point);
-      dragStart.verify(arg1: _point);
-      dragUpdate.verify(callCount: 2, arg1: _point, arg2: 1.0);
-      dragEnd.verify(arg1: _point, arg2: 2.0, arg3: 3.0);
+      dragTapDown.verify(arg1: point);
+      dragStart.verify(arg1: point);
+      dragUpdate.verify(callCount: 2, arg1: point, arg2: 1.0);
+      dragEnd.verify(arg1: point, arg2: 2.0, arg3: 3.0);
       dragCancel.verify(callCount: 0);
     });
   });

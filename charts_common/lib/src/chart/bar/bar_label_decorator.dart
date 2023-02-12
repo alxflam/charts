@@ -363,7 +363,7 @@ class BarLabelDecorator<D> extends BarRendererDecorator<D> {
       }
 
       // Calculate label's y position based on BarLabelVerticalPosition.
-      final labelY;
+      final int labelY;
       if (labelVerticalPosition == BarLabelVerticalPosition.middle) {
         // Center the label inside the bar.
         labelY = (bounds.top +

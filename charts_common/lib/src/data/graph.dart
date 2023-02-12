@@ -192,7 +192,7 @@ List<Node<N, L>> convertGraphNodes<N, L, D>(
   List<Node<N, L>> graphNodes = [];
   var graphLinks = convertGraphLinks(links, sourceFn, targetFn);
   var nodeClassDomainFn = actOnNodeData<N, L, D>(nodeDomainFn)!;
-  var nodeMap = LinkedHashMap<D, Node<N, L>>();
+  var nodeMap = <D, Node<N, L>>{};
 
   // Populate nodeMap with user provided nodes
   for (var node in nodes) {

@@ -82,13 +82,13 @@ class EndPointsTickProvider<D> extends BaseTickProvider<D> {
     } else {
       // Upcast to allow type promotion.
       // See https://github.com/dart-lang/sdk/issues/34018.
-      Object _scale = scale;
-      if (_scale is NumericScale) {
-        start = _scale.viewportDomain.min;
-      } else if (_scale is DateTimeScale) {
-        start = _scale.viewportDomain.start;
-      } else if (_scale is OrdinalScale) {
-        start = _scale.domain.first;
+      Object scale0 = scale;
+      if (scale0 is NumericScale) {
+        start = scale0.viewportDomain.min;
+      } else if (scale0 is DateTimeScale) {
+        start = scale0.viewportDomain.start;
+      } else if (scale0 is OrdinalScale) {
+        start = scale0.domain.first;
       } else {
         throw UnsupportedError('Unrecognized scale: {scale.runtimeType}');
       }
@@ -106,13 +106,13 @@ class EndPointsTickProvider<D> extends BaseTickProvider<D> {
     } else {
       // Upcast to allow type promotion.
       // See https://github.com/dart-lang/sdk/issues/34018.
-      Object _scale = scale;
-      if (_scale is NumericScale) {
-        end = _scale.viewportDomain.max;
-      } else if (_scale is DateTimeScale) {
-        end = _scale.viewportDomain.end;
-      } else if (_scale is OrdinalScale) {
-        end = _scale.domain.last;
+      Object scale0 = scale;
+      if (scale0 is NumericScale) {
+        end = scale0.viewportDomain.max;
+      } else if (scale0 is DateTimeScale) {
+        end = scale0.viewportDomain.end;
+      } else if (scale0 is OrdinalScale) {
+        end = scale0.domain.last;
       } else {
         throw UnsupportedError('Unrecognized scale: {scale.runtimeType}');
       }

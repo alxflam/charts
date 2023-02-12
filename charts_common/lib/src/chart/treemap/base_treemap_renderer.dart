@@ -113,7 +113,7 @@ abstract class BaseTreeMapRenderer<D> extends BaseSeriesRenderer<D> {
     // _visibleTreeMapRectKeys is used to remove any [_AnimatedTreeMapRect]s
     // that were rendered in the previous draw cycles, but no longer have a
     // corresponding datum in the new series data.
-    final _visibleTreeMapRectKeys = <D>{};
+    final visibleTreeMapRectKeys = <D>{};
 
     for (final series in seriesList) {
       if (series.data.isNotEmpty) {
@@ -127,13 +127,13 @@ abstract class BaseTreeMapRenderer<D> extends BaseSeriesRenderer<D> {
           tile(node);
           final element = _getRendererElement(node)..refreshPaintProperties();
           final rect = _createAnimatedTreeMapRect(element);
-          _visibleTreeMapRectKeys.add(rect.key);
+          visibleTreeMapRectKeys.add(rect.key);
         }
       }
     }
 
     _animatedTreeMapRects.forEach((_, rect) {
-      if (!_visibleTreeMapRectKeys.contains(rect.key)) {
+      if (!visibleTreeMapRectKeys.contains(rect.key)) {
         rect.animateOut();
       }
     });

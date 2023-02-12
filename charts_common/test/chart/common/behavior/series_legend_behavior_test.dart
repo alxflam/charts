@@ -391,7 +391,7 @@ void main() {
   test('series legend - show measure sum when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    final measureFormatter = (num value) => '${value?.toStringAsFixed(0)}';
+    final measureFormatter = (num value) => value?.toStringAsFixed(0);
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.sum,
@@ -424,7 +424,7 @@ void main() {
   test('series legend - show measure average when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    final measureFormatter = (num value) => '${value?.toStringAsFixed(0)}';
+    final measureFormatter = (num value) => value?.toStringAsFixed(0);
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.average,
@@ -457,7 +457,7 @@ void main() {
   test('series legend - show first measure when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    final measureFormatter = (num value) => '${value?.toStringAsFixed(0)}';
+    final measureFormatter = (num value) => value?.toStringAsFixed(0);
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.firstValue,
@@ -490,7 +490,7 @@ void main() {
   test('series legend - show last measure when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    final measureFormatter = (num value) => '${value?.toStringAsFixed(0)}';
+    final measureFormatter = (num value) => value?.toStringAsFixed(0);
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.lastValue,

@@ -65,9 +65,9 @@ class PercentInjector<D> implements ChartBehavior<D> {
   /// Resets the state of the behavior when new data is drawn on the chart.
   void _onData(List<MutableSeries<D>> seriesList) {
     // Reset tracking of percentage injection for new data.
-    seriesList.forEach((series) {
+    for (var series in seriesList) {
       series.setAttr(percentInjectedKey, false);
-    });
+    }
   }
 
   /// Injects percent of domain and/or series accessor functions into each
@@ -77,9 +77,9 @@ class PercentInjector<D> implements ChartBehavior<D> {
   /// the [seriesList] between chart redraws.
   void _preProcess(List<MutableSeries<D>> seriesList) {
     var percentInjected = true;
-    seriesList.forEach((series) {
+    for (var series in seriesList) {
       percentInjected = percentInjected && series.getAttr(percentInjectedKey)!;
-    });
+    }
 
     if (percentInjected) {
       return;
@@ -176,7 +176,7 @@ class PercentInjector<D> implements ChartBehavior<D> {
         break;
 
       case PercentInjectorTotalType.series:
-        seriesList.forEach((series) {
+        for (var series in seriesList) {
           // Replace the default measure accessor with one that computes the
           // percentage.
           series.measureFn = (int? index) =>
@@ -199,12 +199,12 @@ class PercentInjector<D> implements ChartBehavior<D> {
           }
 
           series.setAttr(percentInjectedKey, true);
-        });
+        }
 
         break;
 
       default:
-        throw ArgumentError('Unsupported totalType: ${totalType}');
+        throw ArgumentError('Unsupported totalType: $totalType');
     }
   }
 

@@ -111,7 +111,7 @@ class Color {
   String _get2CharHex(int num) {
     var str = num.toRadixString(16);
     while (str.length < 2) {
-      str = '0' + str;
+      str = '0$str';
     }
     return str;
   }

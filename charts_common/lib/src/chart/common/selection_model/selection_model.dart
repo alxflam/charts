@@ -60,7 +60,7 @@ class SelectionModel<D> {
     if (selectedDataConfig != null) {
       for (final config in selectedDataConfig) {
         selectedDataMap[config.seriesId] ??= <D>[];
-        selectedDataMap[config.seriesId]!.add(config.domainValue as D);
+        selectedDataMap[config.seriesId]!.add(config.domainValue);
       }
 
       // Add to list of selected series.
@@ -156,8 +156,9 @@ class MutableSelectionModel<D> extends SelectionModel<D> {
   /// When set to true, prevents the model from being updated.
   set locked(bool locked) {
     _locked = locked;
-    _lockChangedListeners
-        .forEach((listener) => listener(SelectionModel.fromOther(this)));
+    for (var listener in _lockChangedListeners) {
+      listener(SelectionModel.fromOther(this));
+    }
   }
 
   bool get locked => _locked;
@@ -182,14 +183,18 @@ class MutableSelectionModel<D> extends SelectionModel<D> {
 
     // Provide a copy, so listeners get an immutable model.
     final copyOfSelectionModel = SelectionModel.fromOther(this);
-    _updatedListeners.forEach((listener) => listener(copyOfSelectionModel));
+    for (var listener in _updatedListeners) {
+      listener(copyOfSelectionModel);
+    }
 
     final changed = !ListEquality<SeriesDatum<D>>()
             .equals(origSelectedDatum, _selectedDatum) ||
         !ListEquality<ImmutableSeries<D>>()
             .equals(origSelectedSeries, _selectedSeries);
     if (notifyListeners && changed) {
-      _changedListeners.forEach((listener) => listener(copyOfSelectionModel));
+      for (var listener in _changedListeners) {
+        listener(copyOfSelectionModel);
+      }
     }
     return changed;
   }

@@ -46,10 +46,10 @@ void main() {
   DomainA11yExploreBehavior<String> behavior;
   MockAxis domainAxis;
 
-  MutableSeries<String> _series1;
-  final _s1D1 = MyRow('s1d1', 11, 'a11yd1');
-  final _s1D2 = MyRow('s1d2', 12, 'a11yd2');
-  final _s1D3 = MyRow('s1d3', 13, 'a11yd3');
+  MutableSeries<String> series1;
+  final s1D1 = MyRow('s1d1', 11, 'a11yd1');
+  final s1D2 = MyRow('s1d2', 12, 'a11yd2');
+  final s1D3 = MyRow('s1d3', 13, 'a11yd3');
 
   setUp(() {
     chart = FakeCartesianChart()..drawAreaBounds = Rectangle(50, 20, 150, 80);
@@ -59,9 +59,9 @@ void main() {
     behavior.attachTo(chart);
 
     domainAxis = MockAxis();
-    _series1 = MutableSeries(Series<MyRow, String>(
+    series1 = MutableSeries(Series<MyRow, String>(
       id: 's1',
-      data: [_s1D1, _s1D2, _s1D3],
+      data: [s1D1, s1D2, s1D3],
       domainFn: (MyRow row, _) => row.campaign,
       measureFn: (MyRow row, _) => row.count,
     ))
@@ -82,7 +82,7 @@ void main() {
     when(domainAxis.getLocation('s1d2')).thenReturn(125.0);
     when(domainAxis.getLocation('s1d3')).thenReturn(175.0);
     // Call fire on post process for the behavior to get the series list.
-    chart.callFireOnPostprocess([_series1]);
+    chart.callFireOnPostprocess([series1]);
 
     final nodes = behavior.createA11yNodes();
 
@@ -109,7 +109,7 @@ void main() {
     when(domainAxis.getLocation('s1d2')).thenReturn(125.0);
     when(domainAxis.getLocation('s1d3')).thenReturn(75.0);
     // Call fire on post process for the behavior to get the series list.
-    chart.callFireOnPostprocess([_series1]);
+    chart.callFireOnPostprocess([series1]);
 
     final nodes = behavior.createA11yNodes();
 
@@ -136,7 +136,7 @@ void main() {
     when(domainAxis.getLocation('s1d2')).thenReturn(50.0);
     when(domainAxis.getLocation('s1d3')).thenReturn(70.0);
     // Call fire on post process for the behavior to get the series list.
-    chart.callFireOnPostprocess([_series1]);
+    chart.callFireOnPostprocess([series1]);
 
     final nodes = behavior.createA11yNodes();
 
@@ -163,7 +163,7 @@ void main() {
     when(domainAxis.getLocation('s1d2')).thenReturn(50.0);
     when(domainAxis.getLocation('s1d3')).thenReturn(70.0);
     // Call fire on post process for the behavior to get the series list.
-    chart.callFireOnPostprocess([_series1]);
+    chart.callFireOnPostprocess([series1]);
 
     final nodes = behavior.createA11yNodes();
 
@@ -192,14 +192,14 @@ void main() {
     // Create a series with a missing domain
     final seriesWithMissingDomain = MutableSeries(Series<MyRow, String>(
       id: 'm1',
-      data: [_s1D1, _s1D3],
+      data: [s1D1, s1D3],
       domainFn: (MyRow row, _) => row.campaign,
       measureFn: (MyRow row, _) => row.count,
     ))
       ..setAttr(domainAxisKey, domainAxis);
 
     // Call fire on post process for the behavior to get the series list.
-    chart.callFireOnPostprocess([seriesWithMissingDomain, _series1]);
+    chart.callFireOnPostprocess([seriesWithMissingDomain, series1]);
 
     final nodes = behavior.createA11yNodes();
 
@@ -232,7 +232,7 @@ void main() {
     when(domainAxis.getLocation('s1d2')).thenReturn(125.0);
     when(domainAxis.getLocation('s1d3')).thenReturn(175.0);
     // Call fire on post process for the behavior to get the series list.
-    chart.callFireOnPostprocess([_series1]);
+    chart.callFireOnPostprocess([series1]);
 
     final nodes = behaviorWithMinWidth.createA11yNodes();
 

@@ -70,7 +70,7 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
 
   @override
   void configureSeries(List<MutableSeries<D>> seriesList) {
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       series.colorFn ??= (_) => _color;
       series.fillColorFn ??= (_) => _color;
 
@@ -83,7 +83,7 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
           series.seriesColor = _color;
         }
       }
-    });
+    }
   }
 
   @override
@@ -241,7 +241,7 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
     double animationPercent,
     Iterable<_BarTargetLineRendererElement> barElements,
   ) {
-    barElements.forEach((_BarTargetLineRendererElement bar) {
+    for (var bar in barElements) {
       // TODO: Combine common line attributes into
       // GraphicsFactory.lineStyle or similar.
       canvas.drawLine(
@@ -251,7 +251,7 @@ class BarTargetLineRenderer<D> extends BaseBarRenderer<D,
           roundEndCaps: bar.roundEndCaps,
           strokeWidthPx: bar.strokeWidthPx,
           dashPattern: bar.dashPattern);
-    });
+    }
   }
 
   /// Generates a set of points that describe a bar target line.

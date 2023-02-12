@@ -54,48 +54,48 @@ class MockSelectionModel extends Mock implements MutableSelectionModel {
 }
 
 void main() {
-  MockChart _chart;
-  MockSelectionModel _selectionModel;
+  MockChart chart;
+  MockSelectionModel selectionModel;
 
-  MutableSeries<String> _series1;
-  final _s1D1 = MyRow('s1d1', 11);
-  final _s1D2 = MyRow('s1d2', 12);
-  final _s1D3 = MyRow('s1d3', 13);
+  MutableSeries<String> series1;
+  final s1D1 = MyRow('s1d1', 11);
+  final s1D2 = MyRow('s1d2', 12);
+  final s1D3 = MyRow('s1d3', 13);
 
-  MutableSeries<String> _series2;
-  final _s2D1 = MyRow('s2d1', 21);
-  final _s2D2 = MyRow('s2d2', 22);
-  final _s2D3 = MyRow('s2d3', 23);
+  MutableSeries<String> series2;
+  final s2D1 = MyRow('s2d1', 21);
+  final s2D2 = MyRow('s2d2', 22);
+  final s2D3 = MyRow('s2d3', 23);
 
   void _setupSelection(List<MyRow> selected) {
-    for (var i = 0; i < _series1.data.length; i++) {
-      when(_selectionModel.isDatumSelected(_series1, i))
-          .thenReturn(selected.contains(_series1.data[i]));
+    for (var i = 0; i < series1.data.length; i++) {
+      when(selectionModel.isDatumSelected(series1, i))
+          .thenReturn(selected.contains(series1.data[i]));
     }
-    for (var i = 0; i < _series2.data.length; i++) {
-      when(_selectionModel.isDatumSelected(_series2, i))
-          .thenReturn(selected.contains(_series2.data[i]));
+    for (var i = 0; i < series2.data.length; i++) {
+      when(selectionModel.isDatumSelected(series2, i))
+          .thenReturn(selected.contains(series2.data[i]));
     }
   }
 
   setUp(() {
-    _chart = MockChart();
+    chart = MockChart();
 
-    _selectionModel = MockSelectionModel();
-    when(_chart.getSelectionModel(SelectionModelType.info))
-        .thenReturn(_selectionModel);
+    selectionModel = MockSelectionModel();
+    when(chart.getSelectionModel(SelectionModelType.info))
+        .thenReturn(selectionModel);
 
-    _series1 = MutableSeries(Series<MyRow, String>(
+    series1 = MutableSeries(Series<MyRow, String>(
         id: 's1',
-        data: [_s1D1, _s1D2, _s1D3],
+        data: [s1D1, s1D2, s1D3],
         domainFn: (MyRow row, _) => row.campaign,
         measureFn: (MyRow row, _) => row.count,
         colorFn: (_, __) => MaterialPalette.blue.shadeDefault))
       ..measureFn = (_) => 0.0;
 
-    _series2 = MutableSeries(Series<MyRow, String>(
+    series2 = MutableSeries(Series<MyRow, String>(
         id: 's2',
-        data: [_s2D1, _s2D2, _s2D3],
+        data: [s2D1, s2D2, s2D3],
         domainFn: (MyRow row, _) => row.campaign,
         measureFn: (MyRow row, _) => row.count,
         colorFn: (_, __) => MaterialPalette.red.shadeDefault))
@@ -106,22 +106,22 @@ void main() {
     test('darkens the selected bars', () {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.info);
-      behavior.attachTo(_chart);
-      _setupSelection([_s1D2, _s2D2]);
-      final seriesList = [_series1, _series2];
+      behavior.attachTo(chart);
+      _setupSelection([s1D2, s2D2]);
+      final seriesList = [series1, series2];
 
       // Act
-      _selectionModel.lastListener(_selectionModel);
-      verify(_chart.redraw(skipAnimation: true, skipLayout: true));
-      _chart.lastListener.onPostprocess(seriesList);
+      selectionModel.lastListener(selectionModel);
+      verify(chart.redraw(skipAnimation: true, skipLayout: true));
+      chart.lastListener.onPostprocess(seriesList);
 
       // Verify
-      final s1ColorFn = _series1.colorFn;
+      final s1ColorFn = series1.colorFn;
       expect(s1ColorFn(0), equals(MaterialPalette.blue.shadeDefault));
       expect(s1ColorFn(1), equals(MaterialPalette.blue.shadeDefault.darker));
       expect(s1ColorFn(2), equals(MaterialPalette.blue.shadeDefault));
 
-      final s2ColorFn = _series2.colorFn;
+      final s2ColorFn = series2.colorFn;
       expect(s2ColorFn(0), equals(MaterialPalette.red.shadeDefault));
       expect(s2ColorFn(1), equals(MaterialPalette.red.shadeDefault.darker));
       expect(s2ColorFn(2), equals(MaterialPalette.red.shadeDefault));
@@ -130,36 +130,36 @@ void main() {
     test('listens to other selection models', () {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.action);
-      when(_chart.getSelectionModel(SelectionModelType.action))
-          .thenReturn(_selectionModel);
+      when(chart.getSelectionModel(SelectionModelType.action))
+          .thenReturn(selectionModel);
 
       // Act
-      behavior.attachTo(_chart);
+      behavior.attachTo(chart);
 
       // Verify
-      verify(_chart.getSelectionModel(SelectionModelType.action));
-      verifyNever(_chart.getSelectionModel(SelectionModelType.info));
+      verify(chart.getSelectionModel(SelectionModelType.action));
+      verifyNever(chart.getSelectionModel(SelectionModelType.info));
     });
 
     test('leaves everything alone with no selection', () {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.info);
-      behavior.attachTo(_chart);
+      behavior.attachTo(chart);
       _setupSelection([]);
-      final seriesList = [_series1, _series2];
+      final seriesList = [series1, series2];
 
       // Act
-      _selectionModel.lastListener(_selectionModel);
-      verify(_chart.redraw(skipAnimation: true, skipLayout: true));
-      _chart.lastListener.onPostprocess(seriesList);
+      selectionModel.lastListener(selectionModel);
+      verify(chart.redraw(skipAnimation: true, skipLayout: true));
+      chart.lastListener.onPostprocess(seriesList);
 
       // Verify
-      final s1ColorFn = _series1.colorFn;
+      final s1ColorFn = series1.colorFn;
       expect(s1ColorFn(0), equals(MaterialPalette.blue.shadeDefault));
       expect(s1ColorFn(1), equals(MaterialPalette.blue.shadeDefault));
       expect(s1ColorFn(2), equals(MaterialPalette.blue.shadeDefault));
 
-      final s2ColorFn = _series2.colorFn;
+      final s2ColorFn = series2.colorFn;
       expect(s2ColorFn(0), equals(MaterialPalette.red.shadeDefault));
       expect(s2ColorFn(1), equals(MaterialPalette.red.shadeDefault));
       expect(s2ColorFn(2), equals(MaterialPalette.red.shadeDefault));
@@ -168,15 +168,15 @@ void main() {
     test('cleans up', () {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.info);
-      behavior.attachTo(_chart);
-      _setupSelection([_s1D2, _s2D2]);
+      behavior.attachTo(chart);
+      _setupSelection([s1D2, s2D2]);
 
       // Act
-      behavior.removeFrom(_chart);
+      behavior.removeFrom(chart);
 
       // Verify
-      expect(_chart.lastListener, isNull);
-      expect(_selectionModel.lastListener, isNull);
+      expect(chart.lastListener, isNull);
+      expect(selectionModel.lastListener, isNull);
     });
   });
 }

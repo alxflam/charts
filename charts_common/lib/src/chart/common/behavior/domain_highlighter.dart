@@ -45,7 +45,7 @@ class DomainHighlighter<D> implements ChartBehavior<D> {
   void _updateColorFunctions(List<MutableSeries<D>> seriesList) {
     SelectionModel<D> selectionModel =
         _chart.getSelectionModel(selectionModelType);
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       final origColorFn = series.colorFn;
 
       if (origColorFn != null) {
@@ -58,7 +58,7 @@ class DomainHighlighter<D> implements ChartBehavior<D> {
           }
         };
       }
-    });
+    }
   }
 
   @override

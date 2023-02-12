@@ -36,8 +36,10 @@ const arcElementsKey = AttributeKey<List<SunburstArcRendererElement<Object>>>(
 
 /// ArcRenderer for the Sunburst chart using Tree based data.
 class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
+  @override
   final SunburstArcRendererConfig<D> config;
 
+  @override
   final List<ArcRendererDecorator<D>> arcRendererDecorators;
 
   /// Store a map of series drawn on the chart, mapped by series name.
@@ -48,7 +50,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
   final _seriesArcMap = LinkedHashMap<String, List<AnimatedArcList<D>>>();
 
   final _nodeToArcRenderElementMap =
-      LinkedHashMap<TreeNode<D>, SunburstArcRendererElement>();
+      <TreeNode<D>, SunburstArcRendererElement>{};
 
   // Store a list of arcs that exist in the series data.
   //
@@ -74,7 +76,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
   @override
   void preprocessSeries(List<MutableSeries<D>> seriesList) {
     _nodeToArcRenderElementMap.clear();
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       var elements = <SunburstArcRendererElement<D>>[];
 
       var domainFn = series.domainFn;
@@ -128,7 +130,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
       }
 
       series.setAttr(arcElementsKey, elements);
-    });
+    }
   }
 
   // Create SunburstArcRendererElement for children of the node.
@@ -214,7 +216,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
       }
     }
 
-    seriesList.forEach((ImmutableSeries<D> series) {
+    for (var series in seriesList) {
       var colorFn = series.colorFn;
       var arcListKey = series.id;
       var elementsList =
@@ -362,7 +364,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
           }
         }
       }
-    });
+    }
 
     // Animate out arcs that don't exist anymore.
     _seriesArcMap.forEach((String key, List<AnimatedArcList<D>> arcLists) {
@@ -455,7 +457,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
   @override
   void assignMissingColors(Iterable<MutableSeries<D>> seriesList,
       {required bool emptyCategoryUsesSinglePalette}) {
-    seriesList.forEach((series) {
+    for (var series in seriesList) {
       if (series.colorFn == null) {
         final root = series.data.first as TreeNode<D>;
         final firstLevelChildren = (series.data.first as TreeNode<D>).children;
@@ -504,7 +506,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
         series.colorFn ??=
             (index) => nodeToColorMap[series.data[index!]] ?? Color.black;
       }
-    });
+    }
   }
 
   /// Calculate the inner and outer radius of the current level based on config.
@@ -512,7 +514,7 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
       [int maxDisplayLevel = 1, int currentLevel = 1]) {
     // arcRatio trumps arcWidth for determining the inner radius. If neither is
     // defined, then inner radius is 0.
-    final baseInnerRadius;
+    final double baseInnerRadius;
     if (config.arcRatio != null) {
       baseInnerRadius = max(radius - radius * config.arcRatio!, 0.0).toDouble();
     } else if (config.arcWidth != null) {
@@ -536,9 +538,9 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
       ];
     } else {
       final totalRadius = radius - baseInnerRadius;
-      final radiusDenom;
-      final sumOfPreviousLevelRadiiFactor;
-      final currentLevelRadiusFactor;
+      final int radiusDenom;
+      final int sumOfPreviousLevelRadiiFactor;
+      final int currentLevelRadiusFactor;
       // If arcRatios is defined, calculate inner and outer radius based on it.
       if (config.arcRatios != null && config.arcRatios!.isNotEmpty) {
         List<int> arcRatios = _ensureConfigLengthCoversMaxDisplayLevel(
@@ -633,6 +635,7 @@ class SunburstArcRendererElement<D> extends ArcRendererElement<D> {
           domain: domain,
         );
 
+  @override
   SunburstArcRendererElement<D> clone() {
     return SunburstArcRendererElement<D>(
         arcLength: arcLength,

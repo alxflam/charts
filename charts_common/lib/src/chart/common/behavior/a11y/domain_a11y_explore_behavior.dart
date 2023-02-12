@@ -132,7 +132,7 @@ class DomainA11yExploreBehavior<D> extends A11yExploreBehavior<D> {
   }
 
   @override
-  String get role => 'DomainA11yExplore-${exploreModeTrigger}';
+  String get role => 'DomainA11yExplore-$exploreModeTrigger';
 }
 
 /// A11yNode with domain specific information.

@@ -210,10 +210,10 @@ class PanBehavior<D> implements ChartBehavior<D> {
     // request redraw.
     _domainAxisTickProvider.mode = PanningTickProviderMode.passThrough;
 
-    final _chart = this._chart!;
-    _chart.getMeasureAxis().lockAxis = false;
-    _chart.getMeasureAxis(axisId: Axis.secondaryMeasureAxisId).lockAxis = false;
-    _chart.redraw();
+    final chart = this._chart!;
+    chart.getMeasureAxis().lockAxis = false;
+    chart.getMeasureAxis(axisId: Axis.secondaryMeasureAxisId).lockAxis = false;
+    chart.redraw();
 
     _panningCompletedCallback?.call();
   }

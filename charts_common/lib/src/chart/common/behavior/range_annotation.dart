@@ -409,8 +409,8 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
 
   @override
   void paint(ChartCanvas canvas, double animationPercent) {
-    final _annotationMap = this._annotationMap;
-    if (_annotationMap == null) {
+    final annotationMap = this._annotationMap;
+    if (annotationMap == null) {
       return;
     }
 
@@ -418,16 +418,16 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
     if (animationPercent == 1.0) {
       final keysToRemove = <String>[];
 
-      _annotationMap.forEach((String key, _AnimatedAnnotation<D> annotation) {
+      annotationMap.forEach((String key, _AnimatedAnnotation<D> annotation) {
         if (annotation.animatingOut) {
           keysToRemove.add(key);
         }
       });
 
-      keysToRemove.forEach(_annotationMap.remove);
+      keysToRemove.forEach(annotationMap.remove);
     }
 
-    _annotationMap.forEach((String key, _AnimatedAnnotation<D> annotation) {
+    annotationMap.forEach((String key, _AnimatedAnnotation<D> annotation) {
       final annotationElement =
           annotation.getCurrentAnnotation(animationPercent);
 
@@ -1341,7 +1341,7 @@ class RangeAnnotationSegment<D> extends AnnotationSegment<D> {
             labelStyleSpec: labelStyleSpec);
 
   @override
-  String get key => 'r::${axisType}::${axisId}::${startValue}::${endValue}';
+  String get key => 'r::$axisType::$axisId::$startValue::$endValue';
 }
 
 /// Data for a chart line annotation.
@@ -1374,7 +1374,7 @@ class LineAnnotationSegment<D> extends AnnotationSegment<D> {
             labelStyleSpec: labelStyleSpec);
 
   @override
-  String get key => 'l::${axisType}::${axisId}::${value}';
+  String get key => 'l::$axisType::$axisId::$value';
 }
 
 /// Axis type for an annotation.

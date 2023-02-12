@@ -37,7 +37,7 @@ class SunburstRingExpander<D> implements ChartBehavior<D> {
 
   @override
   void attachTo(BaseChart<D> chart) {
-    if (!(chart is SunburstChart)) {
+    if (chart is! SunburstChart) {
       throw ArgumentError(
           'SunburstRingExpander can only be attached to a Sunburst chart');
     }

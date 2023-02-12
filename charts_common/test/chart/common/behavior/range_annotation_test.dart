@@ -79,25 +79,25 @@ void main() {
   Rectangle<int> domainAxisBounds;
   Rectangle<int> measureAxisBounds;
 
-  ConcreteChart _chart;
+  ConcreteChart chart0;
 
-  Series<MyRow, int> _series1;
-  final _s1D1 = MyRow(0, 11);
-  final _s1D2 = MyRow(1, 12);
-  final _s1D3 = MyRow(2, 13);
+  Series<MyRow, int> series1;
+  final s1D1 = MyRow(0, 11);
+  final s1D2 = MyRow(1, 12);
+  final s1D3 = MyRow(2, 13);
 
-  Series<MyRow, int> _series2;
-  final _s2D1 = MyRow(3, 21);
-  final _s2D2 = MyRow(4, 22);
-  final _s2D3 = MyRow(5, 23);
+  Series<MyRow, int> series2;
+  final s2D1 = MyRow(3, 21);
+  final s2D2 = MyRow(4, 22);
+  final s2D3 = MyRow(5, 23);
 
-  const _dashPattern = <int>[2, 3];
+  const dashPattern = <int>[2, 3];
 
-  List<RangeAnnotationSegment<num>> _annotations1;
+  List<RangeAnnotationSegment<num>> annotations1;
 
-  List<RangeAnnotationSegment<num>> _annotations2;
+  List<RangeAnnotationSegment<num>> annotations2;
 
-  List<LineAnnotationSegment<num>> _annotations3;
+  List<LineAnnotationSegment<num>> annotations3;
 
   ConcreteChart _makeChart() {
     final chart = ConcreteChart();
@@ -131,27 +131,27 @@ void main() {
     when(drawStrategy.collides(ticks, any)).thenReturn(CollisionReport<num>(
         ticks: [], ticksCollide: false, alternateTicksUsed: false));
 
-    _chart.domainAxis
+    chart0.domainAxis
       ..autoViewport = true
       ..graphicsFactory = graphicsFactory
       ..tickDrawStrategy = drawStrategy
       ..tickProvider = tickProvider
       ..resetDomains();
 
-    _chart.getMeasureAxis()
+    chart0.getMeasureAxis()
       ..autoViewport = true
       ..graphicsFactory = graphicsFactory
       ..tickDrawStrategy = drawStrategy
       ..tickProvider = tickProvider
       ..resetDomains();
 
-    _chart.draw(seriesList);
+    chart0.draw(seriesList);
 
-    _chart.domainAxis.layout(domainAxisBounds, drawBounds);
+    chart0.domainAxis.layout(domainAxisBounds, drawBounds);
 
-    _chart.getMeasureAxis().layout(measureAxisBounds, drawBounds);
+    chart0.getMeasureAxis().layout(measureAxisBounds, drawBounds);
 
-    _chart.lastListener.onAxisConfigured();
+    chart0.lastListener.onAxisConfigured();
   }
 
   setUpAll(() {
@@ -161,23 +161,23 @@ void main() {
   });
 
   setUp(() {
-    _chart = _makeChart();
+    chart0 = _makeChart();
 
-    _series1 = Series<MyRow, int>(
+    series1 = Series<MyRow, int>(
         id: 's1',
-        data: [_s1D1, _s1D2, _s1D3],
+        data: [s1D1, s1D2, s1D3],
         domainFn: (row, _) => row.campaign,
         measureFn: (row, _) => row.count,
         colorFn: (_, __) => MaterialPalette.blue.shadeDefault);
 
-    _series2 = Series<MyRow, int>(
+    series2 = Series<MyRow, int>(
         id: 's2',
-        data: [_s2D1, _s2D2, _s2D3],
+        data: [s2D1, s2D2, s2D3],
         domainFn: (row, _) => row.campaign,
         measureFn: (row, _) => row.count,
         colorFn: (_, __) => MaterialPalette.red.shadeDefault);
 
-    _annotations1 = [
+    annotations1 = [
       RangeAnnotationSegment(1, 2, RangeAnnotationAxisType.domain,
           startLabel: 'Ann 1'),
       RangeAnnotationSegment(4, 5, RangeAnnotationAxisType.domain,
@@ -191,7 +191,7 @@ void main() {
           startLabel: 'Ann 5 Start', endLabel: 'Ann 5 End'),
     ];
 
-    _annotations2 = [
+    annotations2 = [
       RangeAnnotationSegment(1, 2, RangeAnnotationAxisType.domain),
       RangeAnnotationSegment(4, 5, RangeAnnotationAxisType.domain,
           color: MaterialPalette.gray.shade200),
@@ -199,31 +199,31 @@ void main() {
           color: MaterialPalette.gray.shade300),
     ];
 
-    _annotations3 = [
+    annotations3 = [
       LineAnnotationSegment(1, RangeAnnotationAxisType.measure,
           startLabel: 'Ann 1 Start', endLabel: 'Ann 1 End'),
       LineAnnotationSegment(4, RangeAnnotationAxisType.measure,
           startLabel: 'Ann 2 Start',
           endLabel: 'Ann 2 End',
           color: MaterialPalette.gray.shade200,
-          dashPattern: _dashPattern),
+          dashPattern: dashPattern),
     ];
   });
 
   group('RangeAnnotation', () {
     test('renders the annotations', () {
       // Setup
-      final behavior = RangeAnnotation<num>(_annotations1);
+      final behavior = RangeAnnotation<num>(annotations1);
       final tester = RangeAnnotationTester(behavior);
-      behavior.attachTo(_chart);
+      behavior.attachTo(chart0);
 
-      final seriesList = [_series1, _series2];
+      final seriesList = [series1, series2];
 
       // Act
-      _drawSeriesList(_chart, seriesList);
+      _drawSeriesList(chart0, seriesList);
 
       // Verify
-      expect(_chart.domainAxis.getLocation(2), equals(40.0));
+      expect(chart0.domainAxis.getLocation(2), equals(40.0));
       expect(
           tester.doesAnnotationExist(
               startPosition: 20.0,
@@ -246,7 +246,7 @@ void main() {
           equals(true));
 
       // Verify measure annotations
-      expect(_chart.getMeasureAxis().getLocation(11).round(), equals(33));
+      expect(chart0.getMeasureAxis().getLocation(11).round(), equals(33));
       expect(
           tester.doesAnnotationExist(
               startPosition: 0.0,
@@ -284,17 +284,17 @@ void main() {
 
     test('extends the domain axis when annotations fall outside the range', () {
       // Setup
-      final behavior = RangeAnnotation<num>(_annotations2);
+      final behavior = RangeAnnotation<num>(annotations2);
       final tester = RangeAnnotationTester(behavior);
-      behavior.attachTo(_chart);
+      behavior.attachTo(chart0);
 
-      final seriesList = [_series1, _series2];
+      final seriesList = [series1, series2];
 
       // Act
-      _drawSeriesList(_chart, seriesList);
+      _drawSeriesList(chart0, seriesList);
 
       // Verify
-      expect(_chart.domainAxis.getLocation(2), equals(20.0));
+      expect(chart0.domainAxis.getLocation(2), equals(20.0));
       expect(
           tester.doesAnnotationExist(
               startPosition: 10.0,
@@ -326,17 +326,17 @@ void main() {
 
     test('test dash pattern equality', () {
       // Setup
-      final behavior = RangeAnnotation<num>(_annotations3);
+      final behavior = RangeAnnotation<num>(annotations3);
       final tester = RangeAnnotationTester(behavior);
-      behavior.attachTo(_chart);
+      behavior.attachTo(chart0);
 
-      final seriesList = [_series1, _series2];
+      final seriesList = [series1, series2];
 
       // Act
-      _drawSeriesList(_chart, seriesList);
+      _drawSeriesList(chart0, seriesList);
 
       // Verify
-      expect(_chart.domainAxis.getLocation(2), equals(40.0));
+      expect(chart0.domainAxis.getLocation(2), equals(40.0));
       expect(
           tester.doesAnnotationExist(
               startPosition: 0.0,
@@ -353,7 +353,7 @@ void main() {
               startPosition: 13.64,
               endPosition: 13.64,
               color: MaterialPalette.gray.shade200,
-              dashPattern: _dashPattern,
+              dashPattern: dashPattern,
               startLabel: 'Ann 2 Start',
               endLabel: 'Ann 2 End',
               labelAnchor: AnnotationLabelAnchor.end,
@@ -364,14 +364,14 @@ void main() {
 
     test('cleans up', () {
       // Setup
-      final behavior = RangeAnnotation<num>(_annotations2);
-      behavior.attachTo(_chart);
+      final behavior = RangeAnnotation<num>(annotations2);
+      behavior.attachTo(chart0);
 
       // Act
-      behavior.removeFrom(_chart);
+      behavior.removeFrom(chart0);
 
       // Verify
-      expect(_chart.lastListener, isNull);
+      expect(chart0.lastListener, isNull);
     });
   });
 }

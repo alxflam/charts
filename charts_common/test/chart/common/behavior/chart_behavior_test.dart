@@ -33,7 +33,7 @@ class ParentBehavior implements ChartBehavior<String> {
   ParentBehavior(this.child);
 
   @override
-  String get role => null;
+  String get role => 'any';
 
   @override
   void attachTo(BaseChart chart) {
@@ -48,10 +48,10 @@ class ParentBehavior implements ChartBehavior<String> {
 
 class ConcreteChart extends BaseChart<String> {
   @override
-  SeriesRenderer<String> makeDefaultRenderer() => null;
+  SeriesRenderer<String> makeDefaultRenderer() => throw "";
 
   @override
-  List<DatumDetails<String>> getDatumDetails(SelectionModelType _) => null;
+  List<DatumDetails<String>> getDatumDetails(SelectionModelType _) => throw "";
 }
 
 void main() {
@@ -66,7 +66,7 @@ void main() {
     when(namedBehavior.role).thenReturn('foo');
 
     unnamedBehavior = MockBehavior();
-    when(unnamedBehavior.role).thenReturn(null);
+    when(unnamedBehavior.role).thenReturn('');
   });
 
   group('Attach & Detach', () {

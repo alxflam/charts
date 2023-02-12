@@ -83,7 +83,9 @@ class NoneDrawStrategy<D> implements TickDrawStrategy<D> {
     // still be set to handle the case of the draw strategy being switched to
     // a different draw strategy. The new draw strategy will try to animate
     // the old ticks out and the text style property is used.
-    ticks.forEach((tick) => tick.textElement!.textStyle = noneTextStyle);
+    for (var tick in ticks) {
+      tick.textElement!.textStyle = noneTextStyle;
+    }
   }
 
   @override

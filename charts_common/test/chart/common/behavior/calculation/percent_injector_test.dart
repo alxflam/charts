@@ -54,20 +54,20 @@ class MockChart extends Mock implements CartesianChart {
 }
 
 void main() {
-  MockChart _chart;
+  MockChart chart;
   List<MutableSeries<String>> seriesList;
 
   PercentInjector _makeBehavior(
       {PercentInjectorTotalType totalType = PercentInjectorTotalType.domain}) {
     final behavior = PercentInjector(totalType: totalType);
 
-    behavior.attachTo(_chart);
+    behavior.attachTo(chart);
 
     return behavior;
   }
 
   setUp(() {
-    _chart = MockChart();
+    chart = MockChart();
 
     final myFakeDesktopAData = [
       MyRow('MyCampaign1', 1, 1, 1),
@@ -163,8 +163,8 @@ void main() {
       _makeBehavior(totalType: PercentInjectorTotalType.domain);
 
       // Act
-      _chart.lastLifecycleListener.onData(seriesList);
-      _chart.lastLifecycleListener.onPreprocess(seriesList);
+      chart.lastLifecycleListener.onData(seriesList);
+      chart.lastLifecycleListener.onPreprocess(seriesList);
 
       // Verify first series.
       var series = seriesList[0];
@@ -286,8 +286,8 @@ void main() {
       _makeBehavior(totalType: PercentInjectorTotalType.domainBySeriesCategory);
 
       // Act
-      _chart.lastLifecycleListener.onData(seriesList);
-      _chart.lastLifecycleListener.onPreprocess(seriesList);
+      chart.lastLifecycleListener.onData(seriesList);
+      chart.lastLifecycleListener.onPreprocess(seriesList);
 
       // Verify first series.
       var series = seriesList[0];
@@ -409,8 +409,8 @@ void main() {
       _makeBehavior(totalType: PercentInjectorTotalType.series);
 
       // Act
-      _chart.lastLifecycleListener.onData(seriesList);
-      _chart.lastLifecycleListener.onPreprocess(seriesList);
+      chart.lastLifecycleListener.onData(seriesList);
+      chart.lastLifecycleListener.onPreprocess(seriesList);
 
       // Verify that every series has a total measure value. Technically this is
       // handled in MutableSeries, but it is a pre-condition for this behavior
@@ -544,7 +544,7 @@ void main() {
       _makeBehavior(totalType: PercentInjectorTotalType.domain);
 
       // Act
-      _chart.lastLifecycleListener.onData(seriesList);
+      chart.lastLifecycleListener.onData(seriesList);
 
       // Verify that each series has an initially false flag.
       expect(seriesList[0].getAttr(percentInjectedKey), isFalse);
@@ -555,7 +555,7 @@ void main() {
       expect(seriesList[5].getAttr(percentInjectedKey), isFalse);
 
       // Act
-      _chart.lastLifecycleListener.onPreprocess(seriesList);
+      chart.lastLifecycleListener.onPreprocess(seriesList);
 
       // Verify that each series has a true flag.
       expect(seriesList[0].getAttr(percentInjectedKey), isTrue);
@@ -571,7 +571,7 @@ void main() {
       _makeBehavior(totalType: PercentInjectorTotalType.series);
 
       // Act
-      _chart.lastLifecycleListener.onData(seriesList);
+      chart.lastLifecycleListener.onData(seriesList);
 
       // Verify that each series has an initially false flag.
       expect(seriesList[0].getAttr(percentInjectedKey), isFalse);
@@ -582,7 +582,7 @@ void main() {
       expect(seriesList[5].getAttr(percentInjectedKey), isFalse);
 
       // Act
-      _chart.lastLifecycleListener.onPreprocess(seriesList);
+      chart.lastLifecycleListener.onPreprocess(seriesList);
 
       // Verify that each series has a true flag.
       expect(seriesList[0].getAttr(percentInjectedKey), isTrue);

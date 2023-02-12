@@ -103,7 +103,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
 
   @override
   void preprocessSeries(List<MutableSeries<D>> seriesList) {
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       final elements = <PointRendererElement<D>>[];
 
       // Default to the configured radius if none was defined by the series.
@@ -197,7 +197,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
       }
 
       series.setAttr(pointElementsKey, elements);
-    });
+    }
   }
 
   @override
@@ -208,7 +208,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
     // later for sorting.
     final sortedSeriesIds = <String>[];
 
-    seriesList.forEach((ImmutableSeries<D> series) {
+    for (var series in seriesList) {
       sortedSeriesIds.add(series.id);
 
       final domainAxis = series.getAttr(domainAxisKey) as ImmutableAxis<D>;
@@ -314,7 +314,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
 
         animatingPoint.setNewTarget(pointElement);
       }
-    });
+    }
 
     // Sort the renderer elements to be in the same order as the series list.
     // They may get disordered between chart draw cycles if a behavior adds or
@@ -395,7 +395,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
           } else {
             final id = point.symbolRendererId;
             if (!config.customSymbolRenderers!.containsKey(id)) {
-              throw ArgumentError('Invalid custom symbol renderer id "${id}"');
+              throw ArgumentError('Invalid custom symbol renderer id "$id"');
             }
 
             final customRenderer = config.customSymbolRenderers![id]!;
@@ -485,7 +485,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
       return nearest;
     }
 
-    seriesPointMap.values.forEach((List<AnimatedPoint<D>> points) {
+    for (var points in seriesPointMap.values) {
       PointRendererElement<D>? nearestPoint;
 
       var nearestDistances = _Distances(
@@ -493,16 +493,16 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
           measureDistance: _maxInitialDistance,
           relativeDistance: _maxInitialDistance);
 
-      points.forEach((point) {
+      for (var point in points) {
         if (point.overlaySeries) {
-          return;
+          continue;
         }
 
         final p = point._currentPoint!.point!;
 
         // Don't look at points not in the drawArea.
         if (p.x! < componentBounds!.left || p.x! > componentBounds!.right) {
-          return;
+          continue;
         }
 
         final distances = _getDatumDistance(point, chartPoint);
@@ -539,13 +539,13 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
             }
           }
         }
-      });
+      }
 
       // Found a point, add it to the list.
       if (nearestPoint != null) {
-        nearest.add(_createDatumDetails(nearestPoint!, nearestDistances));
+        nearest.add(_createDatumDetails(nearestPoint, nearestDistances));
       }
-    });
+    }
 
     // Note: the details are already sorted by domain & measure distance in
     // base chart. If asking for all overlapping points, return the list of
@@ -561,7 +561,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
     } else {
       final id = point.symbolRendererId;
       if (!config.customSymbolRenderers!.containsKey(id)) {
-        throw ArgumentError('Invalid custom symbol renderer id "${id}"');
+        throw ArgumentError('Invalid custom symbol renderer id "$id"');
       }
       pointSymbolRenderer = config.customSymbolRenderers![id];
     }
@@ -610,9 +610,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
           Vector2(datumPoint.xUpper!, datumPoint.yUpper!));
 
       insidePoint = (relativeDistance < radiusPx) ||
-          (boundsLineRadiusPx != null &&
-              // This may be inaccurate if the symbol is drawn without end caps.
-              relativeDistanceBounds < boundsLineRadiusPx);
+          (relativeDistanceBounds < boundsLineRadiusPx);
 
       // Keep the smaller relative distance after we have determined whether
       // [chartPoint] is located inside the datum.
@@ -669,7 +667,7 @@ class PointRenderer<D> extends BaseCartesianRenderer<D> {
     } else {
       final id = symbolRendererId;
       if (!config.customSymbolRenderers!.containsKey(id)) {
-        throw ArgumentError('Invalid custom symbol renderer id "${id}"');
+        throw ArgumentError('Invalid custom symbol renderer id "$id"');
       }
 
       nearestSymbolRenderer = config.customSymbolRenderers![id];

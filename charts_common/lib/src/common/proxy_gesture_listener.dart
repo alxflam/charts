@@ -125,11 +125,11 @@ class ProxyGestureListener {
     required List<GestureListener> all,
     required List<GestureListener> keep,
   }) {
-    all.forEach((GestureListener listener) {
+    for (var listener in all) {
       if (!keep.contains(listener)) {
         listener.onTapCancel();
       }
-    });
+    }
     return keep;
   }
 
@@ -137,7 +137,7 @@ class ProxyGestureListener {
     var localListeners = List.of(_listeners);
 
     var previouslyClaimed = false;
-    localListeners.forEach((GestureListener listener) {
+    for (var listener in localListeners) {
       var claimed = listener.onTapTest(localPosition);
       if (claimed && !previouslyClaimed) {
         // Cancel any already added non-claiming listeners now that someone is
@@ -147,7 +147,7 @@ class ProxyGestureListener {
       } else if (claimed || !previouslyClaimed) {
         _activeListeners.add(listener);
       }
-    });
+    }
 
     return previouslyClaimed;
   }

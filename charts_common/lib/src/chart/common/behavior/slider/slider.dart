@@ -301,12 +301,12 @@ class Slider<D> implements ChartBehavior<D> {
     _moveSliderToDomain(_domainValue);
 
     // Move the handle to the current event position.
-    final _handleBounds = this._handleBounds!;
-    final _domainCenterPoint = this._domainCenterPoint!;
+    final handleBounds = this._handleBounds!;
+    final domainCenterPoint = this._domainCenterPoint!;
     final element = _SliderElement<D>(
-      domainCenterPoint: Point<int>(_domainCenterPoint.x, _domainCenterPoint.y),
-      buttonBounds: Rectangle<int>(_handleBounds.left, _handleBounds.top,
-          _handleBounds.width, _handleBounds.height),
+      domainCenterPoint: Point<int>(domainCenterPoint.x, domainCenterPoint.y),
+      buttonBounds: Rectangle<int>(handleBounds.left, handleBounds.top,
+          handleBounds.width, handleBounds.height),
       fill: _style.fillColor,
       stroke: _style.strokeColor,
       strokeWidthPx: _style.strokeWidthPx,
@@ -319,8 +319,7 @@ class Slider<D> implements ChartBehavior<D> {
 
   /// Fires a [SliderListenerDragState] change event if needed.
   void _fireChangeEvent(ChartCanvas _) {
-    if (SliderListenerDragState == null ||
-        _sliderEventListener.onChange == null) {
+    if (_sliderEventListener.onChange == null) {
       return;
     }
 

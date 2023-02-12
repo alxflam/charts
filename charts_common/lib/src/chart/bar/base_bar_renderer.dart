@@ -151,7 +151,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
 
     final orderedSeriesList = getOrderedSeriesList(seriesList);
 
-    orderedSeriesList.forEach((MutableSeries<D> series) {
+    for (var series in orderedSeriesList) {
       var elements = <BaseBarRendererElement>[];
 
       var domainFn = series.domainFn;
@@ -264,7 +264,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
       if (config.grouped) {
         barGroupIndex++;
       }
-    });
+    }
 
     // Compute number of bar groups. This must be done after we have processed
     // all of the series once, so that we know how many categories we have.
@@ -282,7 +282,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
     // Compute bar group weights.
     final barWeights = _calculateBarWeights(numBarGroups);
 
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       series.setAttr(barGroupCountKey, numBarGroups);
 
       if (barWeights.isNotEmpty) {
@@ -305,7 +305,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
         series.setAttr(previousBarGroupWeightKey, previousBarWeight);
         series.setAttr(allBarGroupWeightsKey, barWeights);
       }
-    });
+    }
   }
 
   /// Calculates bar weights for a list of series from [config.weightPattern].
@@ -371,7 +371,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
 
     final orderedSeriesList = getOrderedSeriesList(seriesList);
 
-    orderedSeriesList.forEach((final ImmutableSeries<D> series) {
+    for (var series in orderedSeriesList) {
       final domainAxis = series.getAttr(domainAxisKey) as ImmutableAxis<D>;
       final domainFn = series.domainFn;
       final measureAxis = series.getAttr(measureAxisKey) as ImmutableAxis<num>;
@@ -417,7 +417,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
             '__'
             '$barGroupIndex';
 
-        var barKey = '${barStackMapKey}${details.barStackIndex}';
+        var barKey = '$barStackMapKey${details.barStackIndex}';
 
         var barStackList = _barStackMap.putIfAbsent(barStackMapKey, () => []);
 
@@ -506,7 +506,7 @@ abstract class BaseBarRenderer<D, R extends BaseBarRendererElement,
 
         animatingBar.setNewTarget(barElement as R);
       }
-    });
+    }
 
     // Animate out bars that don't exist anymore.
     _barStackMap.forEach((String key, List<B> barStackList) {

@@ -50,17 +50,17 @@ class MockSelectionModel extends Mock implements MutableSelectionModel<String> {
 }
 
 void main() {
-  MockChart _chart;
-  MockSelectionModel _hoverSelectionModel;
-  MockSelectionModel _clickSelectionModel;
-  List<String> _series1Data;
-  List<String> _series2Data;
-  MutableSeries<String> _series1;
-  MutableSeries<String> _series2;
-  DatumDetails<String> _details1;
-  DatumDetails<String> _details1Series2;
-  DatumDetails<String> _details2;
-  DatumDetails<String> _details3;
+  MockChart chart;
+  MockSelectionModel hoverSelectionModel;
+  MockSelectionModel clickSelectionModel;
+  List<String> series1Data;
+  List<String> series2Data;
+  MutableSeries<String> series1;
+  MutableSeries<String> series2;
+  DatumDetails<String> details10;
+  DatumDetails<String> details1Series2;
+  DatumDetails<String> details20;
+  DatumDetails<String> details3;
 
   SelectNearest<String> _makeBehavior(
       SelectionModelType selectionModelType, SelectionTrigger eventTrigger,
@@ -74,7 +74,7 @@ void main() {
         eventTrigger: eventTrigger,
         maximumDomainDistancePx: maximumDomainDistancePx);
 
-    behavior.attachTo(_chart);
+    behavior.attachTo(chart);
 
     return behavior;
   }
@@ -85,66 +85,66 @@ void main() {
       List<DatumDetails<String>> respondWithDetails,
       List<MutableSeries<String>> seriesList}) {
     if (isWithinRenderer != null) {
-      when(_chart.pointWithinRenderer(forPoint)).thenReturn(isWithinRenderer);
+      when(chart.pointWithinRenderer(forPoint)).thenReturn(isWithinRenderer);
     }
     if (respondWithDetails != null) {
-      when(_chart.getNearestDatumDetailPerSeries(forPoint, true))
+      when(chart.getNearestDatumDetailPerSeries(forPoint, true))
           .thenReturn(respondWithDetails);
     }
     if (seriesList != null) {
-      when(_chart.currentSeriesList).thenReturn(seriesList);
+      when(chart.currentSeriesList).thenReturn(seriesList);
     }
   }
 
   setUp(() {
-    _hoverSelectionModel = MockSelectionModel();
-    _clickSelectionModel = MockSelectionModel();
+    hoverSelectionModel = MockSelectionModel();
+    clickSelectionModel = MockSelectionModel();
 
-    _chart = MockChart();
-    when(_chart.getSelectionModel(SelectionModelType.info))
-        .thenReturn(_hoverSelectionModel);
-    when(_chart.getSelectionModel(SelectionModelType.action))
-        .thenReturn(_clickSelectionModel);
+    chart = MockChart();
+    when(chart.getSelectionModel(SelectionModelType.info))
+        .thenReturn(hoverSelectionModel);
+    when(chart.getSelectionModel(SelectionModelType.action))
+        .thenReturn(clickSelectionModel);
 
-    _series1Data = ['myDomain1', 'myDomain2', 'myDomain3'];
+    series1Data = ['myDomain1', 'myDomain2', 'myDomain3'];
 
-    _series1 = MutableSeries<String>(Series(
+    series1 = MutableSeries<String>(Series(
         id: 'mySeries1',
         data: ['myDatum1', 'myDatum2', 'myDatum3'],
-        domainFn: (_, int i) => _series1Data[i],
+        domainFn: (_, int i) => series1Data[i],
         measureFn: (_, __) => null));
 
-    _details1 = DatumDetails(
+    details10 = DatumDetails(
         datum: 'myDatum1',
         domain: 'myDomain1',
-        series: _series1,
+        series: series1,
         domainDistance: 10.0,
         measureDistance: 20.0);
-    _details2 = DatumDetails(
+    details20 = DatumDetails(
         datum: 'myDatum2',
         domain: 'myDomain2',
-        series: _series1,
+        series: series1,
         domainDistance: 10.0,
         measureDistance: 20.0);
-    _details3 = DatumDetails(
+    details3 = DatumDetails(
         datum: 'myDatum3',
         domain: 'myDomain3',
-        series: _series1,
+        series: series1,
         domainDistance: 10.0,
         measureDistance: 20.0);
 
-    _series2Data = ['myDomain1'];
+    series2Data = ['myDomain1'];
 
-    _series2 = MutableSeries<String>(Series(
+    series2 = MutableSeries<String>(Series(
         id: 'mySeries2',
         data: ['myDatum1s2'],
-        domainFn: (_, int i) => _series2Data[i],
+        domainFn: (_, int i) => series2Data[i],
         measureFn: (_, __) => null));
 
-    _details1Series2 = DatumDetails(
+    details1Series2 = DatumDetails(
         datum: 'myDatum1s2',
         domain: 'myDomain1',
-        series: _series2,
+        series: series2,
         domainDistance: 10.0,
         measureDistance: 20.0);
   });
@@ -160,20 +160,20 @@ void main() {
       _setupChart(
           forPoint: point,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details1.datum)], [_series1]));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verify(hoverSelectionModel.updateSelection(
+          [SeriesDatum(series1, details10.datum)], [series1]));
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
       // Shouldn't be listening to anything else.
-      expect(_chart.lastListener.onTap, isNull);
-      expect(_chart.lastListener.onDragStart, isNull);
+      expect(chart.lastListener.onTap, isNull);
+      expect(chart.lastListener.onDragStart, isNull);
     });
 
     test('can listen to tap', () {
@@ -184,18 +184,18 @@ void main() {
       _setupChart(
           forPoint: point,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
 
       // Act
-      _chart.lastListener.onTapTest(point);
-      _chart.lastListener.onTap(point);
+      chart.lastListener.onTapTest(point);
+      chart.lastListener.onTap(point);
 
       // Validate
-      verify(_clickSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details1.datum)], [_series1]));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verify(clickSelectionModel.updateSelection(
+          [SeriesDatum(series1, details10.datum)], [series1]));
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('can listen to drag', () {
@@ -207,48 +207,48 @@ void main() {
       _setupChart(
           forPoint: startPoint,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
 
       Point<double> updatePoint1 = Point(200.0, 100.0);
       _setupChart(
           forPoint: updatePoint1,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
 
       Point<double> updatePoint2 = Point(300.0, 100.0);
       _setupChart(
           forPoint: updatePoint2,
           isWithinRenderer: true,
-          respondWithDetails: [_details2],
-          seriesList: [_series1]);
+          respondWithDetails: [details20],
+          seriesList: [series1]);
 
       Point<double> endPoint = Point(400.0, 100.0);
       _setupChart(
           forPoint: endPoint,
           isWithinRenderer: true,
-          respondWithDetails: [_details3],
-          seriesList: [_series1]);
+          respondWithDetails: [details3],
+          seriesList: [series1]);
 
       // Act
-      _chart.lastListener.onTapTest(startPoint);
-      _chart.lastListener.onDragStart(startPoint);
-      _chart.lastListener.onDragUpdate(updatePoint1, 1.0);
-      _chart.lastListener.onDragUpdate(updatePoint2, 1.0);
-      _chart.lastListener.onDragEnd(endPoint, 1.0, 0.0);
+      chart.lastListener.onTapTest(startPoint);
+      chart.lastListener.onDragStart(startPoint);
+      chart.lastListener.onDragUpdate(updatePoint1, 1.0);
+      chart.lastListener.onDragUpdate(updatePoint2, 1.0);
+      chart.lastListener.onDragEnd(endPoint, 1.0, 0.0);
 
       // Validate
       // details1 was tripped 2 times (startPoint & updatePoint1)
-      verify(_hoverSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details1.datum)], [_series1])).called(2);
+      verify(hoverSelectionModel.updateSelection(
+          [SeriesDatum(series1, details10.datum)], [series1])).called(2);
       // details2 was tripped for updatePoint2
-      verify(_hoverSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details2.datum)], [_series1]));
+      verify(hoverSelectionModel.updateSelection(
+          [SeriesDatum(series1, details20.datum)], [series1]));
       // dragEnd deselects even though we are over details3.
-      verify(_hoverSelectionModel.updateSelection([], []));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verify(hoverSelectionModel.updateSelection([], []));
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('can listen to drag after long press', () {
@@ -260,45 +260,45 @@ void main() {
       _setupChart(
           forPoint: startPoint,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
 
       Point<double> updatePoint1 = Point(200.0, 100.0);
       _setupChart(
           forPoint: updatePoint1,
           isWithinRenderer: true,
-          respondWithDetails: [_details2],
-          seriesList: [_series1]);
+          respondWithDetails: [details20],
+          seriesList: [series1]);
 
       Point<double> endPoint = Point(400.0, 100.0);
       _setupChart(
           forPoint: endPoint,
           isWithinRenderer: true,
-          respondWithDetails: [_details3],
-          seriesList: [_series1]);
+          respondWithDetails: [details3],
+          seriesList: [series1]);
 
       // Act 1
-      _chart.lastListener.onTapTest(startPoint);
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      chart.lastListener.onTapTest(startPoint);
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
 
       // Act 2
       // verify no interaction yet.
-      _chart.lastListener.onLongPress(startPoint);
-      _chart.lastListener.onDragStart(startPoint);
-      _chart.lastListener.onDragUpdate(updatePoint1, 1.0);
-      _chart.lastListener.onDragEnd(endPoint, 1.0, 0.0);
+      chart.lastListener.onLongPress(startPoint);
+      chart.lastListener.onDragStart(startPoint);
+      chart.lastListener.onDragUpdate(updatePoint1, 1.0);
+      chart.lastListener.onDragEnd(endPoint, 1.0, 0.0);
 
       // Validate
       // details1 was tripped 2 times (longPress & dragStart)
-      verify(_hoverSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details1.datum)], [_series1])).called(2);
-      verify(_hoverSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details2.datum)], [_series1]));
+      verify(hoverSelectionModel.updateSelection(
+          [SeriesDatum(series1, details10.datum)], [series1])).called(2);
+      verify(hoverSelectionModel.updateSelection(
+          [SeriesDatum(series1, details20.datum)], [series1]));
       // dragEnd deselects even though we are over details3.
-      verify(_hoverSelectionModel.updateSelection([], []));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verify(hoverSelectionModel.updateSelection([], []));
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('no trigger before long press', () {
@@ -310,33 +310,33 @@ void main() {
       _setupChart(
           forPoint: startPoint,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
 
       Point<double> updatePoint1 = Point(200.0, 100.0);
       _setupChart(
           forPoint: updatePoint1,
           isWithinRenderer: true,
-          respondWithDetails: [_details2],
-          seriesList: [_series1]);
+          respondWithDetails: [details20],
+          seriesList: [series1]);
 
       Point<double> endPoint = Point(400.0, 100.0);
       _setupChart(
           forPoint: endPoint,
           isWithinRenderer: true,
-          respondWithDetails: [_details3],
-          seriesList: [_series1]);
+          respondWithDetails: [details3],
+          seriesList: [series1]);
 
       // Act
-      _chart.lastListener.onTapTest(startPoint);
-      _chart.lastListener.onDragStart(startPoint);
-      _chart.lastListener.onDragUpdate(updatePoint1, 1.0);
-      _chart.lastListener.onDragEnd(endPoint, 1.0, 0.0);
+      chart.lastListener.onTapTest(startPoint);
+      chart.lastListener.onDragStart(startPoint);
+      chart.lastListener.onDragUpdate(updatePoint1, 1.0);
+      chart.lastListener.onDragEnd(endPoint, 1.0, 0.0);
 
       // Validate
       // No interaction, didn't long press first.
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
   });
 
@@ -347,25 +347,25 @@ void main() {
           selectClosestSeries: true);
       Point<double> point = Point(100.0, 100.0);
       _setupChart(forPoint: point, isWithinRenderer: true, respondWithDetails: [
-        _details1,
-        _details1Series2,
+        details10,
+        details1Series2,
       ], seriesList: [
-        _series1,
-        _series2
+        series1,
+        series2
       ]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection([
-        SeriesDatum(_series1, _details1.datum),
-        SeriesDatum(_series2, _details1Series2.datum)
+      verify(hoverSelectionModel.updateSelection([
+        SeriesDatum(series1, details10.datum),
+        SeriesDatum(series2, details1Series2.datum)
       ], [
-        _series1
+        series1
       ]));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('does not expand to domain', () {
@@ -374,21 +374,21 @@ void main() {
           selectionMode: SelectionMode.single, selectClosestSeries: true);
       Point<double> point = Point(100.0, 100.0);
       _setupChart(forPoint: point, isWithinRenderer: true, respondWithDetails: [
-        _details1,
-        _details1Series2,
+        details10,
+        details1Series2,
       ], seriesList: [
-        _series1,
-        _series2
+        series1,
+        series2
       ]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection(
-          [SeriesDatum(_series1, _details1.datum)], [_series1]));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verify(hoverSelectionModel.updateSelection(
+          [SeriesDatum(series1, details10.datum)], [series1]));
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('does not include closest series', () {
@@ -397,51 +397,51 @@ void main() {
           selectClosestSeries: false);
       Point<double> point = Point(100.0, 100.0);
       _setupChart(forPoint: point, isWithinRenderer: true, respondWithDetails: [
-        _details1,
-        _details1Series2,
+        details10,
+        details1Series2,
       ], seriesList: [
-        _series1,
-        _series2
+        series1,
+        series2
       ]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection([
-        SeriesDatum(_series1, _details1.datum),
-        SeriesDatum(_series2, _details1Series2.datum)
+      verify(hoverSelectionModel.updateSelection([
+        SeriesDatum(series1, details10.datum),
+        SeriesDatum(series2, details1Series2.datum)
       ], []));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('does not include overlay series', () {
       // Setup chart with an overlay series.
-      _series2.overlaySeries = true;
+      series2.overlaySeries = true;
 
       _makeBehavior(SelectionModelType.info, SelectionTrigger.hover,
           selectClosestSeries: true);
       Point<double> point = Point(100.0, 100.0);
       _setupChart(forPoint: point, isWithinRenderer: true, respondWithDetails: [
-        _details1,
-        _details1Series2,
+        details10,
+        details1Series2,
       ], seriesList: [
-        _series1,
-        _series2
+        series1,
+        series2
       ]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection([
-        SeriesDatum(_series1, _details1.datum),
+      verify(hoverSelectionModel.updateSelection([
+        SeriesDatum(series1, details10.datum),
       ], [
-        _series1
+        series1
       ]));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('selection does not exceed maximumDomainDistancePx', () {
@@ -450,20 +450,20 @@ void main() {
           selectClosestSeries: true, maximumDomainDistancePx: 1);
       Point<double> point = Point(100.0, 100.0);
       _setupChart(forPoint: point, isWithinRenderer: true, respondWithDetails: [
-        _details1,
-        _details1Series2,
+        details10,
+        details1Series2,
       ], seriesList: [
-        _series1,
-        _series2
+        series1,
+        series2
       ]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection([], []));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verify(hoverSelectionModel.updateSelection([], []));
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('adds overlapping points from same series if there are any', () {
@@ -475,7 +475,7 @@ void main() {
       final series = MutableSeries<String>(Series(
           id: 'overlappingSeries',
           data: ['datum1', 'datum2'],
-          domainFn: (_, int i) => _series1Data[i],
+          domainFn: (_, int i) => series1Data[i],
           measureFn: (_, __) => null));
       // Two points covering the mouse position.
       final details1 = DatumDetails(
@@ -500,17 +500,17 @@ void main() {
       ]);
 
       // Act
-      _chart.lastListener.onHover(point);
+      chart.lastListener.onHover(point);
 
       // Validate
-      verify(_hoverSelectionModel.updateSelection([
+      verify(hoverSelectionModel.updateSelection([
         SeriesDatum(series, details1.datum),
         SeriesDatum(series, details2.datum)
       ], [
         series
       ]));
-      verifyNoMoreInteractions(_hoverSelectionModel);
-      verifyNoMoreInteractions(_clickSelectionModel);
+      verifyNoMoreInteractions(hoverSelectionModel);
+      verifyNoMoreInteractions(clickSelectionModel);
     });
   });
 
@@ -524,15 +524,15 @@ void main() {
       _setupChart(
           forPoint: point,
           isWithinRenderer: true,
-          respondWithDetails: [_details1],
-          seriesList: [_series1]);
-      expect(_chart.lastListener, isNotNull);
+          respondWithDetails: [details10],
+          seriesList: [series1]);
+      expect(chart.lastListener, isNotNull);
 
       // Act
-      behavior.removeFrom(_chart);
+      behavior.removeFrom(chart);
 
       // Validate
-      expect(_chart.lastListener, isNull);
+      expect(chart.lastListener, isNull);
     });
   });
 }

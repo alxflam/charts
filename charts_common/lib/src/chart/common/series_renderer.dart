@@ -191,7 +191,7 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
     var maxMissing = 0;
     var hasSpecifiedCategory = false;
 
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       // Assign the seriesColor as the color of every datum if no colorFn was
       // provided.
       if (series.colorFn == null && series.seriesColor != null) {
@@ -214,7 +214,7 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
         missingColorCountPerCategory[category] = missingCnt;
         maxMissing = max(maxMissing, missingCnt);
       }
-    });
+    }
 
     if (maxMissing > 0) {
       // Special handling of only series with empty categories when we want
@@ -222,7 +222,7 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
       if (!emptyCategoryUsesSinglePalette && !hasSpecifiedCategory) {
         final palettes = StyleFactory.style.getOrderedPalettes(maxMissing);
         var index = 0;
-        seriesList.forEach((series) {
+        for (var series in seriesList) {
           if (series.colorFn == null) {
             final color = palettes[index % palettes.length].shadeDefault;
             index++;
@@ -240,7 +240,7 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
               }
             }
           }
-        });
+        }
         return;
       }
 
@@ -253,16 +253,16 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
       // the max for any category to ensure that the gradients look appropriate.
       final colorsByCategory = <String, List<Color>>{};
       var index = 0;
-      missingColorCountPerCategory.keys.forEach((String category) {
+      for (var category in missingColorCountPerCategory.keys) {
         colorsByCategory[category] =
             colorPalettes[index % colorPalettes.length].makeShades(maxMissing);
         index++;
 
         // Reset the count so we can use it to count as we set the colorFn.
         missingColorCountPerCategory[category] = 0;
-      });
+      }
 
-      seriesList.forEach((series) {
+      for (var series in seriesList) {
         if (series.colorFn == null) {
           final category = series.seriesCategory ?? defaultCategory;
 
@@ -276,17 +276,17 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
 
         // Fill color defaults to the series color if no accessor is provided.
         series.fillColorFn ??= (int? index) => series.colorFn!(index);
-      });
+      }
     } else {
-      seriesList.forEach((series) {
+      for (var series in seriesList) {
         // Fill color defaults to the series color if no accessor is provided.
         series.fillColorFn ??= (int? index) => series.colorFn!(index);
-      });
+      }
     }
 
     // Fill in any missing seriesColor values with the color of the first datum
     // in the series. Note that [Series.colorFn] should always return a color.
-    seriesList.forEach((series) {
+    for (var series in seriesList) {
       if (series.seriesColor == null) {
         try {
           series.seriesColor = series.colorFn!(0);
@@ -294,7 +294,7 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
           series.seriesColor = StyleFactory.style.defaultSeriesColor;
         }
       }
-    });
+    }
   }
 
   @override

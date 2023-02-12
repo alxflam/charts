@@ -200,8 +200,8 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   int _getActiveHoverDomainIndex() {
     // If enter is pressed before an arrow key, we don't have any selection
     // domains available. Bail out.
-    final _domains = this._domains;
-    if (_domains == null || _domains.isEmpty) {
+    final domains = this._domains;
+    if (domains == null || domains.isEmpty) {
       return NO_SELECTION;
     }
 
@@ -222,12 +222,12 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
     final firstDomain = details.first.domain!;
 
     if (0 <= _currentIndex &&
-        _currentIndex <= _domains.length - 1 &&
-        _domains[_currentIndex] == firstDomain) {
+        _currentIndex <= domains.length - 1 &&
+        domains[_currentIndex] == firstDomain) {
       return _currentIndex;
     }
 
-    return _domains.indexOf(firstDomain);
+    return domains.indexOf(firstDomain);
   }
 
   /// Processes chart data and generates a mapping of domain index to datum

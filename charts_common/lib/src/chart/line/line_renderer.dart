@@ -95,7 +95,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
   void configureSeries(List<MutableSeries<D>> seriesList) {
     assignMissingColors(seriesList, emptyCategoryUsesSinglePalette: false);
 
-    seriesList.forEach((series) {
+    for (var series in seriesList) {
       // Add a default area color function which applies the configured
       // areaOpacity value to the datum's current color.
       series.areaColorFn ??= (int? index) {
@@ -110,7 +110,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
             b: color.b,
             a: (color.a * config.areaOpacity).round());
       };
-    });
+    }
 
     if (config.includePoints) {
       _pointRenderer.configureSeries(seriesList);
@@ -125,7 +125,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
         series.measureUpperBoundFn != null &&
         series.measureLowerBoundFn != null);
 
-    seriesList.forEach((MutableSeries<D> series) {
+    for (var series in seriesList) {
       final colorFn = series.colorFn;
       final areaColorFn = series.areaColorFn;
       final domainFn = series.domainFn;
@@ -164,8 +164,8 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
         // Compare strokeWidthPx to 2 decimals of precision. Any less and you
         // can't see any difference in the canvas anyways.
         final strokeWidthPxRounded = (strokeWidthPx * 100).round() / 100;
-        var styleKey = '${series.id}__${styleSegmentsIndex}__${color}'
-            '__${dashPattern}__${strokeWidthPxRounded}';
+        var styleKey = '${series.id}__${styleSegmentsIndex}__$color'
+            '__${dashPattern}__$strokeWidthPxRounded';
 
         if (styleKey != previousSegmentKey) {
           // If we have a repeated style segment, update the repeat index and
@@ -174,8 +174,8 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
           if (usedKeys.isNotEmpty && usedKeys.contains(styleKey)) {
             styleSegmentsIndex++;
 
-            styleKey = '${series.id}__${styleSegmentsIndex}__${color}'
-                '__${dashPattern}__${strokeWidthPxRounded}';
+            styleKey = '${series.id}__${styleSegmentsIndex}__$color'
+                '__${dashPattern}__$strokeWidthPxRounded';
           }
 
           // Make sure that the previous style segment extends to the current
@@ -213,7 +213,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
       if (config.stacked) {
         stackIndex++;
       }
-    });
+    }
 
     if (config.includePoints) {
       _pointRenderer.preprocessSeries(seriesList);
@@ -287,7 +287,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
   void _mergeIntoSeriesMap(List<ImmutableSeries<D>> seriesList) {
     final newLineMap = <MapEntry<String, List<_AnimatedElements<D>>>>[];
 
-    seriesList.forEach((ImmutableSeries<D> series) {
+    for (var series in seriesList) {
       final key = series.id;
 
       // First, add all the series from the old map that have been removed from
@@ -312,7 +312,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
       } else {
         newLineMap.add(MapEntry(key, _seriesLineMap.remove(key)!));
       }
-    });
+    }
 
     // Now whatever is left is stuff that has been removed. We still add it to
     // the end and removed them as the map is modified in place.
@@ -335,7 +335,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
 
     _mergeIntoSeriesMap(seriesList);
 
-    seriesList.forEach((ImmutableSeries<D> series) {
+    for (var series in seriesList) {
       final domainAxis = series.getAttr(domainAxisKey) as ImmutableAxis<D>;
       final lineKey = series.id;
       final stackIndex = series.getAttr(lineStackIndexKey)!;
@@ -353,7 +353,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
       // data (e.g. null measure) at the ends of the series data.
       //
       // TODO: Handle ordinal axes by looking at the next domains.
-      if (styleSegments.isNotEmpty && !(domainAxis is OrdinalAxis)) {
+      if (styleSegments.isNotEmpty && domainAxis is! OrdinalAxis) {
         final drawBounds = this.drawBounds!;
         final startPx = (isRtl ? drawBounds.right : drawBounds.left).toDouble();
         final endPx = (isRtl ? drawBounds.left : drawBounds.right).toDouble();
@@ -376,7 +376,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
       // later to display only the relevant parts of data. This ensures that
       // styles that visually depend on the start location, such as dash
       // patterns, are not disrupted by other changes in style.
-      styleSegments.forEach((styleSegment) {
+      for (var styleSegment in styleSegments) {
         final styleKey = styleSegment.styleKey;
 
         // If we already have an AnimatingPoint for that index, use it.
@@ -513,17 +513,15 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
         // Save the line points for the current series so that we can use them
         // in the area skirt for the next stacked series.
         previousPointList[stackIndex] = allPointList;
-      });
-    });
+      }
+    }
 
     // Animate out lines that don't exist anymore.
     _seriesLineMap.forEach((String key, List<_AnimatedElements<D>> elements) {
       for (var element in elements) {
-        if (element.lines != null) {
-          for (var line in element.lines) {
-            if (!_currentKeys.contains(line.key)) {
-              line.animateOut();
-            }
+        for (var line in element.lines) {
+          if (!_currentKeys.contains(line.key)) {
+            line.animateOut();
           }
         }
         if (element.areas != null) {
@@ -610,7 +608,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
       final linePointList = lineSegments[index];
 
       // Update the set of areas that still exist in the series data.
-      final lineStyleKey = '${styleKey}__line__${index}';
+      final lineStyleKey = '${styleKey}__line__$index';
       _currentKeys.add(lineStyleKey);
 
       lineElements.add(_LineRendererElement<D>(
@@ -634,7 +632,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
         final areaPointList = areaSegments[index];
 
         // Update the set of areas that still exist in the series data.
-        final areaStyleKey = '${styleKey}__area_${index}';
+        final areaStyleKey = '${styleKey}__area_$index';
         _currentKeys.add(areaStyleKey);
 
         areaElements.add(_AreaRendererElement<D>(
@@ -656,7 +654,7 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
       for (var index = 0; index < boundsSegment.length; index++) {
         final boundsPointList = boundsSegment[index];
 
-        final boundsStyleKey = '${styleKey}__bounds_${index}';
+        final boundsStyleKey = '${styleKey}__bounds_$index';
         _currentKeys.add(boundsStyleKey);
 
         boundsElements.add(_AreaRendererElement<D>(
@@ -957,12 +955,10 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
             .map<_AreaRendererElement<D>>((_AnimatedArea<D> animatingArea) =>
                 animatingArea.getCurrentArea(animationPercent))
             .forEach((area) {
-          if (area != null) {
-            canvas.drawPolygon(
-                clipBounds: _getClipBoundsForExtent(area.positionExtent),
-                fill: area.areaColor ?? area.color,
-                points: area.points.toPoints());
-          }
+          canvas.drawPolygon(
+              clipBounds: _getClipBoundsForExtent(area.positionExtent),
+              fill: area.areaColor ?? area.color,
+              points: area.points.toPoints());
         });
       }
 
@@ -975,12 +971,10 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
             .map<_AreaRendererElement<D>>((_AnimatedArea<D> animatingBounds) =>
                 animatingBounds.getCurrentArea(animationPercent))
             .forEach((bound) {
-          if (bound != null) {
-            canvas.drawPolygon(
-                clipBounds: _getClipBoundsForExtent(bound.positionExtent),
-                fill: bound.areaColor ?? bound.color,
-                points: bound.points.toPoints());
-          }
+          canvas.drawPolygon(
+              clipBounds: _getClipBoundsForExtent(bound.positionExtent),
+              fill: bound.areaColor ?? bound.color,
+              points: bound.points.toPoints());
         });
       }
 
@@ -993,15 +987,13 @@ class LineRenderer<D> extends BaseCartesianRenderer<D> {
             .map<_LineRendererElement<D>>((_AnimatedLine<D> animatingLine) =>
                 animatingLine.getCurrentLine(animationPercent))
             .forEach((line) {
-          if (line != null) {
-            canvas.drawLine(
-                clipBounds: _getClipBoundsForExtent(line.positionExtent!),
-                dashPattern: line.dashPattern,
-                points: line.points!.toPoints(),
-                stroke: line.color,
-                strokeWidthPx: line.strokeWidthPx,
-                roundEndCaps: line.roundEndCaps);
-          }
+          canvas.drawLine(
+              clipBounds: _getClipBoundsForExtent(line.positionExtent!),
+              dashPattern: line.dashPattern,
+              points: line.points!.toPoints(),
+              stroke: line.color,
+              strokeWidthPx: line.strokeWidthPx,
+              roundEndCaps: line.roundEndCaps);
         });
       }
     });
@@ -1584,10 +1576,8 @@ class _AnimatedElements<D> {
     }
 
     var linesAnimatingOut = true;
-    if (lines != null) {
-      for (final line in lines) {
-        linesAnimatingOut = linesAnimatingOut && line.animatingOut;
-      }
+    for (final line in lines) {
+      linesAnimatingOut = linesAnimatingOut && line.animatingOut;
     }
 
     var boundsAnimatingOut = true;
@@ -1609,10 +1599,8 @@ class _AnimatedElements<D> {
     }
 
     var linesOverlaySeries = true;
-    if (lines != null) {
-      for (final line in lines) {
-        linesOverlaySeries = linesOverlaySeries && line.overlaySeries;
-      }
+    for (final line in lines) {
+      linesOverlaySeries = linesOverlaySeries && line.overlaySeries;
     }
 
     var boundsOverlaySeries = true;

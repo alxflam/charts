@@ -281,7 +281,7 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
         chartPointAngle = 2 * pi + chartPointAngle;
       }
 
-      arcList.arcs.forEach((AnimatedArc<D> arc) {
+      for (var arc in arcList.arcs) {
         if (innerRadius <= distance &&
             distance <= radius &&
             arc.currentArcStartAngle! <= chartPointAngle &&
@@ -294,7 +294,7 @@ abstract class BaseArcRenderer<D> extends BaseSeriesRenderer<D> {
             measureDistance: 0.0,
           ));
         }
-      });
+      }
     }
 
     return nearest;
