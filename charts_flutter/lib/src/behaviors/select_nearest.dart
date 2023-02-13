@@ -76,7 +76,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
       bool selectClosestSeries = true,
       common.SelectionTrigger eventTrigger = common.SelectionTrigger.tap,
       int? maximumDomainDistancePx}) {
-    return new SelectNearest._internal(
+    return SelectNearest._internal(
         selectionModelType: selectionModelType,
         selectionMode: selectionMode,
         selectAcrossAllDrawAreaComponents: selectAcrossAllDrawAreaComponents,
@@ -88,7 +88,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
 
   static Set<GestureType> _getDesiredGestures(
       common.SelectionTrigger eventTrigger) {
-    final desiredGestures = new Set<GestureType>();
+    final desiredGestures = Set<GestureType>();
     switch (eventTrigger) {
       case common.SelectionTrigger.tap:
         desiredGestures..add(GestureType.onTap);
@@ -115,7 +115,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
 
   @override
   common.SelectNearest<D> createCommonBehavior() {
-    return new common.SelectNearest<D>(
+    return common.SelectNearest<D>(
         selectionModelType: selectionModelType,
         eventTrigger: eventTrigger,
         selectionMode: selectionMode,

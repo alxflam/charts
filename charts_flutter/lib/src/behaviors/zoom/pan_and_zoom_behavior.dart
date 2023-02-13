@@ -22,7 +22,7 @@ import 'pan_behavior.dart' show FlutterPanBehaviorMixin;
 
 @immutable
 class PanAndZoomBehavior<D> extends ChartBehavior<D> {
-  final _desiredGestures = new Set<GestureType>.from([
+  final _desiredGestures = Set<GestureType>.from([
     GestureType.onDrag,
   ]);
 
@@ -38,7 +38,7 @@ class PanAndZoomBehavior<D> extends ChartBehavior<D> {
 
   @override
   common.PanAndZoomBehavior<D> createCommonBehavior() {
-    return new FlutterPanAndZoomBehavior<D>()
+    return FlutterPanAndZoomBehavior<D>()
       ..panningCompletedCallback = panningCompletedCallback;
   }
 

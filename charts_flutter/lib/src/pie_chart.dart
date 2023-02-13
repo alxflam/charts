@@ -45,5 +45,5 @@ class PieChart<D> extends BaseChart<D> {
 
   @override
   common.PieChart<D> createCommonChart(BaseChartState chartState) =>
-      new common.PieChart<D>(layoutConfig: layoutConfig?.commonLayoutConfig);
+      common.PieChart<D>(layoutConfig: layoutConfig?.commonLayoutConfig);
 }
