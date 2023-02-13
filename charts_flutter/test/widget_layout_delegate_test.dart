@@ -26,9 +26,13 @@ const chartContainerLayoutID = 'chartContainer';
 
 // I couldn't get mockito to work with Widget return type, so fake it is.
 class FakeBuildableBehavior implements BuildableBehavior {
+  @override
   common.BehaviorPosition position;
+  @override
   common.OutsideJustification outsideJustification;
+  @override
   common.InsideJustification insideJustification;
+  @override
   Rectangle<int>? drawAreaBounds;
 
   FakeBuildableBehavior(this.position, this.outsideJustification,

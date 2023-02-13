@@ -29,6 +29,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 /// and expand selection out to the domain value.
 @immutable
 class DomainHighlighter<D> extends ChartBehavior<D> {
+  @override
   final desiredGestures = Set<GestureType>();
 
   final common.SelectionModelType selectionModelType;

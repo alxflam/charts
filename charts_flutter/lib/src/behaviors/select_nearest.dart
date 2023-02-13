@@ -50,6 +50,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 /// removed.
 @immutable
 class SelectNearest<D> extends ChartBehavior<D> {
+  @override
   final Set<GestureType> desiredGestures;
 
   final common.SelectionModelType selectionModelType;
@@ -131,6 +132,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
   @override
   String get role => 'SelectNearest-${selectionModelType.toString()}}';
 
+  @override
   bool operator ==(Object other) {
     if (other is SelectNearest) {
       return (selectionModelType == other.selectionModelType) &&
@@ -143,6 +145,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
     }
   }
 
+  @override
   int get hashCode {
     int hashcode = selectionModelType.hashCode;
     hashcode = hashcode * 37 + eventTrigger.hashCode;

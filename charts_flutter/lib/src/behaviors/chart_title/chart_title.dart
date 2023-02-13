@@ -30,6 +30,7 @@ import '../chart_behavior.dart' show ChartBehavior, GestureType;
 /// Chart behavior that adds a ChartTitle widget to a chart.
 @immutable
 class ChartTitle<D> extends ChartBehavior<D> {
+  @override
   final desiredGestures = Set<GestureType>();
 
   final common.BehaviorPosition? behaviorPosition;

@@ -4,3 +4,4 @@ linter:
   rules:
     unnecessary_new: true
     prefer_const_declarations: true
+    annotate_overrides: true

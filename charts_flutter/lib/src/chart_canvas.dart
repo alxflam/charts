@@ -42,6 +42,7 @@ class ChartCanvas implements common.ChartCanvas {
   static const double rect_top_gradient_pixels = 5;
 
   final Canvas canvas;
+  @override
   final common.GraphicsFactory graphicsFactory;
   final _paint = Paint();
 

@@ -41,6 +41,7 @@ import '../chart_behavior.dart' show ChartBehavior, GestureType;
 ///       the data.
 @immutable
 class Slider<D> extends ChartBehavior<D> {
+  @override
   final Set<GestureType> desiredGestures;
 
   /// Type of input event for the slider.

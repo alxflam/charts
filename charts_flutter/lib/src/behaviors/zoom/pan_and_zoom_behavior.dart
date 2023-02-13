@@ -26,6 +26,7 @@ class PanAndZoomBehavior<D> extends ChartBehavior<D> {
     GestureType.onDrag,
   ]);
 
+  @override
   Set<GestureType> get desiredGestures => _desiredGestures;
 
   /// Optional callback that is called when pan / zoom is completed.
@@ -48,11 +49,13 @@ class PanAndZoomBehavior<D> extends ChartBehavior<D> {
   @override
   String get role => 'PanAndZoom';
 
+  @override
   bool operator ==(Object other) {
     return other is PanAndZoomBehavior &&
         other.panningCompletedCallback == panningCompletedCallback;
   }
 
+  @override
   int get hashCode {
     return panningCompletedCallback.hashCode;
   }

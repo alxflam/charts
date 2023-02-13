@@ -70,7 +70,9 @@ abstract class BaseLegendContentBuilder implements LegendContentBuilder {
 /// [legendLayout] custom strategy for creating legend widget from list of
 /// widgets that represent a legend entry.
 class TabularLegendContentBuilder extends BaseLegendContentBuilder {
+  @override
   final LegendEntryLayout legendEntryLayout;
+  @override
   final LegendLayout legendLayout;
 
   TabularLegendContentBuilder(

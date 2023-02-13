@@ -17,10 +17,15 @@ import 'dart:ui' show hashValues;
 import 'package:charts_common/common.dart' as common show Color, TextStyle;
 
 class TextStyle implements common.TextStyle {
+  @override
   int? fontSize;
+  @override
   String? fontFamily;
+  @override
   common.Color? color;
+  @override
   double? lineHeight;
+  @override
   String? fontWeight;
 
   @override

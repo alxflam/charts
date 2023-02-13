@@ -113,8 +113,10 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
     };
   }
 
+  @override
   bool operator ==(Object other) => other is SimpleLegendEntryLayout;
 
+  @override
   int get hashCode {
     return this.runtimeType.hashCode;
   }

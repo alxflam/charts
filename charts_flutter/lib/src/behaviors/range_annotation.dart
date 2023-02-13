@@ -38,6 +38,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 /// range.
 @immutable
 class RangeAnnotation<D> extends ChartBehavior<D> {
+  @override
   final desiredGestures = Set<GestureType>();
 
   /// List of annotations to render on the chart.

@@ -40,6 +40,7 @@ class PanBehavior<D> extends ChartBehavior<D> {
 
   PanBehavior({this.panningCompletedCallback});
 
+  @override
   Set<GestureType> get desiredGestures => _desiredGestures;
 
   @override
@@ -54,11 +55,13 @@ class PanBehavior<D> extends ChartBehavior<D> {
   @override
   String get role => 'Pan';
 
+  @override
   bool operator ==(Object other) {
     return other is PanBehavior &&
         other.panningCompletedCallback == panningCompletedCallback;
   }
 
+  @override
   int get hashCode {
     return panningCompletedCallback.hashCode;
   }
@@ -74,6 +77,7 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
     implements ChartStateBehavior {
   late BaseChartState _chartState;
 
+  @override
   set chartState(BaseChartState chartState) {
     assert(chartState != null);
 

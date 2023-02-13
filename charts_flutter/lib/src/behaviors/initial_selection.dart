@@ -23,6 +23,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 /// Chart behavior that sets the initial selection for a [selectionModelType].
 @immutable
 class InitialSelection<D> extends ChartBehavior<D> {
+  @override
   final desiredGestures = Set<GestureType>();
 
   final common.SelectionModelType selectionModelType;

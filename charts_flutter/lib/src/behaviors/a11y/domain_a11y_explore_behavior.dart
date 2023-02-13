@@ -27,6 +27,7 @@ class DomainA11yExploreBehavior<D> extends ChartBehavior<D> {
   /// Returns a string for a11y vocalization from a list of series datum.
   final common.VocalizationCallback? vocalizationCallback;
 
+  @override
   final Set<GestureType> desiredGestures;
 
   /// The gesture that activates explore mode. Defaults to long press.

@@ -46,6 +46,7 @@ class SeriesLegend<D> extends ChartBehavior<D> {
       common.OutsideJustification.startDrawArea;
   static const defaultInsideJustification = common.InsideJustification.topStart;
 
+  @override
   final desiredGestures = Set<GestureType>();
 
   final common.SelectionModelType? selectionModelType;
