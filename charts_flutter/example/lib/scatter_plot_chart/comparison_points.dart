@@ -47,7 +47,7 @@ class ComparisonPointsScatterPlotChart extends StatelessWidget {
   static List<charts.Series<LinearSales, num>> _createRandomData() {
     final random = Random();
 
-    final maxMeasure = 100;
+    const maxMeasure = 100;
 
     final data = [
       _makeRandomDatum(maxMeasure, random),
@@ -122,7 +122,7 @@ class ComparisonPointsScatterPlotChart extends StatelessWidget {
       LinearSales(56, 46, 56, 200, 170, 200, 7.0),
     ];
 
-    final maxMeasure = 300;
+    const maxMeasure = 300;
 
     return [
       charts.Series<LinearSales, int>(

@@ -395,7 +395,7 @@ class ChartCanvas implements common.ChartCanvas {
     final x1 = bounds.left - fillWidthPx;
     final y0 = bounds.bottom - size - fillWidthPx;
     final y1 = bounds.bottom + fillWidthPx;
-    final offset = 8;
+    const offset = 8;
 
     final isVertical = bounds.height >= bounds.width;
 

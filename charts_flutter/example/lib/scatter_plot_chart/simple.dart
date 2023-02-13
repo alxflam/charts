@@ -64,7 +64,7 @@ class SimpleScatterPlotChart extends StatelessWidget {
       LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6)),
     ];
 
-    final maxMeasure = 100;
+    const maxMeasure = 100;
 
     return [
       charts.Series<LinearSales, int>(
@@ -112,7 +112,7 @@ class SimpleScatterPlotChart extends StatelessWidget {
       LinearSales(56, 200, 7.0),
     ];
 
-    final maxMeasure = 300;
+    const maxMeasure = 300;
 
     return [
       charts.Series<LinearSales, int>(

@@ -56,7 +56,7 @@ class ScatterPlotAnimationZoomChart extends StatelessWidget {
       data.add(LinearSales(i, random.nextInt(100), makeRadius(4)));
     }
 
-    final maxMeasure = 100;
+    const maxMeasure = 100;
 
     return [
       charts.Series<LinearSales, int>(
@@ -108,7 +108,7 @@ class ScatterPlotAnimationZoomChart extends StatelessWidget {
       LinearSales(56, 200, 7.0),
     ];
 
-    final maxMeasure = 300;
+    const maxMeasure = 300;
 
     return [
       charts.Series<LinearSales, int>(

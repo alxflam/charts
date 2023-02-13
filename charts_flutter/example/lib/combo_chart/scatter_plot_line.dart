@@ -71,7 +71,7 @@ class ScatterPlotComboLineChart extends StatelessWidget {
           100, desktopSalesData[desktopSalesData.length - 1].sales, 7.5),
     ];
 
-    final maxMeasure = 100;
+    const maxMeasure = 100;
 
     return [
       charts.Series<LinearSales, int>(
@@ -152,7 +152,7 @@ class ScatterPlotComboLineChart extends StatelessWidget {
       LinearSales(56, 240, 3.5),
     ];
 
-    final maxMeasure = 300;
+    const maxMeasure = 300;
 
     return [
       charts.Series<LinearSales, int>(

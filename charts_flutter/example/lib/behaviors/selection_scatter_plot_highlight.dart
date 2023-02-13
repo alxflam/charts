@@ -96,7 +96,7 @@ class SelectionScatterPlotHighlight extends StatelessWidget {
           makeRadius(4) + 4, null, charts.MaterialPalette.white, 2.0),
     ];
 
-    final maxMeasure = 100;
+    const maxMeasure = 100;
 
     return [
       charts.Series<LinearSales, int>(
@@ -187,7 +187,7 @@ class SelectionScatterPlotHighlight extends StatelessWidget {
       LinearSales(56, 200, 7.0, null, charts.MaterialPalette.white, 2.0),
     ];
 
-    final maxMeasure = 300;
+    const maxMeasure = 300;
 
     return [
       charts.Series<LinearSales, int>(
