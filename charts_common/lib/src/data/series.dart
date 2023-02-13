@@ -132,8 +132,8 @@ class Series<T, D> {
       String? seriesCategory,
       TypedAccessorFn<T, num?>? strokeWidthPxFn}) {
     // Wrap typed accessors.
-    final _domainFn = (int? index) => domainFn(data[index!], index);
-    final _measureFn = (int? index) => measureFn(data[index!], index);
+    _domainFn(int? index) => domainFn(data[index!], index);
+    _measureFn(int? index) => measureFn(data[index!], index);
     final _areaColorFn = areaColorFn == null
         ? null
         : (int? index) => areaColorFn(data[index!], index);

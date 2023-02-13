@@ -177,17 +177,17 @@ abstract class Legend<D> implements ChartBehavior<D>, LayoutView {
       final customEntryOrder = this._customEntryOrder;
       if (customEntryOrder != null) {
         _currentSeriesList.sort((a, b) {
-          final a_index = customEntryOrder.indexOf(a.id);
-          final b_index = customEntryOrder.indexOf(b.id);
-          if (a_index == -1) {
-            if (a_index == b_index) {
+          final aIndex = customEntryOrder.indexOf(a.id);
+          final bIndex = customEntryOrder.indexOf(b.id);
+          if (aIndex == -1) {
+            if (aIndex == bIndex) {
               return a.displayName!.compareTo(b.displayName!);
             }
             return 1;
-          } else if (b_index == -1) {
+          } else if (bIndex == -1) {
             return -1;
           }
-          return a_index.compareTo(b_index);
+          return aIndex.compareTo(bIndex);
         });
       }
 

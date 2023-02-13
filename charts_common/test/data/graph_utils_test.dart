@@ -55,8 +55,8 @@ void main() {
     });
 
     test('returns data for non-null functions', () {
-      TypedAccessorFn<MyNode, String> getDomain = (node, _) => node.domainId;
-      TypedAccessorFn<MyNode, num> getMeasure = (node, _) => node.measure;
+      getDomain(MyNode node, _) => node.domainId;
+      getMeasure(MyNode node, _) => node.measure;
       var domainFn = actOnNodeData<MyNode, MyLink, String>(getDomain)!;
       var measureFn = actOnNodeData<MyNode, MyLink, num>(getMeasure)!;
 
@@ -79,8 +79,8 @@ void main() {
     });
 
     test('returns data for non-null functions', () {
-      TypedAccessorFn<MyLink, String> getDomain = (link, _) => link.domainId;
-      TypedAccessorFn<MyLink, num> getMeasure = (link, _) => link.measure;
+      getDomain(MyLink link, _) => link.domainId;
+      getMeasure(MyLink link, _) => link.measure;
       var domainFn = actOnLinkData<MyNode, MyLink, String>(getDomain)!;
       var measureFn = actOnLinkData<MyNode, MyLink, num>(getMeasure)!;
       var firstLink = graph_structure.Link<MyNode, MyLink>(
@@ -140,8 +140,8 @@ void main() {
 
   group('accessorIfExists', () {
     test('calls function when not null', () {
-      TypedAccessorFn<MyNode, String> getDomain = (node, _) => node.domainId;
-      TypedAccessorFn<MyNode, num> getMeasure = (node, _) => node.measure;
+      getDomain(node, _) => node.domainId;
+      getMeasure(node, _) => node.measure;
 
       expect(
           accessorIfExists(
