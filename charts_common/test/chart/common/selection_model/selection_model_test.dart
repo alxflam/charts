@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -22,19 +20,19 @@ import 'package:charts_common/src/data/series.dart';
 import 'package:test/test.dart';
 
 void main() {
-  MutableSelectionModel<String> selectionModel;
+  late MutableSelectionModel<String> selectionModel;
 
-  ImmutableSeries<String> closestSeries;
-  MyDatum closestDatumClosestSeries;
-  SeriesDatum<String> closestDatumClosestSeriesPair;
-  MyDatum otherDatumClosestSeries;
-  SeriesDatum<String> otherDatumClosestSeriesPair;
+  late ImmutableSeries<String> closestSeries;
+  late MyDatum closestDatumClosestSeries;
+  late SeriesDatum<String> closestDatumClosestSeriesPair;
+  late MyDatum otherDatumClosestSeries;
+  late SeriesDatum<String> otherDatumClosestSeriesPair;
 
-  ImmutableSeries<String> otherSeries;
-  MyDatum closestDatumOtherSeries;
-  SeriesDatum<String> closestDatumOtherSeriesPair;
-  MyDatum otherDatumOtherSeries;
-  SeriesDatum<String> otherDatumOtherSeriesPair;
+  late ImmutableSeries<String> otherSeries;
+  late MyDatum closestDatumOtherSeries;
+  late SeriesDatum<String> closestDatumOtherSeriesPair;
+  late MyDatum otherDatumOtherSeries;
+  late SeriesDatum<String> otherDatumOtherSeriesPair;
 
   setUp(() {
     selectionModel = MutableSelectionModel<String>();
@@ -83,10 +81,9 @@ void main() {
       expect(selectionModel.selectedDatum, hasLength(2));
       expect(selectionModel.selectedDatum,
           contains(closestDatumClosestSeriesPair));
-      expect(selectionModel.selectedDatum,
-          contains(closestDatumOtherSeriesPair));
       expect(
-          selectionModel.selectedDatum.contains(otherDatumClosestSeriesPair),
+          selectionModel.selectedDatum, contains(closestDatumOtherSeriesPair));
+      expect(selectionModel.selectedDatum.contains(otherDatumClosestSeriesPair),
           isFalse);
       expect(selectionModel.selectedDatum.contains(otherDatumOtherSeriesPair),
           isFalse);
@@ -114,8 +111,7 @@ void main() {
       ]);
 
       expect(selectionModel.selectedDatum, hasLength(1));
-      expect(
-          selectionModel.selectedDatum, contains(otherDatumOtherSeriesPair));
+      expect(selectionModel.selectedDatum, contains(otherDatumOtherSeriesPair));
 
       expect(selectionModel.selectedSeries, hasLength(1));
       expect(selectionModel.selectedSeries, contains(otherSeries));
@@ -176,8 +172,8 @@ void main() {
       expect(selectionModel.selectedDatum, hasLength(2));
       expect(selectionModel.selectedDatum,
           contains(closestDatumClosestSeriesPair));
-      expect(selectionModel.selectedDatum,
-          contains(closestDatumOtherSeriesPair));
+      expect(
+          selectionModel.selectedDatum, contains(closestDatumOtherSeriesPair));
 
       expect(selectionModel.selectedSeries, hasLength(1));
       expect(selectionModel.selectedSeries, contains(closestSeries));
@@ -186,7 +182,7 @@ void main() {
 
   group('SelectionModel changed listeners', () {
     test('listener triggered for change', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
       // Listen
       selectionModel
           .addSelectionChangedListener((SelectionModel<String> model) {
@@ -205,7 +201,7 @@ void main() {
     });
 
     test('listener not triggered for no change', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
       // Set the selection to closest datum.
       selectionModel.updateSelection([
         SeriesDatum(closestSeries, closestDatumClosestSeries),
@@ -231,7 +227,7 @@ void main() {
     });
 
     test('removed listener not triggered for change', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
 
       void cb(SelectionModel<String> model) {
         triggeredModel = model;
@@ -257,7 +253,7 @@ void main() {
 
   group('SelectionModel updated listeners', () {
     test('listener triggered for change', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
       // Listen
       selectionModel
           .addSelectionUpdatedListener((SelectionModel<String> model) {
@@ -276,7 +272,7 @@ void main() {
     });
 
     test('listener triggered for no change', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
       // Set the selection to closest datum.
       selectionModel.updateSelection([
         SeriesDatum(closestSeries, closestDatumClosestSeries),
@@ -302,7 +298,7 @@ void main() {
     });
 
     test('removed listener not triggered for change', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
 
       void cb(SelectionModel<String> model) {
         triggeredModel = model;
@@ -328,7 +324,7 @@ void main() {
 
   group('SelectionModel locked listeners', () {
     test('listener triggered when model is locked', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
       // Listen
       selectionModel
           .addSelectionLockChangedListener((SelectionModel<String> model) {
@@ -343,7 +339,7 @@ void main() {
     });
 
     test('removed listener not triggered for locking', () {
-      SelectionModel<String> triggeredModel;
+      SelectionModel<String>? triggeredModel;
 
       void cb(SelectionModel<String> model) {
         triggeredModel = model;

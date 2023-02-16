@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -32,16 +30,16 @@ class MyRow {
   final int campaign;
   final int campaignLower;
   final int campaignUpper;
-  final double radius;
-  final double boundsRadius;
-  final String shape;
+  final double? radius;
+  final double? boundsRadius;
+  final String? shape;
   MyRow(this.campaignString, this.campaign, this.campaignLower,
       this.campaignUpper, this.radius, this.boundsRadius, this.shape);
 }
 
 void main() {
-  SymbolAnnotationRenderer renderer;
-  List<MutableSeries<int>> numericSeriesList;
+  late SymbolAnnotationRenderer renderer;
+  late List<MutableSeries<int>> numericSeriesList;
 
   setUp(() {
     var myFakeDesktopData = [
@@ -62,11 +60,11 @@ void main() {
           domainUpperBoundFn: (MyRow row, _) => row.campaignUpper,
           measureFn: (MyRow row, _) => 0,
           measureOffsetFn: (MyRow row, _) => 0,
-          radiusPxFn: (MyRow row, _) => row.radius,
+          radiusPxFn: (MyRow row, _) => row.radius ?? 0,
           data: myFakeDesktopData)
         // Define a bounds line radius function.
         ..setAttribute(boundsLineRadiusPxFnKey,
-            (int index) => myFakeDesktopData[index].boundsRadius))
+            (int? index) => myFakeDesktopData[index ?? 0].boundsRadius))
     ];
   });
 
@@ -84,7 +82,7 @@ void main() {
 
       var keyFn = series.keyFn;
 
-      var elementsList = series.getAttr(pointElementsKey);
+      var elementsList = series.getAttr(pointElementsKey)!;
       expect(elementsList.length, equals(4));
 
       expect(elementsList[0].radiusPx, equals(3.0));
@@ -102,7 +100,7 @@ void main() {
       expect(elementsList[2].symbolRendererId, equals(defaultSymbolRendererId));
       expect(elementsList[3].symbolRendererId, equals(defaultSymbolRendererId));
 
-      expect(keyFn(0), equals('Desktop__0__0__0'));
+      expect(keyFn!(0), equals('Desktop__0__0__0'));
       expect(keyFn(1), equals('Desktop__10__10__12'));
       expect(keyFn(2), equals('Desktop__10__10__14'));
       expect(keyFn(3), equals('Desktop__13__12__15'));

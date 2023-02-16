@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -19,21 +17,16 @@ import 'package:charts_common/src/chart/cartesian/cartesian_chart.dart';
 import 'package:charts_common/src/chart/cartesian/axis/spec/date_time_axis_spec.dart';
 import 'package:charts_common/src/chart/cartesian/axis/spec/ordinal_axis_spec.dart';
 import 'package:charts_common/src/chart/cartesian/axis/spec/numeric_axis_spec.dart';
-import 'package:charts_common/src/chart/common/chart_context.dart';
 import 'package:charts_common/src/common/date_time_factory.dart';
 import 'package:charts_common/src/chart/time_series/time_series_chart.dart';
-import 'package:charts_common/src/common/graphics_factory.dart';
 
-import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockContext extends Mock implements ChartContext {}
-
-class MockGraphicsFactory extends Mock implements GraphicsFactory {}
+import '../../mocks.mocks.dart';
 
 class FakeNumericChart extends NumericCartesianChart {
   FakeNumericChart() {
-    context = MockContext();
+    context = MockChartContext();
     graphicsFactory = MockGraphicsFactory();
   }
 
@@ -45,7 +38,7 @@ class FakeNumericChart extends NumericCartesianChart {
 
 class FakeOrdinalChart extends OrdinalCartesianChart {
   FakeOrdinalChart() {
-    context = MockContext();
+    context = MockChartContext();
     graphicsFactory = MockGraphicsFactory();
   }
 
@@ -57,7 +50,7 @@ class FakeOrdinalChart extends OrdinalCartesianChart {
 
 class FakeTimeSeries extends TimeSeriesChart {
   FakeTimeSeries() : super(dateTimeFactory: const LocalDateTimeFactory()) {
-    context = MockContext();
+    context = MockChartContext();
     graphicsFactory = MockGraphicsFactory();
   }
 

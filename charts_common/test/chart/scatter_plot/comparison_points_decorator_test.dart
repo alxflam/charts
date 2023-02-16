@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -29,15 +27,15 @@ class MyRow {
 }
 
 class TestComparisonPointsDecorator<D> extends ComparisonPointsDecorator<D> {
-  List<Point<double>> testComputeBoundedPointsForElement(
+  List<Point<double>>? testComputeBoundedPointsForElement(
       PointRendererElement<D> pointElement, Rectangle drawBounds) {
     return computeBoundedPointsForElement(pointElement, drawBounds);
   }
 }
 
 void main() {
-  TestComparisonPointsDecorator decorator;
-  Rectangle bounds;
+  late TestComparisonPointsDecorator decorator;
+  late Rectangle bounds;
 
   setUp(() {
     decorator = TestComparisonPointsDecorator<num>();
@@ -60,7 +58,7 @@ void main() {
       );
 
       final points =
-          decorator.testComputeBoundedPointsForElement(element, bounds);
+          decorator.testComputeBoundedPointsForElement(element, bounds)!;
 
       expect(points.length, equals(2));
 
@@ -166,7 +164,7 @@ void main() {
       );
 
       final points =
-          decorator.testComputeBoundedPointsForElement(element, bounds);
+          decorator.testComputeBoundedPointsForElement(element, bounds)!;
 
       expect(points.length, equals(2));
 
@@ -192,7 +190,7 @@ void main() {
       );
 
       final points =
-          decorator.testComputeBoundedPointsForElement(element, bounds);
+          decorator.testComputeBoundedPointsForElement(element, bounds)!;
 
       expect(points.length, equals(2));
 
@@ -218,7 +216,7 @@ void main() {
       );
 
       final points =
-          decorator.testComputeBoundedPointsForElement(element, bounds);
+          decorator.testComputeBoundedPointsForElement(element, bounds)!;
 
       expect(points.length, equals(2));
 
@@ -244,7 +242,7 @@ void main() {
       );
 
       final points =
-          decorator.testComputeBoundedPointsForElement(element, bounds);
+          decorator.testComputeBoundedPointsForElement(element, bounds)!;
 
       expect(points.length, equals(2));
 

@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -33,11 +31,10 @@ import 'package:charts_common/src/chart/cartesian/axis/tick_formatter.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick_provider.dart';
 import 'package:charts_common/src/chart/cartesian/axis/numeric_extents.dart';
 import 'package:charts_common/src/chart/cartesian/axis/numeric_tick_provider.dart';
-import 'package:meta/meta.dart' show required;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockNumericScale extends Mock implements NumericScale {}
+import '../../../mocks.mocks.dart';
 
 /// A fake draw strategy that reports collision and alternate ticks
 ///
@@ -52,11 +49,11 @@ class FakeDrawStrategy extends BaseTickDrawStrategy<num> {
 
   FakeDrawStrategy(
       this.collidesAfterTickCount, this.alternateRenderingAfterTickCount)
-      : super(null, FakeGraphicsFactory());
+      : super(MockChartContext(), FakeGraphicsFactory());
 
   @override
-  CollisionReport<num> collides(List<Tick<num>> ticks, _) {
-    final ticksCollide = ticks.length >= collidesAfterTickCount;
+  CollisionReport<num> collides(List<Tick<num>>? ticks, _) {
+    final ticksCollide = ticks!.length >= collidesAfterTickCount;
     final alternateTicksUsed = ticks.length >= alternateRenderingAfterTickCount;
 
     return CollisionReport(
@@ -67,11 +64,11 @@ class FakeDrawStrategy extends BaseTickDrawStrategy<num> {
 
   @override
   void draw(ChartCanvas canvas, Tick<num> tick,
-      {@required AxisOrientation orientation,
-      @required Rectangle<int> axisBounds,
-      @required Rectangle<int> drawAreaBounds,
-      @required bool isFirst,
-      @required bool isLast,
+      {required AxisOrientation orientation,
+      required Rectangle<int> axisBounds,
+      required Rectangle<int> drawAreaBounds,
+      required bool isFirst,
+      required bool isLast,
       bool collision = false}) {}
 }
 
@@ -84,16 +81,8 @@ class FakeGraphicsFactory extends GraphicsFactory {
   TextElement createTextElement(String text) => MockTextElement();
 
   @override
-  LineStyle createLinePaint() => MockLinePaint();
+  LineStyle createLinePaint() => MockLineStyle();
 }
-
-class MockTextStyle extends Mock implements TextStyle {}
-
-class MockTextElement extends Mock implements TextElement {}
-
-class MockLinePaint extends Mock implements LineStyle {}
-
-class MockChartContext extends Mock implements ChartContext {}
 
 /// A celsius to fahrenheit converter for testing axis with unit converter.
 class CelsiusToFahrenheitConverter implements UnitConverter<num, num> {
@@ -107,11 +96,11 @@ class CelsiusToFahrenheitConverter implements UnitConverter<num, num> {
 }
 
 void main() {
-  FakeGraphicsFactory graphicsFactory;
-  MockNumericScale scale;
-  NumericTickProvider tickProvider;
-  TickFormatter<num> formatter;
-  ChartContext context;
+  late FakeGraphicsFactory graphicsFactory;
+  late MockNumericScale scale;
+  late NumericTickProvider tickProvider;
+  late TickFormatter<num> formatter;
+  late ChartContext context;
 
   setUp(() {
     graphicsFactory = FakeGraphicsFactory();

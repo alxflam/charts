@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -23,8 +21,6 @@ import 'package:charts_common/src/chart/cartesian/axis/time/month_time_stepper.d
 import 'package:charts_common/src/chart/cartesian/axis/time/year_time_stepper.dart';
 import 'package:test/test.dart';
 import 'simple_date_time_factory.dart' show SimpleDateTimeFactory;
-
-const EPSILON = 0.001;
 
 /// Checks whether the local time zone uses typical US daylight saving time,
 /// as expected by several tests here.

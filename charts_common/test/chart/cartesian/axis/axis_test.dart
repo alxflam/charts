@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -19,26 +17,14 @@ import 'dart:math';
 
 import 'package:charts_common/src/chart/cartesian/axis/axis.dart';
 import 'package:charts_common/src/chart/cartesian/axis/collision_report.dart';
-import 'package:charts_common/src/chart/cartesian/axis/draw_strategy/tick_draw_strategy.dart';
 import 'package:charts_common/src/chart/cartesian/axis/scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/spec/tick_spec.dart';
 import 'package:charts_common/src/chart/cartesian/axis/static_tick_provider.dart';
-import 'package:charts_common/src/common/graphics_factory.dart';
-import 'package:charts_common/src/common/text_element.dart';
 
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockTickDrawStrategy extends Mock implements TickDrawStrategy<num> {}
-
-class MockGraphicsFactory extends Mock implements GraphicsFactory {
-  @override
-  TextElement createTextElement(String _) {
-    return MockTextElement();
-  }
-}
-
-class MockTextElement extends Mock implements TextElement {}
+import '../../../mocks.mocks.dart';
 
 StaticTickProvider<num> _createProvider(List<num> values) =>
     StaticTickProvider<num>(values.map((v) => TickSpec(v)).toList());
@@ -55,8 +41,11 @@ void main() {
 
     var tester = AxisTester(axis);
     axis.tickDrawStrategy = drawStrategy;
-    axis.graphicsFactory = MockGraphicsFactory();
-    tester.scale.range = ScaleOutputExtent(0, 300);
+    var graphicsFactory = MockGraphicsFactory();
+    when(graphicsFactory.createTextElement(any)).thenReturn(MockTextElement());
+    axis.graphicsFactory = graphicsFactory;
+
+    tester.scale!.range = ScaleOutputExtent(0, 300);
 
     axis.updateTicks();
 
@@ -78,7 +67,9 @@ void main() {
         ticks: [], ticksCollide: false, alternateTicksUsed: false));
 
     axis.tickDrawStrategy = drawStrategy;
-    axis.graphicsFactory = MockGraphicsFactory();
+    var graphicsFactory = MockGraphicsFactory();
+    when(graphicsFactory.createTextElement(any)).thenReturn(MockTextElement());
+    axis.graphicsFactory = graphicsFactory;
     var axisOrientation = AxisOrientation.left;
     axis.axisOrientation = axisOrientation;
 

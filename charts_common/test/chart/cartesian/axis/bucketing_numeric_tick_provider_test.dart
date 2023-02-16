@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -32,11 +30,10 @@ import 'package:charts_common/src/common/graphics_factory.dart';
 import 'package:charts_common/src/common/line_style.dart';
 import 'package:charts_common/src/common/text_style.dart';
 import 'package:charts_common/src/common/text_element.dart';
-import 'package:meta/meta.dart' show required;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockNumericScale extends Mock implements NumericScale {}
+import '../../../mocks.mocks.dart';
 
 /// A fake draw strategy that reports collision and alternate ticks
 ///
@@ -51,11 +48,11 @@ class FakeDrawStrategy extends BaseTickDrawStrategy<num> {
 
   FakeDrawStrategy(
       this.collidesAfterTickCount, this.alternateRenderingAfterTickCount)
-      : super(null, FakeGraphicsFactory());
+      : super(MockChartContext(), FakeGraphicsFactory());
 
   @override
-  CollisionReport<num> collides(List<Tick<num>> ticks, _) {
-    final ticksCollide = ticks.length >= collidesAfterTickCount;
+  CollisionReport<num> collides(List<Tick<num>>? ticks, _) {
+    final ticksCollide = ticks!.length >= collidesAfterTickCount;
     final alternateTicksUsed = ticks.length >= alternateRenderingAfterTickCount;
 
     return CollisionReport(
@@ -66,11 +63,11 @@ class FakeDrawStrategy extends BaseTickDrawStrategy<num> {
 
   @override
   void draw(ChartCanvas canvas, Tick<num> tick,
-      {@required AxisOrientation orientation,
-      @required Rectangle<int> axisBounds,
-      @required Rectangle<int> drawAreaBounds,
-      @required bool isFirst,
-      @required bool isLast,
+      {required AxisOrientation orientation,
+      required Rectangle<int> axisBounds,
+      required Rectangle<int> drawAreaBounds,
+      required bool isFirst,
+      required bool isLast,
       bool collision = false}) {}
 }
 
@@ -83,10 +80,8 @@ class FakeGraphicsFactory extends GraphicsFactory {
   TextElement createTextElement(String text) => MockTextElement(text);
 
   @override
-  LineStyle createLinePaint() => MockLinePaint();
+  LineStyle createLinePaint() => MockLineStyle();
 }
-
-class MockTextStyle extends Mock implements TextStyle {}
 
 class MockTextElement extends Mock implements TextElement {
   @override
@@ -94,10 +89,6 @@ class MockTextElement extends Mock implements TextElement {
 
   MockTextElement(this.text);
 }
-
-class MockLinePaint extends Mock implements LineStyle {}
-
-class MockChartContext extends Mock implements ChartContext {}
 
 /// A celsius to fahrenheit converter for testing axis with unit converter.
 class CelsiusToFahrenheitConverter implements UnitConverter<num, num> {
@@ -111,11 +102,11 @@ class CelsiusToFahrenheitConverter implements UnitConverter<num, num> {
 }
 
 void main() {
-  FakeGraphicsFactory graphicsFactory;
-  MockNumericScale scale;
-  BucketingNumericTickProvider tickProvider;
-  TickFormatter<num> formatter;
-  ChartContext context;
+  late FakeGraphicsFactory graphicsFactory;
+  late MockNumericScale scale;
+  late BucketingNumericTickProvider tickProvider;
+  late TickFormatter<num> formatter;
+  late ChartContext context;
 
   setUp(() {
     graphicsFactory = FakeGraphicsFactory();
@@ -157,13 +148,13 @@ void main() {
       expect(ticks[0].labelOffsetPx, isNull);
       expect(ticks[0].locationPx, equals(100.0));
       expect(ticks[0].value, equals(0.0));
-      expect(ticks[0].textElement.text, equals(''));
+      expect(ticks[0].textElement!.text, equals(''));
 
       // Verify that we have a threshold tick.
       expect(ticks[1].labelOffsetPx, equals(5.0));
       expect(ticks[1].locationPx, equals(90.0));
       expect(ticks[1].value, equals(0.10));
-      expect(ticks[1].textElement.text, equals('< 0.1'));
+      expect(ticks[1].textElement!.text, equals('< 0.1'));
 
       // Verify that the rest of the ticks are all above the threshold in value
       // and have normal labels.
@@ -173,7 +164,8 @@ void main() {
 
       aboveThresholdTicks = ticks.sublist(2);
       aboveThresholdTicks.retainWhere((tick) =>
-          tick.textElement.text != '' && !tick.textElement.text.contains('<'));
+          tick.textElement!.text != '' &&
+          !tick.textElement!.text.contains('<'));
       expect(aboveThresholdTicks, hasLength(18));
 
       aboveThresholdTicks = ticks.sublist(2);

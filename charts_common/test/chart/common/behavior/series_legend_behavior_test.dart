@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -46,7 +44,7 @@ class ConcreteChart extends BaseChart<String> {
   List<MutableSeries<String>> get currentSeriesList => _seriesList;
 
   @override
-  List<DatumDetails<String>> getDatumDetails(SelectionModelType _) => null;
+  List<DatumDetails<String>> getDatumDetails(SelectionModelType _) => [];
 
   set seriesList(List<MutableSeries<String>> seriesList) {
     _seriesList = seriesList;
@@ -71,8 +69,8 @@ class ConcreteChart extends BaseChart<String> {
 
 class ConcreteSeriesLegend<D> extends SeriesLegend<D> {
   ConcreteSeriesLegend(
-      {SelectionModelType selectionModelType,
-      LegendEntryGenerator<D> legendEntryGenerator})
+      {SelectionModelType? selectionModelType,
+      LegendEntryGenerator<D>? legendEntryGenerator})
       : super(
             selectionModelType: selectionModelType,
             legendEntryGenerator: legendEntryGenerator);
@@ -102,12 +100,12 @@ class ConcreteSeriesLegend<D> extends SeriesLegend<D> {
 }
 
 void main() {
-  MutableSeries<String> series1;
+  late MutableSeries<String> series1;
   final s1D1 = MyRow('s1d1', 11);
   final s1D2 = MyRow('s1d2', 12);
   final s1D3 = MyRow('s1d3', 13);
 
-  MutableSeries<String> series2;
+  late MutableSeries<String> series2;
   final s2D1 = MyRow('s2d1', 21);
   final s2D2 = MyRow('s2d2', 22);
   final s2D3 = MyRow('s2d3', 23);
@@ -353,8 +351,9 @@ void main() {
   test('generated legend entries use provided formatters', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    measureFormatter(num value) => 'measure ${value?.toStringAsFixed(0)}';
-    secondaryMeasureFormatter(num value) => 'secondary ${value?.toStringAsFixed(0)}';
+    measureFormatter(num? value) => 'measure ${value?.toStringAsFixed(0)}';
+    secondaryMeasureFormatter(num? value) =>
+        'secondary ${value?.toStringAsFixed(0)}';
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         measureFormatter: measureFormatter,
@@ -389,7 +388,7 @@ void main() {
   test('series legend - show measure sum when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    measureFormatter(num value) => value?.toStringAsFixed(0);
+    measureFormatter(num? value) => value?.toStringAsFixed(0) ?? '';
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.sum,
@@ -422,7 +421,7 @@ void main() {
   test('series legend - show measure average when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    measureFormatter(num value) => value?.toStringAsFixed(0);
+    measureFormatter(num? value) => value?.toStringAsFixed(0) ?? '';
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.average,
@@ -455,7 +454,7 @@ void main() {
   test('series legend - show first measure when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    measureFormatter(num value) => value?.toStringAsFixed(0);
+    measureFormatter(num? value) => value?.toStringAsFixed(0) ?? '';
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.firstValue,
@@ -488,7 +487,7 @@ void main() {
   test('series legend - show last measure when there is no selection', () {
     final seriesList = [series1, series2];
     final selectionType = SelectionModelType.info;
-    measureFormatter(num value) => value?.toStringAsFixed(0);
+    measureFormatter(num? value) => value?.toStringAsFixed(0) ?? '';
     final legend = SeriesLegend<String>(
         selectionModelType: selectionType,
         legendDefaultMeasure: LegendDefaultMeasure.lastValue,

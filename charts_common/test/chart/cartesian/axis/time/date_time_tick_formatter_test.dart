@@ -17,8 +17,6 @@ import 'package:charts_common/src/chart/cartesian/axis/time/time_tick_formatter.
 import 'package:charts_common/src/chart/cartesian/axis/time/date_time_tick_formatter.dart';
 import 'package:test/test.dart';
 
-const EPSILON = 0.001;
-
 typedef IsTransitionFunction = bool Function(
     DateTime tickValue, DateTime prevTickValue);
 

@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -27,25 +25,17 @@ import 'package:charts_common/src/chart/common/chart_canvas.dart';
 import 'package:charts_common/src/chart/common/chart_context.dart';
 import 'package:charts_common/src/chart/cartesian/axis/collision_report.dart';
 import 'package:charts_common/src/chart/cartesian/axis/end_points_tick_provider.dart';
-import 'package:charts_common/src/chart/cartesian/axis/numeric_scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/simple_ordinal_scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick_formatter.dart';
 import 'package:charts_common/src/chart/cartesian/axis/numeric_extents.dart';
 import 'package:charts_common/src/chart/cartesian/axis/time/date_time_extents.dart';
-import 'package:charts_common/src/chart/cartesian/axis/time/date_time_scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/time/date_time_tick_formatter.dart';
-import 'package:meta/meta.dart' show required;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import '../../../mocks.mocks.dart';
 import 'time/simple_date_time_factory.dart' show SimpleDateTimeFactory;
-
-class MockDateTimeScale extends Mock implements DateTimeScale {}
-
-class MockNumericScale extends Mock implements NumericScale {}
-
-class MockOrdinalScale extends Mock implements SimpleOrdinalScale {}
 
 /// A fake draw strategy that reports collision and alternate ticks
 ///
@@ -60,12 +50,13 @@ class FakeDrawStrategy<D> extends BaseTickDrawStrategy<D> {
 
   FakeDrawStrategy(
       this.collidesAfterTickCount, this.alternateRenderingAfterTickCount)
-      : super(null, FakeGraphicsFactory());
+      : super(MockChartContext(), FakeGraphicsFactory());
 
   @override
-  CollisionReport<D> collides(List<Tick<D>> ticks, _) {
-    final ticksCollide = ticks.length >= collidesAfterTickCount;
-    final alternateTicksUsed = ticks.length >= alternateRenderingAfterTickCount;
+  CollisionReport<D> collides(List<Tick<D>>? ticks, _) {
+    final ticksCollide = (ticks?.length ?? 0) >= collidesAfterTickCount;
+    final alternateTicksUsed =
+        (ticks?.length ?? 0) >= alternateRenderingAfterTickCount;
 
     return CollisionReport(
         ticksCollide: ticksCollide,
@@ -75,11 +66,11 @@ class FakeDrawStrategy<D> extends BaseTickDrawStrategy<D> {
 
   @override
   void draw(ChartCanvas canvas, Tick<D> tick,
-      {@required AxisOrientation orientation,
-      @required Rectangle<int> axisBounds,
-      @required Rectangle<int> drawAreaBounds,
-      @required bool isFirst,
-      @required bool isLast,
+      {required AxisOrientation orientation,
+      required Rectangle<int> axisBounds,
+      required Rectangle<int> drawAreaBounds,
+      required bool isFirst,
+      required bool isLast,
       bool collision = false}) {}
 }
 
@@ -92,22 +83,14 @@ class FakeGraphicsFactory extends GraphicsFactory {
   TextElement createTextElement(String text) => MockTextElement();
 
   @override
-  LineStyle createLinePaint() => MockLinePaint();
+  LineStyle createLinePaint() => MockLineStyle();
 }
-
-class MockTextStyle extends Mock implements TextStyle {}
-
-class MockTextElement extends Mock implements TextElement {}
-
-class MockLinePaint extends Mock implements LineStyle {}
-
-class MockChartContext extends Mock implements ChartContext {}
 
 void main() {
   const dateTimeFactory = SimpleDateTimeFactory();
-  FakeGraphicsFactory graphicsFactory;
+  late FakeGraphicsFactory graphicsFactory;
   EndPointsTickProvider tickProvider;
-  ChartContext context;
+  late ChartContext context;
 
   setUp(() {
     graphicsFactory = FakeGraphicsFactory();

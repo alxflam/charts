@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -18,8 +16,6 @@
 import 'package:charts_common/src/chart/cartesian/axis/time/auto_adjusting_date_time_tick_provider.dart';
 import 'package:test/test.dart';
 import 'simple_date_time_factory.dart' show SimpleDateTimeFactory;
-
-const EPSILON = 0.001;
 
 void main() {
   const dateTimeFactory = SimpleDateTimeFactory();

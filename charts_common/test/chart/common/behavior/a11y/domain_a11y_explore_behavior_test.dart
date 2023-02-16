@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -25,13 +23,11 @@ import 'package:charts_common/src/data/series.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockContext extends Mock implements ChartContext {}
-
-class MockAxis extends Mock implements Axis<String> {}
+import '../../../../mocks.mocks.dart';
 
 class FakeCartesianChart extends CartesianChart<String> {
   @override
-  Rectangle<int> drawAreaBounds;
+  late Rectangle<int> drawAreaBounds;
 
   void callFireOnPostprocess(List<MutableSeries<String>> seriesList) {
     fireOnPostprocess(seriesList);
@@ -42,11 +38,11 @@ class FakeCartesianChart extends CartesianChart<String> {
 }
 
 void main() {
-  FakeCartesianChart chart;
-  DomainA11yExploreBehavior<String> behavior;
-  MockAxis domainAxis;
+  late FakeCartesianChart chart;
+  late DomainA11yExploreBehavior<String> behavior;
+  late MockStringAxis domainAxis;
 
-  MutableSeries<String> series1;
+  late MutableSeries<String> series1;
   final s1D1 = MyRow('s1d1', 11, 'a11yd1');
   final s1D2 = MyRow('s1d2', 12, 'a11yd2');
   final s1D3 = MyRow('s1d3', 13, 'a11yd3');
@@ -58,7 +54,7 @@ void main() {
         vocalizationCallback: domainVocalization);
     behavior.attachTo(chart);
 
-    domainAxis = MockAxis();
+    domainAxis = MockStringAxis();
     series1 = MutableSeries(Series<MyRow, String>(
       id: 's1',
       data: [s1D1, s1D2, s1D3],
@@ -70,7 +66,7 @@ void main() {
 
   test('creates nodes for vertically drawn charts', () {
     // A LTR chart
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(false);
     when(context.isRtl).thenReturn(false);
     chart.context = context;
@@ -97,7 +93,7 @@ void main() {
 
   test('creates nodes for vertically drawn RTL charts', () {
     // A RTL chart
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(true);
     when(context.isRtl).thenReturn(true);
     chart.context = context;
@@ -124,7 +120,7 @@ void main() {
 
   test('creates nodes for horizontally drawn charts', () {
     // A LTR chart
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(false);
     when(context.isRtl).thenReturn(false);
     chart.context = context;
@@ -151,7 +147,7 @@ void main() {
 
   test('creates nodes for horizontally drawn RTL charts', () {
     // A LTR chart
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(true);
     when(context.isRtl).thenReturn(true);
     chart.context = context;
@@ -178,7 +174,7 @@ void main() {
 
   test('nodes ordered correctly with a series missing a domain', () {
     // A LTR chart
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(false);
     when(context.isRtl).thenReturn(false);
     chart.context = context;
@@ -219,7 +215,7 @@ void main() {
     behaviorWithMinWidth.attachTo(chart);
 
     // A LTR chart
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(false);
     when(context.isRtl).thenReturn(false);
     chart.context = context;

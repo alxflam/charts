@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -23,27 +21,28 @@ import 'package:charts_common/src/chart/cartesian/axis/tick.dart';
 import 'package:test/test.dart';
 
 /// Fake [TextElement] for testing.
-class FakeTextElement implements TextElement {
+class FakeTextElement extends TextElement {
   @override
   final String text;
-  double opacity;
+
+  double? opacity;
 
   @override
-  TextMeasurement measurement;
+  late TextMeasurement measurement;
 
   @override
-  TextStyle textStyle;
+  TextStyle? textStyle;
 
   @override
-  int maxWidth;
+  int? maxWidth;
 
   @override
-  MaxWidthStrategy maxWidthStrategy;
+  MaxWidthStrategy? maxWidthStrategy;
 
   @override
   TextDirection textDirection;
 
-  FakeTextElement(this.text);
+  FakeTextElement(this.text) : textDirection = TextDirection.ltr;
 }
 
 /// Helper to create a tick for testing.
@@ -54,7 +53,8 @@ Tick<String> _createTestTick(String value, double locationPx) {
       locationPx: locationPx);
 }
 
-void _verify(Tick<String> tick, {double location, double opacity}) {
+void _verify(Tick<String> tick,
+    {required double location, required double opacity}) {
   expect(tick.locationPx, equals(location));
   expect((tick.textElement as FakeTextElement).opacity, equals(opacity));
 }

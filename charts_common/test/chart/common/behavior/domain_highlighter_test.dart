@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -24,50 +22,26 @@ import 'package:charts_common/src/data/series.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockChart extends Mock implements BaseChart {
-  LifecycleListener lastListener;
-
-  @override
-  LifecycleListener addLifecycleListener(LifecycleListener listener) =>
-      lastListener = listener;
-
-  @override
-  bool removeLifecycleListener(LifecycleListener listener) {
-    expect(listener, equals(lastListener));
-    lastListener = null;
-    return true;
-  }
-}
-
-class MockSelectionModel extends Mock implements MutableSelectionModel {
-  SelectionModelListener lastListener;
-
-  @override
-  void addSelectionChangedListener(SelectionModelListener listener) =>
-      lastListener = listener;
-
-  @override
-  void removeSelectionChangedListener(SelectionModelListener listener) {
-    expect(listener, equals(lastListener));
-    lastListener = null;
-  }
-}
+import '../../../mocks.mocks.dart';
 
 void main() {
-  MockChart chart;
-  MockSelectionModel selectionModel;
+  late MockBaseChart chart;
+  late MockMutableSelectionModel selectionModel;
 
-  MutableSeries<String> series1;
+  late MutableSeries<String> series1;
   final s1D1 = MyRow('s1d1', 11);
   final s1D2 = MyRow('s1d2', 12);
   final s1D3 = MyRow('s1d3', 13);
 
-  MutableSeries<String> series2;
+  late MutableSeries<String> series2;
   final s2D1 = MyRow('s2d1', 21);
   final s2D2 = MyRow('s2d2', 22);
   final s2D3 = MyRow('s2d3', 23);
 
-  void _setupSelection(List<MyRow> selected) {
+  LifecycleListener? chartLastListener;
+  SelectionModelListener? lastSelectionChangedListener;
+
+  void setupSelection(List<MyRow> selected) {
     for (var i = 0; i < series1.data.length; i++) {
       when(selectionModel.isDatumSelected(series1, i))
           .thenReturn(selected.contains(series1.data[i]));
@@ -79,11 +53,32 @@ void main() {
   }
 
   setUp(() {
-    chart = MockChart();
+    chart = MockBaseChart();
 
-    selectionModel = MockSelectionModel();
+    when(chart.addLifecycleListener(any)).thenAnswer(
+        (invocation) => chartLastListener = invocation.positionalArguments[0]);
+
+    when(chart.removeLifecycleListener(any)).thenAnswer((invocation) {
+      expect(invocation.positionalArguments[0], equals(chartLastListener));
+      chartLastListener = null;
+      return true;
+    });
+
+    selectionModel = MockMutableSelectionModel();
     when(chart.getSelectionModel(SelectionModelType.info))
         .thenReturn(selectionModel);
+
+    when(selectionModel.addSelectionChangedListener(any))
+        .thenAnswer((invocation) {
+      lastSelectionChangedListener = invocation.positionalArguments[0];
+    });
+
+    when(selectionModel.removeSelectionChangedListener(any))
+        .thenAnswer((invocation) {
+      expect(invocation.positionalArguments[0],
+          equals(lastSelectionChangedListener));
+      lastSelectionChangedListener = null;
+    });
 
     series1 = MutableSeries(Series<MyRow, String>(
         id: 's1',
@@ -107,21 +102,21 @@ void main() {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.info);
       behavior.attachTo(chart);
-      _setupSelection([s1D2, s2D2]);
+      setupSelection([s1D2, s2D2]);
       final seriesList = [series1, series2];
 
       // Act
-      selectionModel.lastListener(selectionModel);
+      lastSelectionChangedListener!(selectionModel);
       verify(chart.redraw(skipAnimation: true, skipLayout: true));
-      chart.lastListener.onPostprocess(seriesList);
+      chartLastListener!.onPostprocess!(seriesList);
 
       // Verify
-      final s1ColorFn = series1.colorFn;
+      final s1ColorFn = series1.colorFn!;
       expect(s1ColorFn(0), equals(MaterialPalette.blue.shadeDefault));
       expect(s1ColorFn(1), equals(MaterialPalette.blue.shadeDefault.darker));
       expect(s1ColorFn(2), equals(MaterialPalette.blue.shadeDefault));
 
-      final s2ColorFn = series2.colorFn;
+      final s2ColorFn = series2.colorFn!;
       expect(s2ColorFn(0), equals(MaterialPalette.red.shadeDefault));
       expect(s2ColorFn(1), equals(MaterialPalette.red.shadeDefault.darker));
       expect(s2ColorFn(2), equals(MaterialPalette.red.shadeDefault));
@@ -145,21 +140,21 @@ void main() {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.info);
       behavior.attachTo(chart);
-      _setupSelection([]);
+      setupSelection([]);
       final seriesList = [series1, series2];
 
       // Act
-      selectionModel.lastListener(selectionModel);
+      lastSelectionChangedListener!(selectionModel);
       verify(chart.redraw(skipAnimation: true, skipLayout: true));
-      chart.lastListener.onPostprocess(seriesList);
+      chartLastListener!.onPostprocess!(seriesList);
 
       // Verify
-      final s1ColorFn = series1.colorFn;
+      final s1ColorFn = series1.colorFn!;
       expect(s1ColorFn(0), equals(MaterialPalette.blue.shadeDefault));
       expect(s1ColorFn(1), equals(MaterialPalette.blue.shadeDefault));
       expect(s1ColorFn(2), equals(MaterialPalette.blue.shadeDefault));
 
-      final s2ColorFn = series2.colorFn;
+      final s2ColorFn = series2.colorFn!;
       expect(s2ColorFn(0), equals(MaterialPalette.red.shadeDefault));
       expect(s2ColorFn(1), equals(MaterialPalette.red.shadeDefault));
       expect(s2ColorFn(2), equals(MaterialPalette.red.shadeDefault));
@@ -169,14 +164,14 @@ void main() {
       // Setup
       final behavior = DomainHighlighter(SelectionModelType.info);
       behavior.attachTo(chart);
-      _setupSelection([s1D2, s2D2]);
+      setupSelection([s1D2, s2D2]);
 
       // Act
       behavior.removeFrom(chart);
 
       // Verify
-      expect(chart.lastListener, isNull);
-      expect(selectionModel.lastListener, isNull);
+      expect(chartLastListener, isNull);
+      expect(lastSelectionChangedListener, isNull);
     });
   });
 }

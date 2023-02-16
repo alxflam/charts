@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -19,7 +17,6 @@ import 'package:charts_common/src/chart/cartesian/axis/auto_adjusting_static_tic
 import 'package:charts_common/src/chart/cartesian/axis/linear/linear_scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/draw_strategy/base_tick_draw_strategy.dart';
 import 'package:charts_common/src/common/graphics_factory.dart';
-import 'package:charts_common/src/common/text_element.dart';
 import 'package:charts_common/src/chart/common/chart_context.dart';
 import 'package:charts_common/src/chart/cartesian/axis/scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/collision_report.dart'
@@ -29,43 +26,33 @@ import 'package:charts_common/src/chart/cartesian/axis/tick_formatter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockChartContext extends Mock implements ChartContext {}
-
-class MockGraphicsFactory extends Mock implements GraphicsFactory {}
-
-class MockTextElement extends Mock implements TextElement {}
-
-class MockNumericTickFormatter extends Mock implements TickFormatter<num> {}
+import '../../../mocks.mocks.dart';
 
 class FakeNumericTickFormatter implements TickFormatter<num> {
   int calledTimes = 0;
 
   @override
   List<String> format(List<num> tickValues, Map<num, String> cache,
-      {num stepSize}) {
+      {num? stepSize}) {
     calledTimes += 1;
 
     return tickValues.map((value) => value.toString()).toList();
   }
 }
 
-class MockDrawStrategy<D> extends Mock implements BaseTickDrawStrategy<D> {}
-
 void main() {
-  ChartContext context;
-  GraphicsFactory graphicsFactory;
-  TickFormatter<num> formatter;
-  BaseTickDrawStrategy<num> drawStrategy;
-  LinearScale scale;
+  late ChartContext context;
+  late GraphicsFactory graphicsFactory;
+  late TickFormatter<num> formatter;
+  late BaseTickDrawStrategy<num> drawStrategy;
+  late LinearScale scale;
 
   setUp(() {
     context = MockChartContext();
     graphicsFactory = MockGraphicsFactory();
     formatter = MockNumericTickFormatter();
-    drawStrategy = MockDrawStrategy<num>();
+    drawStrategy = MockNumBaseTickDrawStrategy();
     scale = LinearScale()..range = ScaleOutputExtent(0, 300);
-
-    when(graphicsFactory.createTextElement(any)).thenReturn(MockTextElement());
   });
 
   group('with tick increment', () {

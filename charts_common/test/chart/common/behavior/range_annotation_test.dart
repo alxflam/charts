@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -32,10 +30,10 @@ import 'package:charts_common/src/data/series.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockContext extends Mock implements ChartContext {}
+import '../../../mocks.mocks.dart';
 
 class ConcreteChart extends LineChart {
-  LifecycleListener<num> lastListener;
+  LifecycleListener<num>? lastListener;
 
   final _domainAxis = ConcreteNumericAxis();
 
@@ -58,51 +56,45 @@ class ConcreteChart extends LineChart {
   Axis<num> get domainAxis => _domainAxis;
 
   @override
-  NumericAxis getMeasureAxis({String axisId}) => _primaryMeasureAxis;
+  NumericAxis getMeasureAxis({String? axisId}) => _primaryMeasureAxis;
 }
 
 class ConcreteNumericAxis extends NumericAxis {
   ConcreteNumericAxis()
       : super(
-          tickProvider: MockTickProvider(),
+          tickProvider: MockNumericTickProvider(),
         );
 }
 
-class MockTickProvider extends Mock implements NumericTickProvider {}
-
-class MockGraphicsFactory extends Mock implements GraphicsFactory {}
-
-class MockTickDrawStrategy extends Mock implements TickDrawStrategy<num> {}
-
 void main() {
-  Rectangle<int> drawBounds;
-  Rectangle<int> domainAxisBounds;
-  Rectangle<int> measureAxisBounds;
+  late Rectangle<int> drawBounds;
+  late Rectangle<int> domainAxisBounds;
+  late Rectangle<int> measureAxisBounds;
 
-  ConcreteChart chart0;
+  late ConcreteChart chart0;
 
-  Series<MyRow, int> series1;
+  late Series<MyRow, int> series1;
   final s1D1 = MyRow(0, 11);
   final s1D2 = MyRow(1, 12);
   final s1D3 = MyRow(2, 13);
 
-  Series<MyRow, int> series2;
+  late Series<MyRow, int> series2;
   final s2D1 = MyRow(3, 21);
   final s2D2 = MyRow(4, 22);
   final s2D3 = MyRow(5, 23);
 
   const dashPattern = <int>[2, 3];
 
-  List<RangeAnnotationSegment<num>> annotations1;
+  late List<RangeAnnotationSegment<num>> annotations1;
 
-  List<RangeAnnotationSegment<num>> annotations2;
+  late List<RangeAnnotationSegment<num>> annotations2;
 
-  List<LineAnnotationSegment<num>> annotations3;
+  late List<LineAnnotationSegment<num>> annotations3;
 
-  ConcreteChart _makeChart() {
+  ConcreteChart makeChart() {
     final chart = ConcreteChart();
 
-    final context = MockContext();
+    final context = MockChartContext();
     when(context.chartContainerIsRtl).thenReturn(false);
     when(context.isRtl).thenReturn(false);
     chart.context = context;
@@ -116,7 +108,7 @@ void main() {
       ConcreteChart chart, List<Series<MyRow, int>> seriesList) {
     var graphicsFactory = MockGraphicsFactory();
     var drawStrategy = MockTickDrawStrategy();
-    var tickProvider = MockTickProvider();
+    var tickProvider = MockNumericTickProvider();
     var ticks = <Tick<num>>[];
     when(tickProvider.getTicks(
       context: anyNamed('context'),
@@ -151,7 +143,7 @@ void main() {
 
     chart0.getMeasureAxis().layout(measureAxisBounds, drawBounds);
 
-    chart0.lastListener.onAxisConfigured();
+    chart0.lastListener!.onAxisConfigured!();
   }
 
   setUpAll(() {
@@ -161,7 +153,7 @@ void main() {
   });
 
   setUp(() {
-    chart0 = _makeChart();
+    chart0 = makeChart();
 
     series1 = Series<MyRow, int>(
         id: 's1',
@@ -246,7 +238,7 @@ void main() {
           equals(true));
 
       // Verify measure annotations
-      expect(chart0.getMeasureAxis().getLocation(11).round(), equals(33));
+      expect(chart0.getMeasureAxis().getLocation(11)!.round(), equals(33));
       expect(
           tester.doesAnnotationExist(
               startPosition: 0.0,

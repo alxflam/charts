@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -17,7 +15,6 @@
 
 import 'dart:math' show Point, Rectangle;
 
-import 'package:charts_common/src/chart/cartesian/cartesian_chart.dart';
 import 'package:charts_common/src/chart/cartesian/axis/axis.dart';
 import 'package:charts_common/src/chart/common/base_chart.dart';
 import 'package:charts_common/src/chart/common/behavior/line_point_highlighter.dart';
@@ -32,41 +29,11 @@ import 'package:charts_common/src/data/series.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockChart extends Mock implements CartesianChart {
-  LifecycleListener lastListener;
-
-  @override
-  LifecycleListener addLifecycleListener(LifecycleListener listener) =>
-      lastListener = listener;
-
-  @override
-  bool removeLifecycleListener(LifecycleListener listener) {
-    expect(listener, equals(lastListener));
-    lastListener = null;
-    return true;
-  }
-
-  @override
-  bool get vertical => true;
-}
-
-class MockSelectionModel extends Mock implements MutableSelectionModel {
-  SelectionModelListener lastListener;
-
-  @override
-  void addSelectionChangedListener(SelectionModelListener listener) =>
-      lastListener = listener;
-
-  @override
-  void removeSelectionChangedListener(SelectionModelListener listener) {
-    expect(listener, equals(lastListener));
-    lastListener = null;
-  }
-}
+import '../../../mocks.mocks.dart';
 
 class MockNumericAxis extends Mock implements NumericAxis {
   @override
-  double getLocation(num domain) {
+  double? getLocation(num? domain) {
     return 10.0;
   }
 }
@@ -84,11 +51,11 @@ class MockSeriesRenderer<D> extends BaseSeriesRenderer<D> {
   List<DatumDetails<D>> getNearestDatumDetailPerSeries(
     Point<double> chartPoint,
     bool byDomain,
-    Rectangle<int> boundsOverride, {
+    Rectangle<int>? boundsOverride, {
     selectOverlappingPoints = false,
     selectExactEventLocation = false,
   }) =>
-      null;
+      [];
 
   @override
   DatumDetails<D> addPositionToDetailsForSeriesDatum(
@@ -98,21 +65,23 @@ class MockSeriesRenderer<D> extends BaseSeriesRenderer<D> {
 }
 
 void main() {
-  MockChart chart;
-  MockSelectionModel selectionModel;
-  MockSeriesRenderer seriesRenderer;
+  late MockCartesianChart chart;
+  late MockMutableSelectionModel selectionModel;
+  late MockSeriesRenderer seriesRenderer;
+  SelectionModelListener? lastSelectionChangedListener;
+  LifecycleListener? chartLastListener;
 
-  MutableSeries<int> series1;
+  late MutableSeries<int> series1;
   final s1D1 = MyRow(1, 11);
   final s1D2 = MyRow(2, 12);
   final s1D3 = MyRow(3, 13);
 
-  MutableSeries<int> series2;
+  late MutableSeries<int> series2;
   final s2D1 = MyRow(4, 21);
   final s2D2 = MyRow(5, 22);
   final s2D3 = MyRow(6, 23);
 
-  List<DatumDetails> _mockGetSelectedDatumDetails(List<SeriesDatum> selection) {
+  List<DatumDetails> mockGetSelectedDatumDetails(List<SeriesDatum> selection) {
     final details = <DatumDetails>[];
 
     for (SeriesDatum seriesDatum in selection) {
@@ -122,12 +91,24 @@ void main() {
     return details;
   }
 
-  void _setupSelection(List<SeriesDatum> selection) {
+  void setupSelection(List<SeriesDatum> selection) {
     final selected = <MyRow>[];
 
     for (var i = 0; i < selection.length; i++) {
       selected.add(selection[0].datum as MyRow);
     }
+
+    when(selectionModel.addSelectionChangedListener(any))
+        .thenAnswer((invocation) {
+      lastSelectionChangedListener = invocation.positionalArguments[0];
+    });
+
+    when(selectionModel.removeSelectionChangedListener(any))
+        .thenAnswer((invocation) {
+      expect(invocation.positionalArguments[0],
+          equals(lastSelectionChangedListener));
+      lastSelectionChangedListener = null;
+    });
 
     for (int i = 0; i < series1.data.length; i++) {
       when(selectionModel.isDatumSelected(series1, i))
@@ -140,20 +121,28 @@ void main() {
 
     when(selectionModel.selectedDatum).thenReturn(selection);
 
-    final selectedDetails = _mockGetSelectedDatumDetails(selection);
+    final selectedDetails = mockGetSelectedDatumDetails(selection);
 
     when(chart.getSelectedDatumDetails(SelectionModelType.info))
         .thenReturn(selectedDetails);
   }
 
   setUp(() {
-    chart = MockChart();
+    chart = MockCartesianChart();
+
+    when(chart.vertical).thenReturn(true);
+    when(chart.addLifecycleListener(any)).thenAnswer(
+        (invocation) => chartLastListener = invocation.positionalArguments[0]);
+
+    when(chart.removeLifecycleListener(any)).thenAnswer((invocation) {
+      expect(invocation.positionalArguments[0], equals(chartLastListener));
+      chartLastListener = null;
+      return true;
+    });
 
     seriesRenderer = MockSeriesRenderer();
 
-    selectionModel = MockSelectionModel();
-    when(chart.getSelectionModel(SelectionModelType.info))
-        .thenReturn(selectionModel);
+    selectionModel = MockMutableSelectionModel();
 
     series1 = MutableSeries(Series<MyRow, int>(
         id: 's1',
@@ -177,12 +166,15 @@ void main() {
       // Setup
       final behavior =
           LinePointHighlighter(selectionModelType: SelectionModelType.info);
-      final tester = LinePointHighlighterTester(behavior);
-      behavior.attachTo(chart);
-      _setupSelection([
+      when(chart.getSelectionModel(SelectionModelType.info))
+          .thenReturn(selectionModel);
+      setupSelection([
         SeriesDatum(series1, s1D2),
         SeriesDatum(series2, s2D2),
       ]);
+
+      final tester = LinePointHighlighterTester(behavior);
+      behavior.attachTo(chart);
 
       // Mock axes for returning fake domain locations.
       Axis domainAxis = MockNumericAxis();
@@ -197,10 +189,10 @@ void main() {
       series2.measureOffsetFn = (_) => 0.0;
 
       // Act
-      selectionModel.lastListener(selectionModel);
+      lastSelectionChangedListener!(selectionModel);
       verify(chart.redraw(skipAnimation: true, skipLayout: true));
 
-      chart.lastListener.onAxisConfigured();
+      chartLastListener!.onAxisConfigured!();
 
       // Verify
       expect(tester.getSelectionLength(), equals(2));
@@ -233,14 +225,17 @@ void main() {
       // Setup
       final behavior =
           LinePointHighlighter(selectionModelType: SelectionModelType.info);
+      when(chart.getSelectionModel(SelectionModelType.info))
+          .thenReturn(selectionModel);
+      setupSelection([]);
+
       final tester = LinePointHighlighterTester(behavior);
       behavior.attachTo(chart);
-      _setupSelection([]);
 
       // Act
-      selectionModel.lastListener(selectionModel);
+      lastSelectionChangedListener!(selectionModel);
       verify(chart.redraw(skipAnimation: true, skipLayout: true));
-      chart.lastListener.onAxisConfigured();
+      chartLastListener!.onAxisConfigured!();
 
       // Verify
       expect(tester.getSelectionLength(), equals(0));
@@ -258,18 +253,21 @@ void main() {
       // Setup
       final behavior =
           LinePointHighlighter(selectionModelType: SelectionModelType.info);
-      behavior.attachTo(chart);
-      _setupSelection([
+      when(chart.getSelectionModel(SelectionModelType.info))
+          .thenReturn(selectionModel);
+      setupSelection([
         SeriesDatum(series1, s1D2),
         SeriesDatum(series2, s2D2),
       ]);
+
+      behavior.attachTo(chart);
 
       // Act
       behavior.removeFrom(chart);
 
       // Verify
-      expect(chart.lastListener, isNull);
-      expect(selectionModel.lastListener, isNull);
+      expect(chartLastListener, isNull);
+      expect(lastSelectionChangedListener, isNull);
     });
   });
 }

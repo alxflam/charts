@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -33,7 +31,7 @@ class MyRow {
   final int campaign;
   final int clickCount;
   final Color color;
-  final List<int> dashPattern;
+  final List<int>? dashPattern;
   final double strokeWidthPx;
   MyRow(this.campaignString, this.campaign, this.clickCount, this.color,
       this.dashPattern, this.strokeWidthPx);
@@ -48,13 +46,13 @@ class MockImmutableSeries<D> extends Mock implements ImmutableSeries<D> {
 }
 
 void main() {
-  LineRenderer renderer;
-  List<MutableSeries<int>> numericSeriesList;
-  List<MutableSeries<String>> ordinalSeriesList;
+  late LineRenderer renderer;
+  late List<MutableSeries<int>> numericSeriesList;
+  late List<MutableSeries<String>> ordinalSeriesList;
 
-  List<MyRow> myFakeDesktopData;
-  List<MyRow> myFakeTabletData;
-  List<MyRow> myFakeMobileData;
+  late List<MyRow> myFakeDesktopData;
+  late List<MyRow> myFakeTabletData;
+  late List<MyRow> myFakeMobileData;
 
   setUp(() {
     myFakeDesktopData = [
@@ -153,7 +151,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       var segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -162,16 +160,16 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(2.0));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
 
       // Validate Tablet series.
       series = numericSeriesList[1];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.red.shadeDefault));
@@ -180,16 +178,16 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(1.25));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
 
       // Validate Mobile series.
       series = numericSeriesList[2];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.green.shadeDefault));
@@ -198,10 +196,10 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(3.0));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
     });
 
     test('with numeric data and stacked lines', () {
@@ -217,7 +215,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       var segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -226,16 +224,16 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(2.0));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
 
       // Validate Tablet series.
       series = numericSeriesList[1];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.red.shadeDefault));
@@ -244,16 +242,16 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(1.25));
 
-      expect(series.measureOffsetFn(0), 5);
-      expect(series.measureOffsetFn(1), 25);
-      expect(series.measureOffsetFn(2), 100);
-      expect(series.measureOffsetFn(3), 75);
+      expect(series.measureOffsetFn!(0), 5);
+      expect(series.measureOffsetFn!(1), 25);
+      expect(series.measureOffsetFn!(2), 100);
+      expect(series.measureOffsetFn!(3), 75);
 
       // Validate Mobile series.
       series = numericSeriesList[2];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.green.shadeDefault));
@@ -262,10 +260,10 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(3.0));
 
-      expect(series.measureOffsetFn(0), 10);
-      expect(series.measureOffsetFn(1), 50);
-      expect(series.measureOffsetFn(2), 200);
-      expect(series.measureOffsetFn(3), 150);
+      expect(series.measureOffsetFn!(0), 10);
+      expect(series.measureOffsetFn!(1), 50);
+      expect(series.measureOffsetFn!(2), 200);
+      expect(series.measureOffsetFn!(3), 150);
     });
 
     test('with numeric data and changes in style', () {
@@ -311,7 +309,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(3));
+      expect(styleSegments!.length, equals(3));
 
       var segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -334,16 +332,16 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(2.0));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
 
       // Validate Tablet series.
       series = numericSeriesList[1];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(3));
+      expect(styleSegments!.length, equals(3));
 
       segment = segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -366,16 +364,16 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(2.0));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
 
       // Validate Mobile series.
       series = numericSeriesList[2];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(3));
+      expect(styleSegments!.length, equals(3));
 
       segment = segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -398,10 +396,10 @@ void main() {
       expect(segment.domainExtent.end, equals(4));
       expect(segment.strokeWidthPx, equals(4.0));
 
-      expect(series.measureOffsetFn(0), 0);
-      expect(series.measureOffsetFn(1), 0);
-      expect(series.measureOffsetFn(2), 0);
-      expect(series.measureOffsetFn(3), 0);
+      expect(series.measureOffsetFn!(0), 0);
+      expect(series.measureOffsetFn!(1), 0);
+      expect(series.measureOffsetFn!(2), 0);
+      expect(series.measureOffsetFn!(3), 0);
     });
 
     test('with numeric data and repeats in style', () {
@@ -448,7 +446,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(8));
+      expect(styleSegments!.length, equals(8));
 
       var segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -504,7 +502,7 @@ void main() {
       var series = ordinalSeriesList[0];
 
       var styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       var segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.blue.shadeDefault));
@@ -517,7 +515,7 @@ void main() {
       series = ordinalSeriesList[1];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.red.shadeDefault));
@@ -530,7 +528,7 @@ void main() {
       series = ordinalSeriesList[2];
 
       styleSegments = series.getAttr(styleSegmentsKey);
-      expect(styleSegments.length, equals(1));
+      expect(styleSegments!.length, equals(1));
 
       segment = styleSegments[0];
       expect(segment.color, equals(MaterialPalette.green.shadeDefault));

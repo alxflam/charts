@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2019 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -24,9 +22,9 @@ void main() {
   final DateTime testDate1 = DateTime.utc(1984, 11, 11);
   final DateTime testDate2 = DateTime.utc(1984, 11, 12);
 
-  SimpleTimeTickFormatter simpleTimeFormatter;
-  SimpleTimeTickFormatter simpleTimeFormatterWithDateFormat;
-  DateFormat dateFormat;
+  late SimpleTimeTickFormatter simpleTimeFormatter;
+  late SimpleTimeTickFormatter simpleTimeFormatterWithDateFormat;
+  late DateFormat dateFormat;
 
   String testFormatter(DateTime dateTime) {
     return tickLabel;

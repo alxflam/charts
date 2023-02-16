@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -23,31 +21,28 @@ import 'package:charts_common/src/chart/cartesian/axis/tick.dart';
 import 'package:charts_common/src/chart/common/chart_canvas.dart';
 import 'package:charts_common/src/chart/common/chart_context.dart';
 import 'package:charts_common/src/common/graphics_factory.dart';
-import 'package:charts_common/src/common/line_style.dart';
 import 'package:charts_common/src/common/text_element.dart';
 import 'package:charts_common/src/common/text_measurement.dart';
-import 'package:charts_common/src/common/text_style.dart';
-import 'package:meta/meta.dart' show required;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockContext extends Mock implements ChartContext {}
+import '../../../../mocks.mocks.dart';
 
 /// Implementation of [BaseTickDrawStrategy] that does nothing on draw.
 class BaseTickDrawStrategyImpl<D> extends BaseTickDrawStrategy<D> {
   BaseTickDrawStrategyImpl(
       ChartContext chartContext, GraphicsFactory graphicsFactory,
-      {TextStyleSpec labelStyleSpec,
-      LineStyleSpec axisLineStyleSpec,
-      TickLabelAnchor labelAnchor,
-      TickLabelJustification labelJustification,
-      int labelOffsetFromAxisPx,
-      int labelCollisionOffsetFromAxisPx,
-      int labelOffsetFromTickPx,
-      int labelCollisionOffsetFromTickPx,
-      int minimumPaddingBetweenLabelsPx,
-      int labelRotation,
-      int labelCollisionRotation})
+      {TextStyleSpec? labelStyleSpec,
+      LineStyleSpec? axisLineStyleSpec,
+      TickLabelAnchor? labelAnchor,
+      TickLabelJustification? labelJustification,
+      int? labelOffsetFromAxisPx,
+      int? labelCollisionOffsetFromAxisPx,
+      int? labelOffsetFromTickPx,
+      int? labelCollisionOffsetFromTickPx,
+      int? minimumPaddingBetweenLabelsPx,
+      int? labelRotation,
+      int? labelCollisionRotation})
       : super(chartContext, graphicsFactory,
             labelStyleSpec: labelStyleSpec,
             axisLineStyleSpec: axisLineStyleSpec,
@@ -65,11 +60,11 @@ class BaseTickDrawStrategyImpl<D> extends BaseTickDrawStrategy<D> {
   void draw(
     ChartCanvas canvas,
     Tick<D> tick, {
-    @required AxisOrientation orientation,
-    @required Rectangle<int> axisBounds,
-    @required Rectangle<int> drawAreaBounds,
-    @required bool isFirst,
-    @required bool isLast,
+    required AxisOrientation orientation,
+    required Rectangle<int> axisBounds,
+    required Rectangle<int> drawAreaBounds,
+    required bool isFirst,
+    required bool isLast,
     bool collision = false,
   }) {}
 
@@ -77,11 +72,11 @@ class BaseTickDrawStrategyImpl<D> extends BaseTickDrawStrategy<D> {
   void drawLabel(
     ChartCanvas canvas,
     Tick<D> tick, {
-    @required AxisOrientation orientation,
-    @required Rectangle<int> axisBounds,
-    @required Rectangle<int> drawAreaBounds,
-    bool isFirst = false,
-    bool isLast = false,
+    required AxisOrientation orientation,
+    required Rectangle<int> axisBounds,
+    required Rectangle<int>? drawAreaBounds,
+    required bool isFirst,
+    required bool isLast,
     bool collision = false,
   }) {
     super.drawLabel(canvas, tick,
@@ -110,14 +105,15 @@ class FakeTextElement implements TextElement {
   var textStyle = MockTextStyle();
 
   @override
-  int maxWidth;
+  int? maxWidth;
 
   @override
-  MaxWidthStrategy maxWidthStrategy;
+  MaxWidthStrategy? maxWidthStrategy;
 
   @override
   TextDirection textDirection;
-  double opacity;
+
+  double? opacity;
 
   FakeTextElement(
     this.text,
@@ -130,19 +126,11 @@ class FakeTextElement implements TextElement {
                 verticalSliceWidth ?? _defaultVerticalSliceWidth);
 }
 
-class MockGraphicsFactory extends Mock implements GraphicsFactory {}
-
-class MockLineStyle extends Mock implements LineStyle {}
-
-class MockTextStyle extends Mock implements TextStyle {}
-
-class MockChartCanvas extends Mock implements ChartCanvas {}
-
 /// Helper function to create [Tick] for testing.
 Tick<String> createTick(String value, double locationPx,
-    {double horizontalWidth,
-    double verticalWidth,
-    TextDirection textDirection,
+    {double horizontalWidth = 0,
+    double verticalWidth = 0,
+    TextDirection textDirection = TextDirection.ltr,
     bool collision = false}) {
   return Tick<String>(
       value: value,
@@ -152,15 +140,15 @@ Tick<String> createTick(String value, double locationPx,
 }
 
 void main() {
-  GraphicsFactory graphicsFactory;
-  ChartContext chartContext;
+  late GraphicsFactory graphicsFactory;
+  late ChartContext chartContext;
 
   setUpAll(() {
     graphicsFactory = MockGraphicsFactory();
     when(graphicsFactory.createLinePaint()).thenReturn(MockLineStyle());
     when(graphicsFactory.createTextPaint()).thenReturn(MockTextStyle());
 
-    chartContext = MockContext();
+    chartContext = MockChartContext();
     when(chartContext.chartContainerIsRtl).thenReturn(false);
     when(chartContext.isRtl).thenReturn(false);
   });
@@ -459,7 +447,7 @@ void main() {
     });
   });
   group('Draw Label', () {
-    void setUpLabel(String text, {double width}) =>
+    void setUpLabel(String text, {required double width}) =>
         when(graphicsFactory.createTextElement(text))
             .thenReturn(FakeTextElement(
           text,
@@ -468,8 +456,8 @@ void main() {
           15.0,
         ));
 
-    BaseTickDrawStrategyImpl drawStrategy;
-    List<Tick> ticks;
+    late BaseTickDrawStrategyImpl drawStrategy;
+    late List<Tick> ticks;
 
     setUp(() {
       drawStrategy = BaseTickDrawStrategyImpl(chartContext, graphicsFactory);
@@ -519,13 +507,12 @@ void main() {
       final chartCanvas = MockChartCanvas();
       final axisBounds = Rectangle<int>(0, 0, 1000, 1000);
 
-      drawStrategy.drawLabel(
-        chartCanvas,
-        ticks.first,
-        orientation: AxisOrientation.bottom,
-        axisBounds: axisBounds,
-        drawAreaBounds: null,
-      );
+      drawStrategy.drawLabel(chartCanvas, ticks.first,
+          orientation: AxisOrientation.bottom,
+          axisBounds: axisBounds,
+          drawAreaBounds: null,
+          isFirst: false,
+          isLast: false);
 
       // The y-coordinate should increase by the line's height + padding.
       final labelLine1 =
@@ -551,13 +538,12 @@ void main() {
       final chartCanvas = MockChartCanvas();
       final axisBounds = Rectangle<int>(0, 0, 1000, 1000);
 
-      drawStrategy.drawLabel(
-        chartCanvas,
-        ticks[1],
-        orientation: AxisOrientation.top,
-        axisBounds: axisBounds,
-        drawAreaBounds: null,
-      );
+      drawStrategy.drawLabel(chartCanvas, ticks[1],
+          orientation: AxisOrientation.top,
+          axisBounds: axisBounds,
+          drawAreaBounds: null,
+          isFirst: false,
+          isLast: false);
 
       final labelLine =
           verify(chartCanvas.drawText(captureAny, 20, 980, rotation: 0))
@@ -571,7 +557,7 @@ void main() {
     const collisionRotationDegrees = 45;
     const collisionRotationRadians = 0.7853981633974483;
 
-    void setUpLabel(String text, {double width}) =>
+    void setUpLabel(String text, {required double width}) =>
         when(graphicsFactory.createTextElement(text))
             .thenReturn(FakeTextElement(
           text,
@@ -580,8 +566,8 @@ void main() {
           15.0,
         ));
 
-    BaseTickDrawStrategyImpl drawStrategy;
-    List<Tick> ticks;
+    late BaseTickDrawStrategyImpl drawStrategy;
+    late List<Tick> ticks;
 
     setUp(() {
       drawStrategy = BaseTickDrawStrategyImpl(chartContext, graphicsFactory,
@@ -645,14 +631,13 @@ void main() {
       final chartCanvas = MockChartCanvas();
       final axisBounds = Rectangle<int>(0, 0, 1000, 1000);
 
-      drawStrategy.drawLabel(
-        chartCanvas,
-        ticks.first,
-        orientation: AxisOrientation.bottom,
-        axisBounds: axisBounds,
-        drawAreaBounds: null,
-        collision: true,
-      );
+      drawStrategy.drawLabel(chartCanvas, ticks.first,
+          orientation: AxisOrientation.bottom,
+          axisBounds: axisBounds,
+          drawAreaBounds: null,
+          collision: true,
+          isFirst: false,
+          isLast: false);
 
       // The y-coordinate should increase by the line's height + padding.
       final labelLine1 = verify(chartCanvas.drawText(captureAny, -5, 5,
@@ -678,14 +663,13 @@ void main() {
       final chartCanvas = MockChartCanvas();
       final axisBounds = Rectangle<int>(0, 0, 1000, 1000);
 
-      drawStrategy.drawLabel(
-        chartCanvas,
-        ticks[1],
-        orientation: AxisOrientation.top,
-        axisBounds: axisBounds,
-        drawAreaBounds: null,
-        collision: true,
-      );
+      drawStrategy.drawLabel(chartCanvas, ticks[1],
+          orientation: AxisOrientation.top,
+          axisBounds: axisBounds,
+          drawAreaBounds: null,
+          collision: true,
+          isFirst: false,
+          isLast: false);
 
       final labelLine = verify(chartCanvas.drawText(captureAny, 15, 980,
               rotation: collisionRotationRadians))
@@ -696,7 +680,7 @@ void main() {
   });
 
   group('Adjust width of labels based on size', () {
-    void setUpLabel(String text, {double width}) =>
+    void setUpLabel(String text, {required double width}) =>
         when(graphicsFactory.createTextElement(text))
             .thenReturn(FakeTextElement(
           text,
@@ -705,8 +689,8 @@ void main() {
           15.0,
         ));
 
-    BaseTickDrawStrategyImpl drawStrategy;
-    List<Tick> ticks;
+    late BaseTickDrawStrategyImpl drawStrategy;
+    late List<Tick> ticks;
 
     setUp(() {
       ticks = [
@@ -724,12 +708,12 @@ void main() {
           labelOffsetFromTickPx: 0, labelOffsetFromAxisPx: 0);
 
       drawStrategy.updateTickWidth(ticks, 25, 500, AxisOrientation.left);
-      expect(ticks.first.textElement.maxWidth, 25);
+      expect(ticks.first.textElement!.maxWidth, 25);
+      expect(ticks.first.textElement!.maxWidthStrategy,
+          MaxWidthStrategy.ellipsize);
+      expect(ticks.last.textElement!.maxWidth, 25);
       expect(
-          ticks.first.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
-      expect(ticks.last.textElement.maxWidth, 25);
-      expect(
-          ticks.last.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
+          ticks.last.textElement!.maxWidthStrategy, MaxWidthStrategy.ellipsize);
     });
 
     test('Sets max width for vertical labels that are parallel to the axis ',
@@ -740,10 +724,10 @@ void main() {
           labelRotation: 90);
 
       drawStrategy.updateTickWidth(ticks, 25, 500, AxisOrientation.left);
-      expect(ticks.first.textElement.maxWidth, null);
-      expect(ticks.first.textElement.maxWidthStrategy, null);
-      expect(ticks.last.textElement.maxWidth, null);
-      expect(ticks.last.textElement.maxWidthStrategy, null);
+      expect(ticks.first.textElement!.maxWidth, null);
+      expect(ticks.first.textElement!.maxWidthStrategy, null);
+      expect(ticks.last.textElement!.maxWidth, null);
+      expect(ticks.last.textElement!.maxWidthStrategy, null);
     });
 
     test('Sets max width for vertical labels that are angled', () {
@@ -753,12 +737,12 @@ void main() {
           labelRotation: 45);
 
       drawStrategy.updateTickWidth(ticks, 25, 500, AxisOrientation.left);
-      expect(ticks.first.textElement.maxWidth, 35);
+      expect(ticks.first.textElement!.maxWidth, 35);
+      expect(ticks.first.textElement!.maxWidthStrategy,
+          MaxWidthStrategy.ellipsize);
+      expect(ticks.last.textElement!.maxWidth, 35);
       expect(
-          ticks.first.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
-      expect(ticks.last.textElement.maxWidth, 35);
-      expect(
-          ticks.last.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
+          ticks.last.textElement!.maxWidthStrategy, MaxWidthStrategy.ellipsize);
     });
 
     test('Sets max width for horizontal labels', () {
@@ -772,12 +756,12 @@ void main() {
       );
 
       drawStrategy.updateTickWidth(ticks, 500, 25, AxisOrientation.bottom);
-      expect(ticks.first.textElement.maxWidth, 25);
+      expect(ticks.first.textElement!.maxWidth, 25);
+      expect(ticks.first.textElement!.maxWidthStrategy,
+          MaxWidthStrategy.ellipsize);
+      expect(ticks.last.textElement!.maxWidth, 25);
       expect(
-          ticks.first.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
-      expect(ticks.last.textElement.maxWidth, 25);
-      expect(
-          ticks.last.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
+          ticks.last.textElement!.maxWidthStrategy, MaxWidthStrategy.ellipsize);
     });
 
     test('Sets max width for horizontal labels that are parallel to the axis',
@@ -790,10 +774,10 @@ void main() {
       );
 
       drawStrategy.updateTickWidth(ticks, 500, 25, AxisOrientation.bottom);
-      expect(ticks.first.textElement.maxWidth, null);
-      expect(ticks.first.textElement.maxWidthStrategy, null);
-      expect(ticks.last.textElement.maxWidth, null);
-      expect(ticks.last.textElement.maxWidthStrategy, null);
+      expect(ticks.first.textElement!.maxWidth, null);
+      expect(ticks.first.textElement!.maxWidthStrategy, null);
+      expect(ticks.last.textElement!.maxWidth, null);
+      expect(ticks.last.textElement!.maxWidthStrategy, null);
     });
 
     test('Sets max width for horizontal labels that are angled', () {
@@ -806,12 +790,12 @@ void main() {
       );
 
       drawStrategy.updateTickWidth(ticks, 500, 25, AxisOrientation.bottom);
-      expect(ticks.first.textElement.maxWidth, 35);
+      expect(ticks.first.textElement!.maxWidth, 35);
+      expect(ticks.first.textElement!.maxWidthStrategy,
+          MaxWidthStrategy.ellipsize);
+      expect(ticks.last.textElement!.maxWidth, 35);
       expect(
-          ticks.first.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
-      expect(ticks.last.textElement.maxWidth, 35);
-      expect(
-          ticks.last.textElement.maxWidthStrategy, MaxWidthStrategy.ellipsize);
+          ticks.last.textElement!.maxWidthStrategy, MaxWidthStrategy.ellipsize);
     });
   });
 }
