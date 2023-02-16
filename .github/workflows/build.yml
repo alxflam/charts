@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, edited]
+
+jobs:
+
+  charts_common:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/charts/charts_common
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dart-lang/setup-dart@v1
+
+    - name: Install Dependencies
+      run: dart pub get
+    - name: Lint
+      run: dart analyze
+    - name: Format
+      run: dart format --output=none --set-exit-if-changed .
+    - name: Test
+      run: dart test
+
+  charts_flutter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/charts/charts_flutter
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+
+    - name: Install Dependencies
+      run: flutter pub get
+    - name: Lint
+      run: flutter analyze
+    - name: Format
+      run: dart format --output=none --set-exit-if-changed .
+    - name: Test
+      run: flutter test
