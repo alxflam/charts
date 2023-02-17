@@ -42,8 +42,8 @@ List<TextElement> wrapLabelLines(TextElement labelElement,
   if (maxWidth.toInt() <= 0 || maxLines <= 0) return <TextElement>[];
 
   createTextElement(String text) => graphicsFactory.createTextElement(text)
-        ..textStyle = textStyle
-        ..textDirection = textDirection;
+    ..textStyle = textStyle
+    ..textDirection = textDirection;
 
   if (!multiline) {
     labelElement

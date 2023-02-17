@@ -124,8 +124,7 @@ class TreeMapRendererElement<D> {
   }
 
   @override
-  String toString() =>
-      '$runtimeType${{
+  String toString() => '$runtimeType${{
         'boundingRect': boundingRect,
         'area': area,
         'strokeColor': strokeColor,
