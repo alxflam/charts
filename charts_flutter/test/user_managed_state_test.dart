@@ -21,9 +21,8 @@ import 'package:charts_flutter/flutter.dart' as charts;
 void main() {
   testWidgets('selection can be set programmatically',
       (WidgetTester tester) async {
-    final onTapSelection =
-        charts.UserManagedSelectionModel<String>.fromConfig(
-            selectedDataConfig: [
+    final onTapSelection = charts.UserManagedSelectionModel<String>.fromConfig(
+        selectedDataConfig: [
           charts.SeriesDatumConfig<String>('Sales', '2016')
         ]);
 

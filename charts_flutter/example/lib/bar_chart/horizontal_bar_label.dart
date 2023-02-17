@@ -87,8 +87,7 @@ class HorizontalBarLabelChart extends StatelessWidget {
       //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
       barRendererDecorator: charts.BarLabelDecorator<String>(),
       // Hide domain axis.
-      domainAxis:
-          charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis: charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
   }
 

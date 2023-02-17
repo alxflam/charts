@@ -100,8 +100,7 @@ class StaticallyProvidedTicks extends StatelessWidget {
       seriesList,
       animate: animate,
       domainAxis: charts.OrdinalAxisSpec(
-          tickProviderSpec:
-              charts.StaticOrdinalTickProviderSpec(staticTicks)),
+          tickProviderSpec: charts.StaticOrdinalTickProviderSpec(staticTicks)),
     );
   }
 

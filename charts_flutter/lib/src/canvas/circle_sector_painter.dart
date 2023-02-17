@@ -53,8 +53,7 @@ class CircleSectorPainter {
         innerRadius * cos(endAngle) + center.x,
         innerRadius * sin(endAngle) + center.y);
 
-    final radiusStartPoint = Point<double>(
-        radius * cos(startAngle) + center.x,
+    final radiusStartPoint = Point<double>(radius * cos(startAngle) + center.x,
         radius * sin(startAngle) + center.y);
 
     final centerOffset = Offset(center.x.toDouble(), center.y.toDouble());

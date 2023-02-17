@@ -89,8 +89,8 @@ class CustomFontSizeAndColor extends StatelessWidget {
                   color: charts.MaterialPalette.black),
 
               // Change the line colors to match text color.
-              lineStyle: charts.LineStyleSpec(
-                  color: charts.MaterialPalette.black))),
+              lineStyle:
+                  charts.LineStyleSpec(color: charts.MaterialPalette.black))),
 
       /// Assign a custom style for the measure axis.
       primaryMeasureAxis: charts.NumericAxisSpec(
@@ -102,8 +102,8 @@ class CustomFontSizeAndColor extends StatelessWidget {
                   color: charts.MaterialPalette.black),
 
               // Change the line colors to match text color.
-              lineStyle: charts.LineStyleSpec(
-                  color: charts.MaterialPalette.black))),
+              lineStyle:
+                  charts.LineStyleSpec(color: charts.MaterialPalette.black))),
     );
   }
 

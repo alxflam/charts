@@ -84,10 +84,8 @@ class TimeSeriesRangeAnnotationMarginChart extends StatelessWidget {
           // Define one domain and two measure annotations configured to render
           // labels in the chart margins.
           charts.RangeAnnotation([
-            charts.RangeAnnotationSegment(
-                DateTime(2017, 10, 4),
-                DateTime(2017, 10, 15),
-                charts.RangeAnnotationAxisType.domain,
+            charts.RangeAnnotationSegment(DateTime(2017, 10, 4),
+                DateTime(2017, 10, 15), charts.RangeAnnotationAxisType.domain,
                 startLabel: 'D1 Start',
                 endLabel: 'D1 End',
                 labelAnchor: charts.AnnotationLabelAnchor.end,

@@ -94,8 +94,8 @@ class CustomAxisTickFormatters extends StatelessWidget {
     return charts.TimeSeriesChart(seriesList,
         animate: animate,
         // Sets up a currency formatter for the measure axis.
-        primaryMeasureAxis: charts.NumericAxisSpec(
-            tickFormatterSpec: simpleCurrencyFormatter),
+        primaryMeasureAxis:
+            charts.NumericAxisSpec(tickFormatterSpec: simpleCurrencyFormatter),
 
         /// Customizes the date tick formatter. It will print the day of month
         /// as the default format, but include the month and year if it

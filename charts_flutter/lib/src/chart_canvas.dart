@@ -332,11 +332,8 @@ class ChartCanvas implements common.ChartCanvas {
 
   /// Convert dart:math [Rectangle] to Flutter [Rect].
   Rect _getRect(Rectangle<num> rectangle) {
-    return Rect.fromLTWH(
-        rectangle.left.toDouble(),
-        rectangle.top.toDouble(),
-        rectangle.width.toDouble(),
-        rectangle.height.toDouble());
+    return Rect.fromLTWH(rectangle.left.toDouble(), rectangle.top.toDouble(),
+        rectangle.width.toDouble(), rectangle.height.toDouble());
   }
 
   /// Convert dart:math [Rectangle] and to Flutter [RRect].
@@ -348,8 +345,7 @@ class ChartCanvas implements common.ChartCanvas {
     bool roundBottomLeft = false,
     bool roundBottomRight = false,
   }) {
-    final cornerRadius =
-        radius == 0 ? Radius.zero : Radius.circular(radius);
+    final cornerRadius = radius == 0 ? Radius.zero : Radius.circular(radius);
 
     return RRect.fromLTRBAndCorners(
         rectangle.left.toDouble(),
@@ -375,8 +371,8 @@ class ChartCanvas implements common.ChartCanvas {
     fill ??= common.StyleFactory.style.black;
 
     // Fill in the shape with a solid background color.
-    _paint.color = Color.fromARGB(
-        background.a, background.r, background.g, background.b);
+    _paint.color =
+        Color.fromARGB(background.a, background.r, background.g, background.b);
     _paint.style = PaintingStyle.fill;
 
     // Apply a gradient the background if bounds exceed the draw area.

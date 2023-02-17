@@ -84,18 +84,12 @@ class BucketingAxisScatterPlotChart extends StatelessWidget {
 
     // Make sure that the "Other" series values are smaller.
     final myFakeOtherData = [
-      LinearSales(
-          random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
-      LinearSales(
-          random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
-      LinearSales(
-          random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
-      LinearSales(
-          random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
-      LinearSales(
-          random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
-      LinearSales(
-          random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
+      LinearSales(random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
+      LinearSales(random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
+      LinearSales(random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
+      LinearSales(random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
+      LinearSales(random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
+      LinearSales(random.nextInt(100), random.nextInt(50) / 100, makeRadius(6)),
     ];
 
     return [
@@ -161,8 +155,8 @@ class BucketingAxisScatterPlotChart extends StatelessWidget {
         // threshold.
         primaryMeasureAxis: charts.BucketingAxisSpec(
             threshold: 0.1,
-            tickProviderSpec: charts.BucketingNumericTickProviderSpec(
-                desiredTickCount: 3)),
+            tickProviderSpec:
+                charts.BucketingNumericTickProviderSpec(desiredTickCount: 3)),
         // Add a series legend to display the series names.
         behaviors: [
           charts.SeriesLegend(position: charts.BehaviorPosition.end),

@@ -104,8 +104,7 @@ class ComparisonPointsScatterPlotChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return charts.ScatterPlotChart(seriesList,
         animate: animate,
-        defaultRenderer:
-            charts.PointRendererConfig(pointRendererDecorators: [
+        defaultRenderer: charts.PointRendererConfig(pointRendererDecorators: [
           charts.ComparisonPointsDecorator(
               symbolRenderer: charts.CylinderSymbolRenderer())
         ]));

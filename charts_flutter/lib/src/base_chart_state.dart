@@ -120,8 +120,8 @@ class BaseChartState<D> extends State<BaseChart<D>>
     final idAndBehaviorMap = <String, BuildableBehavior>{};
 
     // Add the common chart canvas widget.
-    chartWidgets.add(LayoutId(
-        id: chartContainerLayoutID, child: _buildChartContainer()));
+    chartWidgets.add(
+        LayoutId(id: chartContainerLayoutID, child: _buildChartContainer()));
 
     // Add widget for each behavior that can build widgets
     addedCommonBehaviorsByRole.forEach((id, behavior) {

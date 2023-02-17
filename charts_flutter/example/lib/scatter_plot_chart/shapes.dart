@@ -63,31 +63,31 @@ class ShapesScatterPlotChart extends StatelessWidget {
     final data = [
       LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
           'circle', null, null),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
       // Render a hollow circle, filled in with white.
-      LinearSales(random.nextInt(100), random.nextInt(100),
-          makeRadius(4) + 4, 'circle', charts.MaterialPalette.white, 2.0),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(4) + 4,
+          'circle', charts.MaterialPalette.white, 2.0),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
       LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
           'circle', null, null),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
       // Render a hollow circle, filled in with white.
-      LinearSales(random.nextInt(100), random.nextInt(100),
-          makeRadius(4) + 4, 'circle', charts.MaterialPalette.white, 2.0),
-      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6),
-          null, null, null),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(4) + 4,
+          'circle', charts.MaterialPalette.white, 2.0),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(6), null,
+          null, null),
       // Render a hollow square, filled in with white.
-      LinearSales(random.nextInt(100), random.nextInt(100),
-          makeRadius(4) + 4, null, charts.MaterialPalette.white, 2.0),
+      LinearSales(random.nextInt(100), random.nextInt(100), makeRadius(4) + 4,
+          null, charts.MaterialPalette.white, 2.0),
     ];
 
     const maxMeasure = 100;
@@ -143,16 +143,14 @@ class ShapesScatterPlotChart extends StatelessWidget {
       LinearSales(10, 25, 5.0, null, null, null),
       LinearSales(12, 75, 4.0, null, null, null),
       // Render a hollow circle, filled in with white.
-      LinearSales(
-          13, 225, 5.0, 'circle', charts.MaterialPalette.white, 2.0),
+      LinearSales(13, 225, 5.0, 'circle', charts.MaterialPalette.white, 2.0),
       LinearSales(16, 50, 4.0, null, null, null),
       LinearSales(24, 75, 3.0, null, null, null),
       LinearSales(25, 100, 3.0, 'circle', null, null),
       LinearSales(34, 150, 5.0, null, null, null),
       LinearSales(37, 10, 4.5, null, null, null),
       // Render a hollow circle, filled in with white.
-      LinearSales(
-          45, 300, 8.0, 'circle', charts.MaterialPalette.white, 2.0),
+      LinearSales(45, 300, 8.0, 'circle', charts.MaterialPalette.white, 2.0),
       LinearSales(52, 15, 4.0, null, null, null),
       // Render a hollow square, filled in with white.
       LinearSales(56, 200, 7.0, null, charts.MaterialPalette.white, 2.0),

@@ -102,8 +102,7 @@ class _SymbolCustomPaint extends CustomPainter {
         ? null
         : common.Color(
             r: color!.red, g: color!.green, b: color!.blue, a: color!.alpha);
-    symbolRenderer.paint(
-        ChartCanvas(canvas, GraphicsFactory(context)), bounds,
+    symbolRenderer.paint(ChartCanvas(canvas, GraphicsFactory(context)), bounds,
         fillColor: commonColor,
         strokeColor: commonColor,
         dashPattern: dashPattern);

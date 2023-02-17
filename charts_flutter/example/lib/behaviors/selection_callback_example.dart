@@ -181,8 +181,7 @@ class _SelectionCallbackState extends State<SelectionCallbackExample> {
     // If there is a selection, then include the details.
     if (_time != null) {
       children.add(Padding(
-          padding: EdgeInsets.only(top: 5.0),
-          child: Text(_time.toString())));
+          padding: EdgeInsets.only(top: 5.0), child: Text(_time.toString())));
     }
     _measures.forEach((String series, num value) {
       children.add(Text('${series}: ${value}'));

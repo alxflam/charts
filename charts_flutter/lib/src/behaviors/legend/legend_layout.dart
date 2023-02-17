@@ -124,8 +124,7 @@ class TabularLegendLayout implements LegendLayout {
         ? legendEntries.length
         : min(legendEntries.length, desiredMaxRows);
 
-    final rows =
-        List.generate(maxRows, (_) => TableRow(children: <Widget>[]));
+    final rows = List.generate(maxRows, (_) => TableRow(children: <Widget>[]));
     for (var i = 0; i < legendEntries.length; i++) {
       rows[i % maxRows].children!.add(legendEntries[i]);
     }
@@ -155,7 +154,6 @@ class TabularLegendLayout implements LegendLayout {
     // Sizing the column width using [IntrinsicColumnWidth] is expensive per
     // Flutter's documentation, but has to be used if the table is desired to
     // have a width that is tight on each column.
-    return Table(
-        children: rows, defaultColumnWidth: IntrinsicColumnWidth());
+    return Table(children: rows, defaultColumnWidth: IntrinsicColumnWidth());
   }
 }

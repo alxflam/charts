@@ -55,8 +55,7 @@ class InitialSelection<D> extends ChartBehavior<D> {
   bool operator ==(Object o) {
     return o is InitialSelection &&
         selectionModelType == o.selectionModelType &&
-        ListEquality()
-            .equals(selectedSeriesConfig, o.selectedSeriesConfig) &&
+        ListEquality().equals(selectedSeriesConfig, o.selectedSeriesConfig) &&
         ListEquality().equals(selectedDataConfig, o.selectedDataConfig);
   }
 

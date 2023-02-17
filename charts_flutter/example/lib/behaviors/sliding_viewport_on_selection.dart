@@ -96,8 +96,8 @@ class SlidingViewportOnSelection extends StatelessWidget {
       ],
       // Set an initial viewport to demonstrate the sliding viewport behavior on
       // initial chart load.
-      domainAxis: charts.OrdinalAxisSpec(
-          viewport: charts.OrdinalViewport('2018', 4)),
+      domainAxis:
+          charts.OrdinalAxisSpec(viewport: charts.OrdinalViewport('2018', 4)),
     );
   }
 
