@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -25,7 +23,7 @@ import 'package:charts_common/src/chart/common/selection_model/selection_model.d
 
 import 'package:test/test.dart';
 
-class MockBehavior extends Mock implements ChartBehavior<String> {}
+import '../../../mocks.mocks.dart';
 
 class ParentBehavior implements ChartBehavior<String> {
   final ChartBehavior<String> child;
@@ -55,17 +53,17 @@ class ConcreteChart extends BaseChart<String> {
 }
 
 void main() {
-  ConcreteChart chart;
-  MockBehavior namedBehavior;
-  MockBehavior unnamedBehavior;
+  late ConcreteChart chart;
+  late MockStringChartBehavior namedBehavior;
+  late MockStringChartBehavior unnamedBehavior;
 
   setUp(() {
     chart = ConcreteChart();
 
-    namedBehavior = MockBehavior();
+    namedBehavior = MockStringChartBehavior();
     when(namedBehavior.role).thenReturn('foo');
 
-    unnamedBehavior = MockBehavior();
+    unnamedBehavior = MockStringChartBehavior();
     when(unnamedBehavior.role).thenReturn('');
   });
 
@@ -90,7 +88,7 @@ void main() {
     });
 
     test('detach is called when name is reused', () {
-      final otherBehavior = MockBehavior();
+      final otherBehavior = MockStringChartBehavior();
       when(otherBehavior.role).thenReturn('foo');
 
       chart.addBehavior(namedBehavior);
@@ -120,7 +118,7 @@ void main() {
     });
 
     test('detach is not called when name is different', () {
-      final otherBehavior = MockBehavior();
+      final otherBehavior = MockStringChartBehavior();
       when(otherBehavior.role).thenReturn('bar');
 
       chart.addBehavior(namedBehavior);

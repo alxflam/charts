@@ -54,13 +54,17 @@ void main() {
     numericSeriesList = [
       MutableSeries<int>(Series<MyRow, int>(
           id: 'Desktop',
-          colorFn: (MyRow row, _) => MaterialPalette.blue.shadeDefault,
-          domainFn: (MyRow row, _) => row.campaign,
-          domainLowerBoundFn: (MyRow row, _) => row.campaignLower,
-          domainUpperBoundFn: (MyRow row, _) => row.campaignUpper,
-          measureFn: (MyRow row, _) => 0,
-          measureOffsetFn: (MyRow row, _) => 0,
-          radiusPxFn: (MyRow row, _) => row.radius ?? 0,
+          colorFn: (_, __) => MaterialPalette.blue.shadeDefault,
+          domainFn: (row, _) => row.campaign,
+          domainLowerBoundFn: (row, _) => row.campaignLower,
+          domainUpperBoundFn: (row, _) => row.campaignUpper,
+          measureFn: (row, _) => 0,
+          measureOffsetFn: (row, _) => 0,
+          // SymbolAnnotationRendererConfig uses a default of 5 in case
+          // radiusPxFn is null but with sound null safety it wil anyways
+          // not be null anymore, to make the tests pass as before null safety
+          // use the default value in case null is given
+          radiusPxFn: (row, _) => row.radius ?? 5,
           data: myFakeDesktopData)
         // Define a bounds line radius function.
         ..setAttribute(boundsLineRadiusPxFnKey,

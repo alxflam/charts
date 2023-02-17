@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -30,16 +28,16 @@ class MyRow {
   final String campaignString;
   final int campaign;
   final int clickCount;
-  final double radius;
-  final double boundsRadius;
-  final String shape;
+  final double? radius;
+  final double? boundsRadius;
+  final String? shape;
   MyRow(this.campaignString, this.campaign, this.clickCount, this.radius,
       this.boundsRadius, this.shape);
 }
 
 void main() {
-  PointRenderer renderer;
-  List<MutableSeries<int>> numericSeriesList;
+  late PointRenderer renderer;
+  late List<MutableSeries<int>> numericSeriesList;
 
   setUp(() {
     var myFakeDesktopData = [
@@ -56,7 +54,7 @@ void main() {
     numericSeriesList = [
       MutableSeries<int>(Series<MyRow, int>(
           id: 'Desktop',
-          colorFn: (MyRow row, _) {
+          colorFn: (row, _) {
             // Color bucket the measure column value into 3 distinct colors.
             final bucket = row.clickCount / maxMeasure;
 
@@ -68,14 +66,18 @@ void main() {
               return MaterialPalette.green.shadeDefault;
             }
           },
-          domainFn: (MyRow row, _) => row.campaign,
-          measureFn: (MyRow row, _) => row.clickCount,
-          measureOffsetFn: (MyRow row, _) => 0,
-          radiusPxFn: (MyRow row, _) => row.radius,
+          domainFn: (row, _) => row.campaign,
+          measureFn: (row, _) => row.clickCount,
+          measureOffsetFn: (row, _) => 0,
+          // PointRendererConfig uses a default of 3.5 in case
+          // radiusPxFn is null but with sound null safety it wil anyways
+          // not be null anymore, to make the tests pass as before null safety
+          // use the default value in case null is given
+          radiusPxFn: (row, _) => row.radius ?? 3.5,
           data: myFakeDesktopData)
         // Define a bounds line radius function.
         ..setAttribute(boundsLineRadiusPxFnKey,
-            (int index) => myFakeDesktopData[index].boundsRadius))
+            (int? index) => myFakeDesktopData[index ?? 0].boundsRadius))
     ];
   });
 
@@ -93,7 +95,7 @@ void main() {
       var keyFn = series.keyFn;
 
       var elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].index, equals(0));
       expect(elementsList[1].index, equals(1));
@@ -115,7 +117,7 @@ void main() {
       expect(elementsList[2].symbolRendererId, equals(defaultSymbolRendererId));
       expect(elementsList[3].symbolRendererId, equals(defaultSymbolRendererId));
 
-      expect(keyFn(0), equals('Desktop__0__5'));
+      expect(keyFn!(0), equals('Desktop__0__5'));
       expect(keyFn(1), equals('Desktop__10__25'));
       expect(keyFn(2), equals('Desktop__12__75'));
       expect(keyFn(3), equals('Desktop__13__225'));
@@ -137,7 +139,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].radiusPx, equals(2.0));
       expect(elementsList[1].radiusPx, equals(2.0));
@@ -153,8 +155,12 @@ void main() {
     test('with custom symbol renderer ID in data', () {
       renderer = PointRenderer<int>(config: PointRendererConfig());
 
-      numericSeriesList[0].setAttr(pointSymbolRendererFnKey,
-          (int index) => numericSeriesList[0].data[index].shape as String);
+      // TODO verify test adaption
+      numericSeriesList[0].setAttr(
+          pointSymbolRendererFnKey,
+          (int? index) =>
+              numericSeriesList[0].data[index!].shape as String? ??
+              defaultSymbolRendererId);
 
       renderer.preprocessSeries(numericSeriesList);
 
@@ -164,7 +170,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].symbolRendererId, equals(defaultSymbolRendererId));
       expect(elementsList[1].symbolRendererId, equals('shape 1'));
@@ -175,8 +181,12 @@ void main() {
     test('with custom symbol renderer ID in series and data', () {
       renderer = PointRenderer<int>(config: PointRendererConfig());
 
-      numericSeriesList[0].setAttr(pointSymbolRendererFnKey,
-          (int index) => numericSeriesList[0].data[index].shape as String);
+      // TODO verify test adaption
+      numericSeriesList[0].setAttr(
+          pointSymbolRendererFnKey,
+          (int? index) =>
+              numericSeriesList[0].data[index ?? 0].shape as String? ??
+              numericSeriesList[0].getAttr(pointSymbolRendererIdKey)!);
       numericSeriesList[0].setAttr(pointSymbolRendererIdKey, 'shape 0');
 
       renderer.preprocessSeries(numericSeriesList);
@@ -187,7 +197,7 @@ void main() {
       var series = numericSeriesList[0];
 
       var elementsList = series.getAttr(pointElementsKey);
-      expect(elementsList.length, equals(4));
+      expect(elementsList!.length, equals(4));
 
       expect(elementsList[0].symbolRendererId, equals('shape 0'));
       expect(elementsList[1].symbolRendererId, equals('shape 1'));

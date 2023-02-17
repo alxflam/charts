@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -29,24 +27,26 @@ import 'package:charts_common/src/data/series.dart';
 
 import 'package:test/test.dart';
 
+import '../../../mocks.mocks.dart';
+
 class FakeRenderer<D> extends BaseSeriesRenderer<D> {
   FakeRenderer() : super(rendererId: 'fake', layoutPaintOrder: 0);
 
   @override
   DatumDetails<D> addPositionToDetailsForSeriesDatum(
       DatumDetails<D> details, SeriesDatum<D> seriesDatum) {
-    return null;
+    return MockDatumDetails();
   }
 
   @override
   List<DatumDetails<D>> getNearestDatumDetailPerSeries(
     Point<double> chartPoint,
     bool byDomain,
-    Rectangle<int> boundsOverride, {
+    Rectangle<int>? boundsOverride, {
     selectOverlappingPoints = false,
     selectExactEventLocation = false,
   }) =>
-      null;
+      [];
 
   @override
   void paint(ChartCanvas canvas, double animationPercent) {}
@@ -68,15 +68,15 @@ class FakeChart extends BaseChart {
 }
 
 void main() {
-  FakeChart chart;
-  MutableSeries series1;
-  MutableSeries series2;
-  MutableSeries series3;
-  MutableSeries series4;
+  late FakeChart chart;
+  late MutableSeries series1;
+  late MutableSeries series2;
+  late MutableSeries series3;
+  late MutableSeries series4;
   final infoSelectionType = SelectionModelType.info;
 
   InitialSelection _makeBehavior(SelectionModelType selectionModelType,
-      {List<String> selectedSeries, List<SeriesDatumConfig> selectedData}) {
+      {List<String>? selectedSeries, List<SeriesDatumConfig>? selectedData}) {
     InitialSelection behavior = InitialSelection(
         selectionModelType: selectionModelType,
         selectedSeriesConfig: selectedSeries,

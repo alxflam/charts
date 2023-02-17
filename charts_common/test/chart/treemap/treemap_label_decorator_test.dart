@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -16,8 +14,6 @@
 // limitations under the License.
 
 import 'dart:math' show pi, Rectangle;
-import 'package:charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas;
 import 'package:charts_common/src/chart/common/processed_series.dart'
     show ImmutableSeries;
 import 'package:charts_common/src/chart/treemap/treemap_label_decorator.dart'
@@ -35,11 +31,10 @@ import 'package:charts_common/src/common/text_measurement.dart'
 import 'package:charts_common/src/common/text_style.dart' show TextStyle;
 import 'package:charts_common/src/data/series.dart' show AccessorFn;
 
-import 'package:meta/meta.dart' show required;
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class MockCanvas extends Mock implements ChartCanvas {}
+import '../../mocks.mocks.dart';
 
 /// A fake [GraphicsFactory] that returns [FakeTextStyle] and [FakeTextElement].
 class FakeGraphicsFactory extends GraphicsFactory {
@@ -50,25 +45,25 @@ class FakeGraphicsFactory extends GraphicsFactory {
   TextElement createTextElement(String text) => FakeTextElement(text);
 
   @override
-  LineStyle createLinePaint() => MockLinePaint();
+  LineStyle createLinePaint() => MockLineStyle();
 }
 
 /// Stores [TextStyle] properties for test to verify.
 class FakeTextStyle implements TextStyle {
   @override
-  Color color;
+  Color? color;
 
   @override
-  int fontSize;
+  int? fontSize;
 
   @override
-  String fontFamily;
+  String? fontFamily;
 
   @override
-  String fontWeight;
+  double? lineHeight;
 
   @override
-  double lineHeight;
+  String? fontWeight;
 }
 
 /// Fake [TextElement] which returns text length as [horizontalSliceWidth].
@@ -83,12 +78,12 @@ class FakeTextElement implements TextElement {
       var width = measureTextWidth(_text);
       var ellipsis = '…';
       var ellipsisWidth = measureTextWidth(ellipsis);
-      if (width <= maxWidth || width <= ellipsisWidth) {
+      if (width <= maxWidth! || width <= ellipsisWidth) {
         return _text;
       } else {
         var len = _text.length;
         var ellipsizedText = _text;
-        while (width >= maxWidth - ellipsisWidth && len-- > 0) {
+        while (width >= maxWidth! - ellipsisWidth && len-- > 0) {
           ellipsizedText = ellipsizedText.substring(0, len);
           width = measureTextWidth(ellipsizedText);
         }
@@ -99,48 +94,46 @@ class FakeTextElement implements TextElement {
   }
 
   @override
-  TextStyle textStyle;
+  TextStyle? textStyle;
 
   @override
-  int maxWidth;
+  int? maxWidth;
 
   @override
-  MaxWidthStrategy maxWidthStrategy;
+  MaxWidthStrategy? maxWidthStrategy;
 
   @override
   TextDirection textDirection;
 
-  double opacity;
+  double? opacity;
 
-  FakeTextElement(this._text);
+  FakeTextElement(this._text) : textDirection = TextDirection.ltr;
 
   @override
   TextMeasurement get measurement => TextMeasurement(
       horizontalSliceWidth: _text.length.toDouble(),
-      verticalSliceWidth: textStyle.fontSize.toDouble(),
-      baseline: textStyle.fontSize.toDouble());
+      verticalSliceWidth: textStyle!.fontSize!.toDouble(),
+      baseline: textStyle!.fontSize!.toDouble());
 
   double measureTextWidth(String text) {
     return text.length.toDouble();
   }
 }
 
-class MockLinePaint extends Mock implements LineStyle {}
-
 class FakeTreeMapRendererElement extends TreeMapRendererElement<String> {
-  final _series = MockImmutableSeries<String>();
-  final AccessorFn<String> labelAccessor;
+  final _series = MockStringImmutableSeries();
+  final AccessorFn<String>? labelAccessor;
   final List<String> data;
 
   FakeTreeMapRendererElement(
     this.labelAccessor,
     this.data, {
-    @required Rectangle<num> /*?*/ boundingRect,
-    @required int index,
-    @required bool isLeaf,
+    required Rectangle<num> boundingRect,
+    required int index,
+    required bool isLeaf,
   }) : super(
           boundingRect: boundingRect,
-          series: MockImmutableSeries<String>(),
+          series: MockStringImmutableSeries(),
           domain: '',
           isLeaf: isLeaf,
           index: index,
@@ -154,19 +147,17 @@ class FakeTreeMapRendererElement extends TreeMapRendererElement<String> {
   ImmutableSeries<String> get series => _series;
 }
 
-class MockImmutableSeries<D> extends Mock implements ImmutableSeries<D> {}
-
 const _defaultFontSize = 12;
 const _defaultLineHeight = 12.0;
-const _90DegreeClockwise = pi / 2;
+const ninetyDegreeClockwise = pi / 2;
 
 void main() {
-  ChartCanvas canvas;
-  GraphicsFactory graphicsFactory;
-  Rectangle<int> drawBounds;
+  late MockChartCanvas canvas;
+  late GraphicsFactory graphicsFactory;
+  late Rectangle<int> drawBounds;
 
   setUpAll(() {
-    canvas = MockCanvas();
+    canvas = MockChartCanvas();
     graphicsFactory = FakeGraphicsFactory();
     drawBounds = Rectangle(0, 0, 100, 100);
   });
@@ -242,7 +233,7 @@ void main() {
 
       final captured = verify(canvas.drawText(
               captureAny, captureAny, captureAny,
-              rotation: _90DegreeClockwise))
+              rotation: ninetyDegreeClockwise))
           .captured;
       expect(captured, hasLength(3));
       expect(captured[0].text, 'Region');
@@ -274,7 +265,7 @@ void main() {
 
       final captured = verify(canvas.drawText(
               captureAny, captureAny, captureAny,
-              rotation: _90DegreeClockwise))
+              rotation: ninetyDegreeClockwise))
           .captured;
       expect(captured, hasLength(3));
       expect(captured[0].text, 'Region');
@@ -418,7 +409,7 @@ void main() {
 
       final captured = verify(canvas.drawText(
               captureAny, captureAny, captureAny,
-              rotation: _90DegreeClockwise))
+              rotation: ninetyDegreeClockwise))
           .captured;
       expect(captured, hasLength(9));
       // First line.
@@ -468,7 +459,7 @@ void main() {
 
       final captured = verify(canvas.drawText(
               captureAny, captureAny, captureAny,
-              rotation: _90DegreeClockwise))
+              rotation: ninetyDegreeClockwise))
           .captured;
       expect(captured, hasLength(6));
       // First line.
@@ -493,7 +484,7 @@ void main() {
     test('Skip label if label is null', () {
       final data = ['A'];
       final renderElement = FakeTreeMapRendererElement(
-        (_) => null,
+        null,
         data,
         boundingRect: drawBounds,
         index: 0,

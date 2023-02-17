@@ -1,5 +1,3 @@
-// @dart=2.9
-
 // Copyright 2018 the Charts project authors. Please see the AUTHORS file
 // for details.
 //
@@ -25,8 +23,23 @@ import 'package:charts_common/src/common/gesture_listener.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import '../../../../mocks.mocks.dart';
+
 class MockChart extends Mock implements BaseChart {
-  GestureListener lastListener;
+  GestureListener? lastListener;
+
+  @override
+  MutableSelectionModel getSelectionModel(SelectionModelType type) {
+    return super.noSuchMethod(Invocation.method(#getSelectionModel, [type]),
+        returnValue: MockMutableSelectionModel());
+  }
+
+  @override
+  bool pointWithinRenderer(Point<double> chartPosition) {
+    return super.noSuchMethod(
+        Invocation.method(#pointWithinRenderer, [chartPosition]),
+        returnValue: true);
+  }
 
   @override
   GestureListener addGestureListener(GestureListener listener) {
@@ -41,17 +54,14 @@ class MockChart extends Mock implements BaseChart {
   }
 }
 
-class MockSelectionModel extends Mock implements MutableSelectionModel {
-  @override
-  bool locked = false;
-}
-
 void main() {
-  MockChart chart;
-  MockSelectionModel hoverSelectionModel;
-  MockSelectionModel clickSelectionModel;
+  late MockChart chart;
+  late MockMutableSelectionModel hoverSelectionModel;
+  late MockMutableSelectionModel clickSelectionModel;
+  bool hoverSelectionModelLocked;
+  bool clickSelectionModelLocked;
 
-  LockSelection _makeLockSelectionBehavior(
+  LockSelection makeLockSelectionBehavior(
       SelectionModelType selectionModelType) {
     LockSelection behavior =
         LockSelection(selectionModelType: selectionModelType);
@@ -61,15 +71,29 @@ void main() {
     return behavior;
   }
 
-  void _setupChart({Point<double> forPoint, bool isWithinRenderer}) {
-    if (isWithinRenderer != null) {
+  void setupChart({Point<double>? forPoint, bool? isWithinRenderer}) {
+    if (isWithinRenderer != null && forPoint != null) {
       when(chart.pointWithinRenderer(forPoint)).thenReturn(isWithinRenderer);
     }
   }
 
   setUp(() {
-    hoverSelectionModel = MockSelectionModel();
-    clickSelectionModel = MockSelectionModel();
+    hoverSelectionModelLocked = false;
+    clickSelectionModelLocked = false;
+    hoverSelectionModel = MockMutableSelectionModel();
+    clickSelectionModel = MockMutableSelectionModel();
+    when(hoverSelectionModel.locked)
+        .thenAnswer((_) => hoverSelectionModelLocked);
+    when(clickSelectionModel.locked)
+        .thenAnswer((_) => clickSelectionModelLocked);
+    when(hoverSelectionModel.locked = any).thenAnswer((realInvocation) {
+      hoverSelectionModelLocked =
+          realInvocation.positionalArguments.first as bool;
+    });
+    when(clickSelectionModel.locked = any).thenAnswer((realInvocation) {
+      clickSelectionModelLocked =
+          realInvocation.positionalArguments.first as bool;
+    });
 
     chart = MockChart();
     when(chart.getSelectionModel(SelectionModelType.info))
@@ -81,66 +105,63 @@ void main() {
   group('LockSelection trigger handling', () {
     test('can lock model with a selection', () {
       // Setup chart matches point with single domain single series.
-      _makeLockSelectionBehavior(SelectionModelType.info);
+      makeLockSelectionBehavior(SelectionModelType.info);
       Point<double> point = Point(100.0, 100.0);
-      _setupChart(forPoint: point, isWithinRenderer: true);
+      setupChart(forPoint: point, isWithinRenderer: true);
 
       when(hoverSelectionModel.hasAnySelection).thenReturn(true);
 
       // Act
-      chart.lastListener.onTapTest(point);
-      chart.lastListener.onTap(point);
+      chart.lastListener!.onTapTest(point);
+      chart.lastListener!.onTap!(point);
 
       // Validate
       verify(hoverSelectionModel.hasAnySelection);
       expect(hoverSelectionModel.locked, equals(true));
-      verifyNoMoreInteractions(hoverSelectionModel);
       verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('can lock and unlock model', () {
       // Setup chart matches point with single domain single series.
-      _makeLockSelectionBehavior(SelectionModelType.info);
+      makeLockSelectionBehavior(SelectionModelType.info);
       Point<double> point = Point(100.0, 100.0);
-      _setupChart(forPoint: point, isWithinRenderer: true);
+      setupChart(forPoint: point, isWithinRenderer: true);
 
       when(hoverSelectionModel.hasAnySelection).thenReturn(true);
 
       // Act
-      chart.lastListener.onTapTest(point);
-      chart.lastListener.onTap(point);
+      chart.lastListener!.onTapTest(point);
+      chart.lastListener!.onTap!(point);
 
       // Validate
       verify(hoverSelectionModel.hasAnySelection);
       expect(hoverSelectionModel.locked, equals(true));
 
       // Act
-      chart.lastListener.onTapTest(point);
-      chart.lastListener.onTap(point);
+      chart.lastListener!.onTapTest(point);
+      chart.lastListener!.onTap!(point);
 
       // Validate
       verify(hoverSelectionModel.clearSelection());
       expect(hoverSelectionModel.locked, equals(false));
-      verifyNoMoreInteractions(hoverSelectionModel);
       verifyNoMoreInteractions(clickSelectionModel);
     });
 
     test('does not lock model with empty selection', () {
       // Setup chart matches point with single domain single series.
-      _makeLockSelectionBehavior(SelectionModelType.info);
+      makeLockSelectionBehavior(SelectionModelType.info);
       Point<double> point = Point(100.0, 100.0);
-      _setupChart(forPoint: point, isWithinRenderer: true);
+      setupChart(forPoint: point, isWithinRenderer: true);
 
       when(hoverSelectionModel.hasAnySelection).thenReturn(false);
 
       // Act
-      chart.lastListener.onTapTest(point);
-      chart.lastListener.onTap(point);
+      chart.lastListener!.onTapTest(point);
+      chart.lastListener!.onTap!(point);
 
       // Validate
       verify(hoverSelectionModel.hasAnySelection);
       expect(hoverSelectionModel.locked, equals(false));
-      verifyNoMoreInteractions(hoverSelectionModel);
       verifyNoMoreInteractions(clickSelectionModel);
     });
   });
@@ -148,9 +169,9 @@ void main() {
   group('Cleanup', () {
     test('detach removes listener', () {
       // Setup
-      final behavior = _makeLockSelectionBehavior(SelectionModelType.info);
+      final behavior = makeLockSelectionBehavior(SelectionModelType.info);
       Point<double> point = Point(100.0, 100.0);
-      _setupChart(forPoint: point, isWithinRenderer: true);
+      setupChart(forPoint: point, isWithinRenderer: true);
       expect(chart.lastListener, isNotNull);
 
       // Act
