@@ -46,3 +46,22 @@ jobs:
       run: flutter analyze
     - name: Test
       run: flutter test
+
+  example_app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/charts_flutter/example
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+
+    - name: Install Dependencies
+      run: flutter pub get
+    - name: Format
+      run: dart format --output=none --set-exit-if-changed .
+    - name: Lint
+      run: flutter analyze
+    - name: Build
+      run: flutter build linux --release
