@@ -93,8 +93,6 @@ class BaseTickDrawStrategyImpl<D> extends BaseTickDrawStrategy<D> {
 ///
 /// [baseline] returns the same value as the [verticalSliceWidth] specified.
 class FakeTextElement implements TextElement {
-  static const _defaultVerticalSliceWidth = 15.0;
-
   @override
   final String text;
 
@@ -122,8 +120,7 @@ class FakeTextElement implements TextElement {
     double verticalSliceWidth,
   ) : measurement = TextMeasurement(
             horizontalSliceWidth: horizontalSliceWidth,
-            verticalSliceWidth:
-                verticalSliceWidth ?? _defaultVerticalSliceWidth);
+            verticalSliceWidth: verticalSliceWidth);
 }
 
 /// Helper function to create [Tick] for testing.

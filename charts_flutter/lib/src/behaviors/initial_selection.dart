@@ -24,7 +24,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 @immutable
 class InitialSelection<D> extends ChartBehavior<D> {
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.SelectionModelType selectionModelType;
   final List<String>? selectedSeriesConfig;
@@ -52,11 +52,13 @@ class InitialSelection<D> extends ChartBehavior<D> {
   String get role => 'InitialSelection-${selectionModelType.toString()}';
 
   @override
-  bool operator ==(Object o) {
-    return o is InitialSelection &&
-        selectionModelType == o.selectionModelType &&
-        ListEquality().equals(selectedSeriesConfig, o.selectedSeriesConfig) &&
-        ListEquality().equals(selectedDataConfig, o.selectedDataConfig);
+  bool operator ==(Object other) {
+    return other is InitialSelection &&
+        selectionModelType == other.selectionModelType &&
+        const ListEquality()
+            .equals(selectedSeriesConfig, other.selectedSeriesConfig) &&
+        const ListEquality()
+            .equals(selectedDataConfig, other.selectedDataConfig);
   }
 
   @override

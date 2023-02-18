@@ -390,7 +390,7 @@ class _RangeAnnotationLayoutView<D> extends LayoutView {
       required this.layoutPaintOrder})
       : layoutConfig = LayoutViewConfig(
             paintOrder: layoutPaintOrder,
-            position: LayoutPosition.DrawArea,
+            position: LayoutPosition.drawArea,
             positionOrder: LayoutViewPositionOrder.drawArea);
 
   set annotationMap(LinkedHashMap<String, _AnimatedAnnotation<D>> value) {

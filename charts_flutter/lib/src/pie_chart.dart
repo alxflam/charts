@@ -21,7 +21,7 @@ import 'base_chart_state.dart' show BaseChartState;
 import 'selection_model_config.dart' show SelectionModelConfig;
 
 class PieChart<D> extends BaseChart<D> {
-  PieChart(
+  const PieChart(
     List<common.Series<dynamic, D>> seriesList, {
     bool? animate,
     Duration? animationDuration,

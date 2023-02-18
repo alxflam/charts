@@ -65,16 +65,10 @@ void main() {
       required bool isWithinRenderer,
       required List<DatumDetails<String>> respondWithDetails,
       required List<MutableSeries<String>> seriesList}) {
-    if (isWithinRenderer != null) {
-      when(chart.pointWithinRenderer(forPoint)).thenReturn(isWithinRenderer);
-    }
-    if (respondWithDetails != null) {
-      when(chart.getNearestDatumDetailPerSeries(forPoint, true))
-          .thenReturn(respondWithDetails);
-    }
-    if (seriesList != null) {
-      when(chart.currentSeriesList).thenReturn(seriesList);
-    }
+    when(chart.pointWithinRenderer(forPoint)).thenReturn(isWithinRenderer);
+    when(chart.getNearestDatumDetailPerSeries(forPoint, true))
+        .thenReturn(respondWithDetails);
+    when(chart.currentSeriesList).thenReturn(seriesList);
   }
 
   setUp(() {

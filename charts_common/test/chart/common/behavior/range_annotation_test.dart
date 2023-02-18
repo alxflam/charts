@@ -17,14 +17,10 @@ import 'dart:math' show Rectangle;
 
 import 'package:charts_common/src/chart/cartesian/axis/axis.dart';
 import 'package:charts_common/src/chart/cartesian/axis/collision_report.dart';
-import 'package:charts_common/src/chart/cartesian/axis/draw_strategy/tick_draw_strategy.dart';
-import 'package:charts_common/src/chart/cartesian/axis/numeric_tick_provider.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick.dart';
 import 'package:charts_common/src/chart/common/base_chart.dart';
-import 'package:charts_common/src/chart/common/chart_context.dart';
 import 'package:charts_common/src/chart/common/behavior/range_annotation.dart';
 import 'package:charts_common/src/chart/line/line_chart.dart';
-import 'package:charts_common/src/common/graphics_factory.dart';
 import 'package:charts_common/src/common/material_palette.dart';
 import 'package:charts_common/src/data/series.dart';
 import 'package:mockito/mockito.dart';
@@ -104,7 +100,7 @@ void main() {
 
   /// Initializes the [chart], draws the [seriesList], and configures mock axis
   /// layout bounds.
-  void _drawSeriesList(
+  void drawSeriesList(
       ConcreteChart chart, List<Series<MyRow, int>> seriesList) {
     var graphicsFactory = MockGraphicsFactory();
     var drawStrategy = MockTickDrawStrategy();
@@ -212,7 +208,7 @@ void main() {
       final seriesList = [series1, series2];
 
       // Act
-      _drawSeriesList(chart0, seriesList);
+      drawSeriesList(chart0, seriesList);
 
       // Verify
       expect(chart0.domainAxis.getLocation(2), equals(40.0));
@@ -283,7 +279,7 @@ void main() {
       final seriesList = [series1, series2];
 
       // Act
-      _drawSeriesList(chart0, seriesList);
+      drawSeriesList(chart0, seriesList);
 
       // Verify
       expect(chart0.domainAxis.getLocation(2), equals(20.0));
@@ -325,7 +321,7 @@ void main() {
       final seriesList = [series1, series2];
 
       // Act
-      _drawSeriesList(chart0, seriesList);
+      drawSeriesList(chart0, seriesList);
 
       // Verify
       expect(chart0.domainAxis.getLocation(2), equals(40.0));

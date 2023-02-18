@@ -92,10 +92,6 @@ class SimpleOrdinalScale implements OrdinalScale {
 
   @override
   set rangeBandConfig(RangeBandConfig barGroupWidthConfig) {
-    if (barGroupWidthConfig == null) {
-      throw ArgumentError.notNull('RangeBandConfig must not be null.');
-    }
-
     if (barGroupWidthConfig.type == RangeBandType.fixedDomain ||
         barGroupWidthConfig.type == RangeBandType.none) {
       throw ArgumentError(

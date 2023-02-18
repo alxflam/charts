@@ -52,7 +52,7 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   Map<int, List<SeriesDatum<D>>>? _datumPairs;
 
   /// Currently selected domain index.
-  int _currentIndex = NO_SELECTION;
+  int _currentIndex = noSelection;
 
   KeyboardDomainNavigator() {
     _lifecycleListener = LifecycleListener<D>(onData: onData);
@@ -74,12 +74,12 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   void onData(List<MutableSeries<D>> _) {
     _domains = null;
     _datumPairs = null;
-    _currentIndex = NO_SELECTION;
+    _currentIndex = noSelection;
   }
 
   @protected
   bool handleEscape() {
-    _currentIndex = NO_SELECTION;
+    _currentIndex = noSelection;
     clearSelection();
     return true;
   }
@@ -106,12 +106,12 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
     _currentIndex = _getActiveHoverDomainIndex();
 
     // Navigate to the last domain when current index is NO_SELECTION.
-    if (_currentIndex == NO_SELECTION) {
+    if (_currentIndex == noSelection) {
       _currentIndex = domainsLength - 1;
     } else {
       // Navigate to the previous index, or to NO_SELECTION when it would
       // outreach the domain index.
-      _currentIndex = _currentIndex == 0 ? NO_SELECTION : _currentIndex - 1;
+      _currentIndex = _currentIndex == 0 ? noSelection : _currentIndex - 1;
     }
 
     _doNavigate(_currentIndex);
@@ -134,12 +134,12 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
     _currentIndex = _getActiveHoverDomainIndex();
 
     // Navigate to the first domain when current index is NO_SELECTION.
-    if (_currentIndex == NO_SELECTION) {
+    if (_currentIndex == noSelection) {
       _currentIndex = 0;
     } else {
       // Set to NO_SELECTION when the next index would outreach the domains.
       _currentIndex =
-          _currentIndex == domainsLength - 1 ? NO_SELECTION : _currentIndex + 1;
+          _currentIndex == domainsLength - 1 ? noSelection : _currentIndex + 1;
     }
 
     _doNavigate(_currentIndex);
@@ -159,7 +159,7 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
 
   /// Triggers when the Escape key is pressed or the chart loses focus.
   void clearSelection() {
-    _selectDomainIndex(SelectionModelType.info, NO_SELECTION);
+    _selectDomainIndex(SelectionModelType.info, noSelection);
   }
 
   /// Updates the selection of the attached chart with the data at the given
@@ -169,11 +169,8 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   bool _selectDomainIndex(
       SelectionModelType selectionModelType, int domainIndex) {
     final selectionModel = _chart.getSelectionModel(selectionModelType);
-    if (selectionModel == null) {
-      return false;
-    }
 
-    if (domainIndex == NO_SELECTION) {
+    if (domainIndex == noSelection) {
       selectionModel.clearSelection();
     } else {
       final datumPairs = _getDatumPairs(domainIndex);
@@ -202,19 +199,19 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
     // domains available. Bail out.
     final domains = this._domains;
     if (domains == null || domains.isEmpty) {
-      return NO_SELECTION;
+      return noSelection;
     }
 
     final selectionModel = _chart.getSelectionModel(SelectionModelType.info);
 
     if (!selectionModel.hasAnySelection) {
-      return NO_SELECTION;
+      return noSelection;
     }
 
     final details = _chart.getSelectedDatumDetails(SelectionModelType.info);
 
     if (details.isEmpty) {
-      return NO_SELECTION;
+      return noSelection;
     }
 
     // If the currentIndex is the same as the firstSelectedDetail we don't have
@@ -286,7 +283,7 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
       i++;
     });
 
-    _currentIndex = NO_SELECTION;
+    _currentIndex = noSelection;
   }
 
   /// Gets the datum/series pairs for the given domainIndex.
@@ -297,4 +294,4 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
   String get role => 'keyboard-domain-navigator';
 }
 
-const NO_SELECTION = -1;
+const noSelection = -1;

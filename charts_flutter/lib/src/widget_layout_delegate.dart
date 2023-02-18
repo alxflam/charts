@@ -27,7 +27,7 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
   final String chartID;
 
   /// Directionality of the widget.
-  final isRTL;
+  final bool isRTL;
 
   /// ID and [BuildableBehavior] of the widgets for calculating offset.
   final Map<String, BuildableBehavior> idAndBehavior;

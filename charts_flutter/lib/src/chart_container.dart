@@ -47,7 +47,7 @@ class ChartContainer<D> extends CustomPaint {
   final common.RTLSpec? rtlSpec;
   final UserManagedState<D>? userManagedState;
 
-  ChartContainer(
+  const ChartContainer(
       {this.oldChartWidget,
       required this.chartWidget,
       required this.chartState,
@@ -86,7 +86,7 @@ class ChartContainerRenderObject<D> extends RenderCustomPaint
     _dateTimeFactory = (config.chartWidget is TimeSeriesChart)
         ? (config.chartWidget as TimeSeriesChart).dateTimeFactory
         : null;
-    _dateTimeFactory ??= common.LocalDateTimeFactory();
+    _dateTimeFactory ??= const common.LocalDateTimeFactory();
 
     if (_chart == null) {
       common.Performance.time('chartsCreate');

@@ -89,10 +89,10 @@ class SelectNearest<D> extends ChartBehavior<D> {
 
   static Set<GestureType> _getDesiredGestures(
       common.SelectionTrigger eventTrigger) {
-    final desiredGestures = Set<GestureType>();
+    final desiredGestures = <GestureType>{};
     switch (eventTrigger) {
       case common.SelectionTrigger.tap:
-        desiredGestures..add(GestureType.onTap);
+        desiredGestures.add(GestureType.onTap);
         break;
       case common.SelectionTrigger.tapAndDrag:
         desiredGestures
@@ -108,7 +108,7 @@ class SelectNearest<D> extends ChartBehavior<D> {
         break;
       case common.SelectionTrigger.hover:
       default:
-        desiredGestures..add(GestureType.onHover);
+        desiredGestures.add(GestureType.onHover);
         break;
     }
     return desiredGestures;

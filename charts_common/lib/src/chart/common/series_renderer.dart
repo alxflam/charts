@@ -164,7 +164,7 @@ abstract class BaseSeriesRenderer<D> implements SeriesRenderer<D> {
     this.symbolRenderer,
   }) : layoutConfig = LayoutViewConfig(
             paintOrder: layoutPaintOrder,
-            position: LayoutPosition.DrawArea,
+            position: LayoutPosition.drawArea,
             positionOrder: LayoutViewPositionOrder.drawArea);
 
   @override

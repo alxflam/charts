@@ -33,7 +33,7 @@ import 'selection_model_config.dart' show SelectionModelConfig;
 import 'user_managed_state.dart' show UserManagedState;
 
 class LineChart extends CartesianChart<num> {
-  LineChart(
+  const LineChart(
     List<common.Series<dynamic, num>> seriesList, {
     bool? animate,
     Duration? animationDuration,

@@ -36,7 +36,7 @@ class FakeBuildableBehavior implements BuildableBehavior {
   Rectangle<int>? drawAreaBounds;
 
   FakeBuildableBehavior(this.position, this.outsideJustification,
-      this.insideJustification, this.drawAreaBounds) {}
+      this.insideJustification, this.drawAreaBounds);
 
   @override
   Widget build(BuildContext context) {

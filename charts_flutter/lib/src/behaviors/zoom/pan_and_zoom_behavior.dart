@@ -22,9 +22,9 @@ import 'pan_behavior.dart' show FlutterPanBehaviorMixin;
 
 @immutable
 class PanAndZoomBehavior<D> extends ChartBehavior<D> {
-  final _desiredGestures = Set<GestureType>.from([
+  final _desiredGestures = <GestureType>{
     GestureType.onDrag,
-  ]);
+  };
 
   @override
   Set<GestureType> get desiredGestures => _desiredGestures;

@@ -19,7 +19,6 @@ import 'package:charts_common/common.dart' as common
         DomainA11yExploreBehavior,
         VocalizationCallback,
         ExploreModeTrigger;
-import 'package:flutter/widgets.dart' show hashValues;
 import '../chart_behavior.dart' show ChartBehavior, GestureType;
 
 /// Behavior that generates semantic nodes for each domain.
@@ -62,15 +61,15 @@ class DomainA11yExploreBehavior<D> extends ChartBehavior<D> {
     String? exploreModeEnabledAnnouncement,
     String? exploreModeDisabledAnnouncement,
   }) {
-    final desiredGestures = Set<GestureType>();
+    final desiredGestures = <GestureType>{};
     exploreModeTrigger ??= common.ExploreModeTrigger.pressHold;
 
     switch (exploreModeTrigger) {
       case common.ExploreModeTrigger.pressHold:
-        desiredGestures..add(GestureType.onLongPress);
+        desiredGestures.add(GestureType.onLongPress);
         break;
       case common.ExploreModeTrigger.tap:
-        desiredGestures..add(GestureType.onTap);
+        desiredGestures.add(GestureType.onTap);
         break;
     }
 
@@ -98,20 +97,20 @@ class DomainA11yExploreBehavior<D> extends ChartBehavior<D> {
   void updateCommonBehavior(common.ChartBehavior commonBehavior) {}
 
   @override
-  String get role => 'DomainA11yExplore-${exploreModeTrigger}';
+  String get role => 'DomainA11yExplore-$exploreModeTrigger';
 
   @override
-  bool operator ==(Object o) =>
-      o is DomainA11yExploreBehavior &&
-      vocalizationCallback == o.vocalizationCallback &&
-      exploreModeTrigger == o.exploreModeTrigger &&
-      minimumWidth == o.minimumWidth &&
-      exploreModeEnabledAnnouncement == o.exploreModeEnabledAnnouncement &&
-      exploreModeDisabledAnnouncement == o.exploreModeDisabledAnnouncement;
+  bool operator ==(Object other) =>
+      other is DomainA11yExploreBehavior &&
+      vocalizationCallback == other.vocalizationCallback &&
+      exploreModeTrigger == other.exploreModeTrigger &&
+      minimumWidth == other.minimumWidth &&
+      exploreModeEnabledAnnouncement == other.exploreModeEnabledAnnouncement &&
+      exploreModeDisabledAnnouncement == other.exploreModeDisabledAnnouncement;
 
   @override
   int get hashCode {
-    return hashValues(minimumWidth, vocalizationCallback, exploreModeTrigger,
+    return Object.hash(minimumWidth, vocalizationCallback, exploreModeTrigger,
         exploreModeEnabledAnnouncement, exploreModeDisabledAnnouncement);
   }
 }

@@ -132,92 +132,93 @@ class Series<T, D> {
       String? seriesCategory,
       TypedAccessorFn<T, num?>? strokeWidthPxFn}) {
     // Wrap typed accessors.
-    _domainFn(int? index) => domainFn(data[index!], index);
-    _measureFn(int? index) => measureFn(data[index!], index);
-    final _areaColorFn = areaColorFn == null
+    domainFnWrapper(int? index) => domainFn(data[index!], index);
+    measureFnWrapper(int? index) => measureFn(data[index!], index);
+    final areaColorFnWrapper = areaColorFn == null
         ? null
         : (int? index) => areaColorFn(data[index!], index);
-    final _colorFn =
+    final colorFnWrapper =
         colorFn == null ? null : (int? index) => colorFn(data[index!], index);
-    final _dashPatternFn = dashPatternFn == null
+    final dashPatternFnWrapper = dashPatternFn == null
         ? null
         : (int? index) => dashPatternFn(data[index!], index);
-    final _domainFormatterFn = domainFormatterFn == null
+    final domainFormatterFnWrapper = domainFormatterFn == null
         ? null
         : (int? index) => domainFormatterFn(data[index!], index);
-    final _domainLowerBoundFn = domainLowerBoundFn == null
+    final domainLowerBoundFnWrapper = domainLowerBoundFn == null
         ? null
         : (int? index) => domainLowerBoundFn(data[index!], index);
-    final _domainUpperBoundFn = domainUpperBoundFn == null
+    final domainUpperBoundFnWrapper = domainUpperBoundFn == null
         ? null
         : (int? index) => domainUpperBoundFn(data[index!], index);
-    final _fillColorFn = fillColorFn == null
+    final fillColorFnWrapper = fillColorFn == null
         ? null
         : (int? index) => fillColorFn(data[index!], index);
-    final _patternColorFn = patternColorFn == null
+    final patternColorFnWrapper = patternColorFn == null
         ? null
         : (int? index) => patternColorFn(data[index!], index);
-    final _fillPatternFn = fillPatternFn == null
+    final fillPatternFnWrapper = fillPatternFn == null
         ? null
         : (int? index) => fillPatternFn(data[index!], index);
-    final _labelAccessorFn = labelAccessorFn == null
+    final labelAccessorFnWrapper = labelAccessorFn == null
         ? null
         : (int? index) => labelAccessorFn(data[index!], index);
-    final _insideLabelStyleAccessorFn = insideLabelStyleAccessorFn == null
+    final insideLabelStyleAccessorFnWrapper = insideLabelStyleAccessorFn == null
         ? null
         : (int? index) => insideLabelStyleAccessorFn(data[index!], index);
-    final _outsideLabelStyleAccessorFn = outsideLabelStyleAccessorFn == null
-        ? null
-        : (int? index) => outsideLabelStyleAccessorFn(data[index!], index);
-    final _measureFormatterFn = measureFormatterFn == null
+    final outsideLabelStyleAccessorFnWrapper =
+        outsideLabelStyleAccessorFn == null
+            ? null
+            : (int? index) => outsideLabelStyleAccessorFn(data[index!], index);
+    final measureFormatterFnWrapper = measureFormatterFn == null
         ? null
         : (int? index) => measureFormatterFn(data[index!], index);
-    final _measureLowerBoundFn = measureLowerBoundFn == null
+    final measureLowerBoundFnWrapper = measureLowerBoundFn == null
         ? null
         : (int? index) => measureLowerBoundFn(data[index!], index);
-    final _measureUpperBoundFn = measureUpperBoundFn == null
+    final measureUpperBoundFnWrapper = measureUpperBoundFn == null
         ? null
         : (int? index) => measureUpperBoundFn(data[index!], index);
-    final _measureOffsetFn = measureOffsetFn == null
+    final measureOffsetFnWrapper = measureOffsetFn == null
         ? null
         : (int? index) => measureOffsetFn(data[index!], index);
-    final _radiusPxFn = radiusPxFn == null
+    final radiusPxFnWrapper = radiusPxFn == null
         ? null
         : (int? index) => radiusPxFn(data[index!], index);
-    final _strokeWidthPxFn = strokeWidthPxFn == null
+    final strokeWidthPxFnWrapper = strokeWidthPxFn == null
         ? null
         : (int? index) => strokeWidthPxFn(data[index!], index);
-    final _keyFn =
+    final keyFnWrapper =
         keyFn == null ? null : (int? index) => keyFn(data[index!], index);
 
     return Series._internal(
       id: id,
       data: data,
-      domainFn: _domainFn,
-      measureFn: _measureFn,
+      domainFn: domainFnWrapper,
+      measureFn: measureFnWrapper,
       displayName: displayName,
-      areaColorFn: _areaColorFn,
-      colorFn: _colorFn,
-      dashPatternFn: _dashPatternFn,
-      domainFormatterFn: _domainFormatterFn,
-      domainLowerBoundFn: _domainLowerBoundFn,
-      domainUpperBoundFn: _domainUpperBoundFn,
-      fillColorFn: _fillColorFn,
-      fillPatternFn: _fillPatternFn,
-      keyFn: _keyFn,
-      patternColorFn: _patternColorFn,
-      labelAccessorFn: _labelAccessorFn,
-      insideLabelStyleAccessorFn: _insideLabelStyleAccessorFn,
-      outsideLabelStyleAccessorFn: _outsideLabelStyleAccessorFn,
-      measureFormatterFn: _measureFormatterFn,
-      measureLowerBoundFn: _measureLowerBoundFn,
-      measureUpperBoundFn: _measureUpperBoundFn,
-      measureOffsetFn: _measureOffsetFn,
+      areaColorFn: areaColorFnWrapper,
+      colorFn: colorFnWrapper,
+      dashPatternFn: dashPatternFnWrapper,
+      domainFormatterFn: domainFormatterFnWrapper,
+      domainLowerBoundFn: domainLowerBoundFnWrapper,
+      domainUpperBoundFn: domainUpperBoundFnWrapper,
+      fillColorFn: fillColorFnWrapper,
+      fillPatternFn: fillPatternFnWrapper,
+      keyFn: keyFnWrapper,
+      patternColorFn: patternColorFnWrapper,
+      labelAccessorFn: labelAccessorFnWrapper,
+      insideLabelStyleAccessorFn: insideLabelStyleAccessorFnWrapper,
+      outsideLabelStyleAccessorFn: outsideLabelStyleAccessorFnWrapper,
+      measureFormatterFn: measureFormatterFnWrapper,
+      measureLowerBoundFn: measureLowerBoundFnWrapper,
+      measureUpperBoundFn: measureUpperBoundFnWrapper,
+      measureOffsetFn: measureOffsetFnWrapper,
       overlaySeries: overlaySeries,
-      radiusPxFn: _radiusPxFn,
+      radiusPxFn: radiusPxFnWrapper,
       seriesCategory: seriesCategory,
       seriesColor: seriesColor,
-      strokeWidthPxFn: _strokeWidthPxFn,
+      strokeWidthPxFn: strokeWidthPxFnWrapper,
     );
   }
 

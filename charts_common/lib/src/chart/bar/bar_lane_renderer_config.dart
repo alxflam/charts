@@ -54,7 +54,7 @@ class BarLaneRendererConfig extends BarRendererConfig<String> {
     int layoutPaintOrder = LayoutViewPaintOrder.bar,
     this.mergeEmptyLanes = false,
     int minBarLengthPx = 0,
-    bool renderNegativeLanes = false,
+    this.renderNegativeLanes = false,
     int stackedBarPaddingPx = 1,
     double strokeWidthPx = 0.0,
     BarRendererDecorator<String>? barRendererDecorator,
@@ -63,7 +63,6 @@ class BarLaneRendererConfig extends BarRendererConfig<String> {
     List<int>? weightPattern,
   })  : backgroundBarColor =
             backgroundBarColor ?? StyleFactory.style.noDataColor,
-        renderNegativeLanes = renderNegativeLanes,
         super(
           barRendererDecorator: barRendererDecorator,
           cornerStrategy: cornerStrategy,

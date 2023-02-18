@@ -27,7 +27,7 @@ class TabularLegendLayout implements LegendLayout {
   static const _noLimit = -1;
 
   /// Default EdgeInsets for padding rows to the max column count
-  static const defaultCellPadding = const EdgeInsets.all(8.0);
+  static const defaultCellPadding = EdgeInsets.all(8.0);
 
   final bool isHorizontalFirst;
   final int desiredMaxRows;
@@ -92,15 +92,15 @@ class TabularLegendLayout implements LegendLayout {
   }
 
   @override
-  bool operator ==(o) =>
-      o is TabularLegendLayout &&
-      desiredMaxRows == o.desiredMaxRows &&
-      desiredMaxColumns == o.desiredMaxColumns &&
-      isHorizontalFirst == o.isHorizontalFirst &&
-      cellPadding == o.cellPadding;
+  bool operator ==(other) =>
+      other is TabularLegendLayout &&
+      desiredMaxRows == other.desiredMaxRows &&
+      desiredMaxColumns == other.desiredMaxColumns &&
+      isHorizontalFirst == other.isHorizontalFirst &&
+      cellPadding == other.cellPadding;
 
   @override
-  int get hashCode => hashValues(
+  int get hashCode => Object.hash(
       desiredMaxRows, desiredMaxColumns, isHorizontalFirst, cellPadding);
 
   Widget _buildHorizontalFirst(List<Widget> legendEntries) {
@@ -124,6 +124,7 @@ class TabularLegendLayout implements LegendLayout {
         ? legendEntries.length
         : min(legendEntries.length, desiredMaxRows);
 
+    // ignore: prefer_const_constructors table row needs to be mutable
     final rows = List.generate(maxRows, (_) => TableRow(children: <Widget>[]));
     for (var i = 0; i < legendEntries.length; i++) {
       rows[i % maxRows].children!.add(legendEntries[i]);
@@ -154,6 +155,7 @@ class TabularLegendLayout implements LegendLayout {
     // Sizing the column width using [IntrinsicColumnWidth] is expensive per
     // Flutter's documentation, but has to be used if the table is desired to
     // have a width that is tight on each column.
-    return Table(children: rows, defaultColumnWidth: IntrinsicColumnWidth());
+    return Table(
+        children: rows, defaultColumnWidth: const IntrinsicColumnWidth());
   }
 }

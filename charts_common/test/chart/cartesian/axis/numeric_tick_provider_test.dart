@@ -25,7 +25,6 @@ import 'package:charts_common/src/chart/common/chart_canvas.dart';
 import 'package:charts_common/src/chart/common/chart_context.dart';
 import 'package:charts_common/src/chart/common/unitconverter/unit_converter.dart';
 import 'package:charts_common/src/chart/cartesian/axis/collision_report.dart';
-import 'package:charts_common/src/chart/cartesian/axis/numeric_scale.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick_formatter.dart';
 import 'package:charts_common/src/chart/cartesian/axis/tick_provider.dart';

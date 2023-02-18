@@ -62,7 +62,8 @@ class TestChart extends StatefulWidget {
   final charts.SelectionModelListener<String> selectionChangedListener;
   final charts.UserManagedSelectionModel<String> onTapSelection;
 
-  TestChart(this.selectionChangedListener, this.onTapSelection);
+  const TestChart(this.selectionChangedListener, this.onTapSelection,
+      {super.key});
 
   @override
   TestChartState createState() {
@@ -96,7 +97,7 @@ class TestChartState extends State<TestChart> {
 
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: GestureDetector(child: chart, onTap: handleOnTap),
+      child: GestureDetector(onTap: handleOnTap, child: chart),
     );
   }
 

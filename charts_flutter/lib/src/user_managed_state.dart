@@ -60,10 +60,7 @@ class UserManagedSelectionModel<D> {
   /// Creates a [UserManagedSelectionModel] with configuration that is converted
   /// to a [SelectionModel] when [getModel] provides a processed series list.
   UserManagedSelectionModel.fromConfig(
-      {List<String>? selectedSeriesConfig,
-      List<common.SeriesDatumConfig<D>>? selectedDataConfig})
-      : this.selectedSeriesConfig = selectedSeriesConfig,
-        this.selectedDataConfig = selectedDataConfig;
+      {this.selectedSeriesConfig, this.selectedDataConfig});
 
   /// Gets the selection model. If the model is null, create one from
   /// configuration and the processed [seriesList] passed in.

@@ -24,7 +24,6 @@ import 'package:charts_common/common.dart' as common
         SliderListenerCallback,
         SliderStyle,
         SymbolRenderer;
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:meta/meta.dart' show immutable;
 
 import '../chart_behavior.dart' show ChartBehavior, GestureType;
@@ -61,7 +60,7 @@ class Slider<D> extends ChartBehavior<D> {
   final int? layoutPaintOrder;
 
   /// Initial domain position of the slider, in domain units.
-  final dynamic? initialDomainValue;
+  final dynamic initialDomainValue;
 
   /// Callback function that will be called when the position of the slider
   /// changes during a drag event.
@@ -117,7 +116,7 @@ class Slider<D> extends ChartBehavior<D> {
   factory Slider(
       {common.SelectionTrigger? eventTrigger,
       common.SymbolRenderer? handleRenderer,
-      dynamic? initialDomainValue,
+      dynamic initialDomainValue,
       String? roleId,
       common.SliderListenerCallback? onChangeCallback,
       bool snapToDatum = false,
@@ -126,7 +125,8 @@ class Slider<D> extends ChartBehavior<D> {
     eventTrigger ??= common.SelectionTrigger.tapAndDrag;
     handleRenderer ??= common.RectSymbolRenderer();
     // Default the handle size large enough to tap on a mobile device.
-    style ??= common.SliderStyle(handleSize: Rectangle<int>(0, 0, 20, 30));
+    style ??=
+        common.SliderStyle(handleSize: const Rectangle<int>(0, 0, 20, 30));
     return Slider._internal(
         eventTrigger: eventTrigger,
         handleRenderer: handleRenderer,
@@ -141,7 +141,7 @@ class Slider<D> extends ChartBehavior<D> {
 
   static Set<GestureType> _getDesiredGestures(
       common.SelectionTrigger eventTrigger) {
-    final desiredGestures = Set<GestureType>();
+    final desiredGestures = <GestureType>{};
     switch (eventTrigger) {
       case common.SelectionTrigger.tapAndDrag:
         desiredGestures
@@ -157,7 +157,7 @@ class Slider<D> extends ChartBehavior<D> {
         break;
       default:
         throw ArgumentError(
-            'Slider does not support the event trigger ' + '"${eventTrigger}"');
+            'Slider does not support the event trigger "$eventTrigger"');
     }
     return desiredGestures;
   }
@@ -179,21 +179,21 @@ class Slider<D> extends ChartBehavior<D> {
   String get role => 'Slider-${eventTrigger.toString()}';
 
   @override
-  bool operator ==(Object o) {
-    return o is Slider &&
-        eventTrigger == o.eventTrigger &&
-        handleRenderer == o.handleRenderer &&
-        initialDomainValue == o.initialDomainValue &&
-        onChangeCallback == o.onChangeCallback &&
-        roleId == o.roleId &&
-        snapToDatum == o.snapToDatum &&
-        style == o.style &&
-        layoutPaintOrder == o.layoutPaintOrder;
+  bool operator ==(Object other) {
+    return other is Slider &&
+        eventTrigger == other.eventTrigger &&
+        handleRenderer == other.handleRenderer &&
+        initialDomainValue == other.initialDomainValue &&
+        onChangeCallback == other.onChangeCallback &&
+        roleId == other.roleId &&
+        snapToDatum == other.snapToDatum &&
+        style == other.style &&
+        layoutPaintOrder == other.layoutPaintOrder;
   }
 
   @override
   int get hashCode {
-    return hashValues(eventTrigger, handleRenderer, initialDomainValue, roleId,
+    return Object.hash(eventTrigger, handleRenderer, initialDomainValue, roleId,
         snapToDatum, style, layoutPaintOrder);
   }
 }

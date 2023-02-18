@@ -33,13 +33,13 @@ import 'time_tick_formatter_impl.dart'
 /// regular or transition ticks based on whether the tick has crossed the time
 /// boundary defined in the [TimeTickFormatter].
 class DateTimeTickFormatter implements TickFormatter<DateTime> {
-  static const int SECOND = 1000;
-  static const int MINUTE = 60 * SECOND;
-  static const int HOUR = 60 * MINUTE;
-  static const int DAY = 24 * HOUR;
+  static const int second = 1000;
+  static const int minute = 60 * second;
+  static const int hour = 60 * minute;
+  static const int day = 24 * hour;
 
   /// Used for the case when there is only one formatter.
-  static const int ANY = -1;
+  static const int any = -1;
 
   final Map<int, TimeTickFormatter> _timeFormatters;
 
@@ -54,27 +54,27 @@ class DateTimeTickFormatter implements TickFormatter<DateTime> {
   factory DateTimeTickFormatter(DateTimeFactory dateTimeFactory,
       {Map<int, TimeTickFormatter>? overrides}) {
     final map = <int, TimeTickFormatter>{
-      MINUTE: TimeTickFormatterImpl(
+      minute: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'mm',
           transitionFormat: 'h mm',
           transitionField: CalendarField.hourOfDay),
-      HOUR: HourTickFormatter(
+      hour: HourTickFormatter(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'h',
           transitionFormat: 'MMM d ha',
           noonFormat: 'ha'),
-      23 * HOUR: TimeTickFormatterImpl(
+      23 * hour: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'd',
           transitionFormat: 'MMM d',
           transitionField: CalendarField.month),
-      28 * DAY: TimeTickFormatterImpl(
+      28 * day: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'MMM',
           transitionFormat: 'MMM yyyy',
           transitionField: CalendarField.year),
-      364 * DAY: TimeTickFormatterImpl(
+      364 * day: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'yyyy',
           transitionFormat: 'yyyy',
@@ -92,17 +92,17 @@ class DateTimeTickFormatter implements TickFormatter<DateTime> {
   /// Creates a [DateTimeTickFormatter] without the time component.
   factory DateTimeTickFormatter.withoutTime(DateTimeFactory dateTimeFactory) {
     return DateTimeTickFormatter._internal({
-      23 * HOUR: TimeTickFormatterImpl(
+      23 * hour: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'd',
           transitionFormat: 'MMM d',
           transitionField: CalendarField.month),
-      28 * DAY: TimeTickFormatterImpl(
+      28 * day: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'MMM',
           transitionFormat: 'MMM yyyy',
           transitionField: CalendarField.year),
-      365 * DAY: TimeTickFormatterImpl(
+      365 * day: TimeTickFormatterImpl(
           dateTimeFactory: dateTimeFactory,
           simpleFormat: 'yyyy',
           transitionFormat: 'yyyy',
@@ -117,7 +117,7 @@ class DateTimeTickFormatter implements TickFormatter<DateTime> {
   ///
   /// [formatter] The format for all ticks.
   factory DateTimeTickFormatter.uniform(TimeTickFormatter formatter) {
-    return DateTimeTickFormatter._internal({ANY: formatter});
+    return DateTimeTickFormatter._internal({any: formatter});
   }
 
   /// Creates a [DateTimeTickFormatter] that formats ticks with [formatters].
@@ -154,7 +154,7 @@ class DateTimeTickFormatter implements TickFormatter<DateTime> {
     // exists pick the highest res one.
     var formatter = _timeFormatters[_timeFormatters.keys.first]!;
     var formatterFound = false;
-    if (_timeFormatters.keys.first == ANY) {
+    if (_timeFormatters.keys.first == any) {
       formatterFound = true;
     } else {
       final minTimeBetweenTicks = stepSize?.toInt() ?? 0;

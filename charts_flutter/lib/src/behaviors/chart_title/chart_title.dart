@@ -22,7 +22,6 @@ import 'package:charts_common/common.dart' as common
         MaxWidthStrategy,
         OutsideJustification,
         TextStyleSpec;
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:meta/meta.dart' show immutable;
 
 import '../chart_behavior.dart' show ChartBehavior, GestureType;
@@ -31,7 +30,7 @@ import '../chart_behavior.dart' show ChartBehavior, GestureType;
 @immutable
 class ChartTitle<D> extends ChartBehavior<D> {
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.BehaviorPosition? behaviorPosition;
 
@@ -166,26 +165,26 @@ class ChartTitle<D> extends ChartBehavior<D> {
   String get role => 'ChartTitle-${behaviorPosition.toString()}';
 
   @override
-  bool operator ==(Object o) {
-    return o is ChartTitle &&
-        behaviorPosition == o.behaviorPosition &&
-        layoutMinSize == o.layoutMinSize &&
-        layoutPreferredSize == o.layoutPreferredSize &&
-        maxWidthStrategy == o.maxWidthStrategy &&
-        title == o.title &&
-        titleDirection == o.titleDirection &&
-        titleOutsideJustification == o.titleOutsideJustification &&
-        titleStyleSpec == o.titleStyleSpec &&
-        subTitle == o.subTitle &&
-        subTitleStyleSpec == o.subTitleStyleSpec &&
-        innerPadding == o.innerPadding &&
-        titlePadding == o.titlePadding &&
-        outerPadding == o.outerPadding;
+  bool operator ==(Object other) {
+    return other is ChartTitle &&
+        behaviorPosition == other.behaviorPosition &&
+        layoutMinSize == other.layoutMinSize &&
+        layoutPreferredSize == other.layoutPreferredSize &&
+        maxWidthStrategy == other.maxWidthStrategy &&
+        title == other.title &&
+        titleDirection == other.titleDirection &&
+        titleOutsideJustification == other.titleOutsideJustification &&
+        titleStyleSpec == other.titleStyleSpec &&
+        subTitle == other.subTitle &&
+        subTitleStyleSpec == other.subTitleStyleSpec &&
+        innerPadding == other.innerPadding &&
+        titlePadding == other.titlePadding &&
+        outerPadding == other.outerPadding;
   }
 
   @override
   int get hashCode {
-    return hashValues(
+    return Object.hash(
         behaviorPosition,
         layoutMinSize,
         layoutPreferredSize,

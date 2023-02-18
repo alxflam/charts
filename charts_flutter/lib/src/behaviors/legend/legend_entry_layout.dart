@@ -40,7 +40,7 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
       TappableLegend legend, bool isHidden) {
     // TODO: Consider allowing scaling the size for the symbol.
     // A custom symbol renderer can ignore this size and use their own.
-    final materialSymbolSize = Size(12.0, 12.0);
+    const materialSymbolSize = Size(12.0, 12.0);
 
     final entryColor = legendEntry.color;
     final color = entryColor == null ? null : ColorUtil.toDartColor(entryColor);
@@ -53,13 +53,13 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
                 legendEntry.symbolRenderer!, legendEntry.dashPattern);
 
     return GestureDetector(
+        onTapUp: makeTapUpCallback(context, legendEntry, legend),
         child: symbolRendererBuilder.build(
           context,
           size: materialSymbolSize,
           color: color,
           enabled: !isHidden,
-        ),
-        onTapUp: makeTapUpCallback(context, legendEntry, legend));
+        ));
   }
 
   Widget createLabel(BuildContext context, common.LegendEntry legendEntry,
@@ -68,15 +68,15 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
         _convertTextStyle(isHidden, context, legendEntry.textStyle);
 
     return GestureDetector(
-        child: Text(legendEntry.label, style: style),
-        onTapUp: makeTapUpCallback(context, legendEntry, legend));
+        onTapUp: makeTapUpCallback(context, legendEntry, legend),
+        child: Text(legendEntry.label, style: style));
   }
 
   Widget createMeasureValue(BuildContext context,
       common.LegendEntry legendEntry, TappableLegend legend, bool isHidden) {
     return GestureDetector(
-        child: Text(legendEntry.formattedValue!),
-        onTapUp: makeTapUpCallback(context, legendEntry, legend));
+        onTapUp: makeTapUpCallback(context, legendEntry, legend),
+        child: Text(legendEntry.formattedValue!));
   }
 
   @override
@@ -86,7 +86,7 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
     final rowChildren = <Widget>[];
 
     // TODO: Allow setting to configure the padding.
-    final padding = EdgeInsets.only(right: 8.0); // Material default.
+    const padding = EdgeInsets.only(right: 8.0); // Material default.
     final symbol = createSymbol(context, legendEntry, legend, isHidden);
     final label = createLabel(context, legendEntry, legend, isHidden);
 
@@ -118,7 +118,7 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
 
   @override
   int get hashCode {
-    return this.runtimeType.hashCode;
+    return runtimeType.hashCode;
   }
 
   /// Convert the charts common TextStlyeSpec into a standard TextStyle, while
@@ -133,7 +133,7 @@ class SimpleLegendEntryLayout implements LegendEntryLayout {
         : null;
     if (isHidden) {
       // Use a default color for hidden legend entries if none is provided.
-      color ??= Theme.of(context).textTheme.bodyText2!.color;
+      color ??= Theme.of(context).textTheme.bodyMedium!.color;
       color = color!.withOpacity(0.26);
     }
 

@@ -27,8 +27,6 @@ import 'package:charts_common/src/common/text_measurement.dart'
 import 'package:charts_common/src/common/text_style.dart' show TextStyle;
 import 'package:charts_common/src/chart/cartesian/axis/spec/axis_spec.dart'
     show TextStyleSpec;
-import 'package:charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas;
 import 'package:charts_common/src/chart/pie/arc_label_decorator.dart'
     show ArcLabelDecorator, ArcLabelPosition;
 import 'package:charts_common/src/chart/pie/arc_renderer_element.dart'

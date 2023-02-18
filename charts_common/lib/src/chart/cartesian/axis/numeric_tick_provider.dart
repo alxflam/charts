@@ -44,10 +44,10 @@ import 'tick_provider.dart' show BaseTickProvider, TickHint;
 /// still selecting "nice" ticks values.
 class NumericTickProvider extends BaseTickProvider<num> {
   /// Used to determine the automatic tick count calculation.
-  static const MIN_DIPS_BETWEEN_TICKS = 25;
+  static const minDipsBetweenTicks = 25;
 
   /// Potential steps available to the baseTen value of the data.
-  static const DEFAULT_STEPS = [
+  static const defaultSteps = [
     0.01,
     0.02,
     0.025,
@@ -106,7 +106,7 @@ class NumericTickProvider extends BaseTickProvider<num> {
   int? _desiredMinTickCount;
 
   /// Allowed steps the tick provider can choose from.
-  var _allowedSteps = DEFAULT_STEPS;
+  var _allowedSteps = defaultSteps;
 
   /// Convert input data units to the desired units on the axis.
   /// If not set no conversion will take place.
@@ -492,7 +492,7 @@ class NumericTickProvider extends BaseTickProvider<num> {
       tmpMinNumMajorTicks = max(_desiredMinTickCount!, absoluteMinTicks);
       tmpMaxNumMajorTicks = max(_desiredMaxTickCount!, tmpMinNumMajorTicks);
     } else {
-      final minPixelsPerTick = MIN_DIPS_BETWEEN_TICKS.toDouble();
+      final minPixelsPerTick = minDipsBetweenTicks.toDouble();
       tmpMinNumMajorTicks = absoluteMinTicks;
       tmpMaxNumMajorTicks =
           max(absoluteMinTicks, (rangeWidth / minPixelsPerTick).floor());

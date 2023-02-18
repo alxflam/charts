@@ -29,8 +29,6 @@ import 'package:charts_common/src/chart/bar/bar_renderer.dart'
     show ImmutableBarRendererElement;
 import 'package:charts_common/src/chart/cartesian/axis/spec/axis_spec.dart'
     show TextStyleSpec;
-import 'package:charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas;
 import 'package:charts_common/src/chart/bar/bar_label_decorator.dart'
     show
         BarLabelDecorator,

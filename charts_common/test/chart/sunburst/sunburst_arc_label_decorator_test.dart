@@ -14,8 +14,6 @@
 // limitations under the License.
 
 import 'dart:math' show pi, Point, Rectangle;
-import 'package:charts_common/src/chart/common/processed_series.dart'
-    show ImmutableSeries;
 import 'package:charts_common/src/common/color.dart' show Color;
 import 'package:charts_common/src/common/graphics_factory.dart'
     show GraphicsFactory;
@@ -27,8 +25,6 @@ import 'package:charts_common/src/common/text_measurement.dart'
 import 'package:charts_common/src/common/text_style.dart' show TextStyle;
 import 'package:charts_common/src/chart/cartesian/axis/spec/axis_spec.dart'
     show TextStyleSpec;
-import 'package:charts_common/src/chart/common/chart_canvas.dart'
-    show ChartCanvas;
 import 'package:charts_common/src/chart/pie/arc_label_decorator.dart'
     show ArcLabelPosition;
 import 'package:charts_common/src/chart/sunburst/sunburst_arc_label_decorator.dart'

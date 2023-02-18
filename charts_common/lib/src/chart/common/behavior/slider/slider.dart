@@ -631,7 +631,7 @@ class _SliderLayoutView<D> extends LayoutView {
       {required int layoutPaintOrder, required SymbolRenderer handleRenderer})
       : layoutConfig = LayoutViewConfig(
             paintOrder: layoutPaintOrder,
-            position: LayoutPosition.DrawArea,
+            position: LayoutPosition.drawArea,
             positionOrder: LayoutViewPositionOrder.drawArea),
         _handleRenderer = handleRenderer;
 

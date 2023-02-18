@@ -22,19 +22,19 @@ import '../common/chart_canvas.dart' show ChartCanvas;
 
 /// Position of a [LayoutView].
 enum LayoutPosition {
-  Bottom,
-  FullBottom,
+  bottom,
+  fullBottom,
 
-  Top,
-  FullTop,
+  top,
+  fullTop,
 
-  Left,
-  FullLeft,
+  left,
+  fullLeft,
 
-  Right,
-  FullRight,
+  right,
+  fullRight,
 
-  DrawArea,
+  drawArea,
 }
 
 /// Standard layout paint orders for all internal components.
@@ -143,10 +143,10 @@ class LayoutViewConfig {
 
   /// Returns true if it is a full position.
   bool get isFullPosition =>
-      position == LayoutPosition.FullBottom ||
-      position == LayoutPosition.FullTop ||
-      position == LayoutPosition.FullRight ||
-      position == LayoutPosition.FullLeft;
+      position == LayoutPosition.fullBottom ||
+      position == LayoutPosition.fullTop ||
+      position == LayoutPosition.fullRight ||
+      position == LayoutPosition.fullLeft;
 }
 
 /// Size measurements of one component.
@@ -217,19 +217,19 @@ LayoutPosition layoutPosition(BehaviorPosition behaviorPosition,
   LayoutPosition position;
   switch (behaviorPosition) {
     case BehaviorPosition.bottom:
-      position = LayoutPosition.Bottom;
+      position = LayoutPosition.bottom;
       break;
     case BehaviorPosition.end:
-      position = isRtl ? LayoutPosition.Left : LayoutPosition.Right;
+      position = isRtl ? LayoutPosition.left : LayoutPosition.right;
       break;
     case BehaviorPosition.inside:
-      position = LayoutPosition.DrawArea;
+      position = LayoutPosition.drawArea;
       break;
     case BehaviorPosition.start:
-      position = isRtl ? LayoutPosition.Right : LayoutPosition.Left;
+      position = isRtl ? LayoutPosition.right : LayoutPosition.left;
       break;
     case BehaviorPosition.top:
-      position = LayoutPosition.Top;
+      position = LayoutPosition.top;
       break;
   }
 
@@ -239,17 +239,17 @@ LayoutPosition layoutPosition(BehaviorPosition behaviorPosition,
       outsideJustification == OutsideJustification.middle ||
       outsideJustification == OutsideJustification.end) {
     switch (position) {
-      case LayoutPosition.Bottom:
-        position = LayoutPosition.FullBottom;
+      case LayoutPosition.bottom:
+        position = LayoutPosition.fullBottom;
         break;
-      case LayoutPosition.Left:
-        position = LayoutPosition.FullLeft;
+      case LayoutPosition.left:
+        position = LayoutPosition.fullLeft;
         break;
-      case LayoutPosition.Top:
-        position = LayoutPosition.FullTop;
+      case LayoutPosition.top:
+        position = LayoutPosition.fullTop;
         break;
-      case LayoutPosition.Right:
-        position = LayoutPosition.FullRight;
+      case LayoutPosition.right:
+        position = LayoutPosition.fullRight;
         break;
 
       // Ignore other positions, like DrawArea.

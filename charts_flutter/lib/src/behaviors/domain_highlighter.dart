@@ -30,7 +30,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 @immutable
 class DomainHighlighter<D> extends ChartBehavior<D> {
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.SelectionModelType selectionModelType;
 
@@ -47,8 +47,9 @@ class DomainHighlighter<D> extends ChartBehavior<D> {
   String get role => 'domainHighlight-${selectionModelType.toString()}';
 
   @override
-  bool operator ==(Object o) =>
-      o is DomainHighlighter && selectionModelType == o.selectionModelType;
+  bool operator ==(Object other) =>
+      other is DomainHighlighter &&
+      selectionModelType == other.selectionModelType;
 
   @override
   int get hashCode => selectionModelType.hashCode;

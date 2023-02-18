@@ -237,8 +237,7 @@ class DatumDetails<D> {
         strokeWidthPx: radiusPx ?? other.strokeWidthPx);
   }
 
-  String get formattedDomain =>
-      (domainFormatter != null) ? domainFormatter!(domain!) : domain.toString();
+  String get formattedDomain => domain.toString();
 
   String get formattedMeasure => (measureFormatter != null)
       ? measureFormatter!(measure)

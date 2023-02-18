@@ -27,8 +27,7 @@ import 'package:charts_common/common.dart' as common
         SelectionModelType,
         TextStyleSpec;
 import 'package:collection/collection.dart' show ListEquality;
-import 'package:flutter/widgets.dart'
-    show BuildContext, EdgeInsets, Widget, hashValues;
+import 'package:flutter/widgets.dart' show BuildContext, EdgeInsets, Widget;
 import 'package:meta/meta.dart' show immutable;
 import '../../chart_container.dart' show ChartContainerRenderObject;
 import '../chart_behavior.dart'
@@ -47,7 +46,7 @@ class SeriesLegend<D> extends ChartBehavior<D> {
   static const defaultInsideJustification = common.InsideJustification.topStart;
 
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.SelectionModelType? selectionModelType;
 
@@ -88,7 +87,7 @@ class SeriesLegend<D> extends ChartBehavior<D> {
   /// Styles for legend entry label text.
   final common.TextStyleSpec? entryTextStyle;
 
-  static const defaultCellPadding = const EdgeInsets.all(8.0);
+  static const defaultCellPadding = EdgeInsets.all(8.0);
 
   final List<String>? defaultHiddenSeries;
 
@@ -272,24 +271,25 @@ class SeriesLegend<D> extends ChartBehavior<D> {
   String get role => 'legend';
 
   @override
-  bool operator ==(Object o) {
-    return o is SeriesLegend &&
-        selectionModelType == o.selectionModelType &&
-        contentBuilder == o.contentBuilder &&
-        position == o.position &&
-        outsideJustification == o.outsideJustification &&
-        insideJustification == o.insideJustification &&
-        ListEquality().equals(defaultHiddenSeries, o.defaultHiddenSeries) &&
-        showMeasures == o.showMeasures &&
-        legendDefaultMeasure == o.legendDefaultMeasure &&
-        measureFormatter == o.measureFormatter &&
-        secondaryMeasureFormatter == o.secondaryMeasureFormatter &&
-        entryTextStyle == o.entryTextStyle;
+  bool operator ==(Object other) {
+    return other is SeriesLegend &&
+        selectionModelType == other.selectionModelType &&
+        contentBuilder == other.contentBuilder &&
+        position == other.position &&
+        outsideJustification == other.outsideJustification &&
+        insideJustification == other.insideJustification &&
+        const ListEquality()
+            .equals(defaultHiddenSeries, other.defaultHiddenSeries) &&
+        showMeasures == other.showMeasures &&
+        legendDefaultMeasure == other.legendDefaultMeasure &&
+        measureFormatter == other.measureFormatter &&
+        secondaryMeasureFormatter == other.secondaryMeasureFormatter &&
+        entryTextStyle == other.entryTextStyle;
   }
 
   @override
   int get hashCode {
-    return hashValues(
+    return Object.hash(
         selectionModelType,
         contentBuilder,
         position,
@@ -338,7 +338,7 @@ class _FlutterSeriesLegend<D> extends common.SeriesLegend<D>
 
   @override
   Widget build(BuildContext context) {
-    final hasSelection = legendState.legendEntries != null &&
+    final hasSelection =
         legendState.legendEntries.any((entry) => entry.isSelected);
 
     // Show measures if [showMeasures] is true and there is a selection or if

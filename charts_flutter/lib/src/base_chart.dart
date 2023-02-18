@@ -69,7 +69,7 @@ abstract class BaseChart<D> extends StatefulWidget {
   /// Optional state that overrides internally kept state, such as selection.
   final UserManagedState<D>? userManagedState;
 
-  BaseChart(this.seriesList,
+  const BaseChart(this.seriesList,
       {bool? animate,
       Duration? animationDuration,
       this.defaultRenderer,
@@ -80,8 +80,8 @@ abstract class BaseChart<D> extends StatefulWidget {
       this.defaultInteractions = true,
       this.layoutConfig,
       this.userManagedState})
-      : this.animate = animate ?? true,
-        this.animationDuration =
+      : animate = animate ?? true,
+        animationDuration =
             animationDuration ?? const Duration(milliseconds: 300);
 
   @override
@@ -159,7 +159,7 @@ abstract class BaseChart<D> extends StatefulWidget {
     }
 
     // Add any remaining/new behaviors.
-    behaviorList.forEach((ChartBehavior<D> behaviorWidget) {
+    for (var behaviorWidget in behaviorList) {
       final commonBehavior = behaviorWidget.createCommonBehavior();
 
       // Assign the chart state to any behavior that needs it.
@@ -172,7 +172,7 @@ abstract class BaseChart<D> extends StatefulWidget {
       chartState.addedCommonBehaviorsByRole[behaviorWidget.role] =
           commonBehavior;
       chartState.markChartDirty();
-    });
+    }
   }
 
   /// Create the list of default interaction behaviors.
@@ -225,13 +225,13 @@ abstract class BaseChart<D> extends StatefulWidget {
     });
 
     // Remove any lingering listeners.
-    prevTypes.forEach((common.SelectionModelType type) {
+    for (var type in prevTypes) {
       chart.getSelectionModel(type)
         ..removeSelectionChangedListener(
             chartState.addedSelectionChangedListenersByType[type]!)
         ..removeSelectionUpdatedListener(
             chartState.addedSelectionUpdatedListenersByType[type]!);
-    });
+    }
   }
 
   /// Gets distinct set of gestures this chart will subscribe to.
@@ -241,7 +241,7 @@ abstract class BaseChart<D> extends StatefulWidget {
   /// Gestures are then setup to be proxied in [common.BaseChart] and that is
   /// held by [ChartContainerRenderObject].
   Set<GestureType> getDesiredGestures(BaseChartState chartState) {
-    final types = Set<GestureType>();
+    final types = <GestureType>{};
     behaviors?.forEach((ChartBehavior behavior) {
       types.addAll(behavior.desiredGestures);
     });
@@ -250,9 +250,9 @@ abstract class BaseChart<D> extends StatefulWidget {
       addDefaultInteractions(chartState.autoBehaviorWidgets);
     }
 
-    chartState.autoBehaviorWidgets.forEach((ChartBehavior behavior) {
+    for (var behavior in chartState.autoBehaviorWidgets) {
       types.addAll(behavior.desiredGestures);
-    });
+    }
     return types;
   }
 }
@@ -264,7 +264,7 @@ class LayoutConfig {
   final common.MarginSpec rightMarginSpec;
   final common.MarginSpec bottomMarginSpec;
 
-  LayoutConfig({
+  const LayoutConfig({
     required this.leftMarginSpec,
     required this.topMarginSpec,
     required this.rightMarginSpec,

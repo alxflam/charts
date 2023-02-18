@@ -15,7 +15,7 @@
 
 import 'package:charts_common/common.dart' as common
     show Legend, LegendState, SeriesLegend;
-import 'package:flutter/widgets.dart' show BuildContext, hashValues, Widget;
+import 'package:flutter/widgets.dart' show BuildContext, Widget;
 import 'legend.dart';
 import 'legend_entry_layout.dart';
 import 'legend_layout.dart';
@@ -77,18 +77,17 @@ class TabularLegendContentBuilder extends BaseLegendContentBuilder {
 
   TabularLegendContentBuilder(
       {LegendEntryLayout? legendEntryLayout, LegendLayout? legendLayout})
-      : this.legendEntryLayout =
+      : legendEntryLayout =
             legendEntryLayout ?? const SimpleLegendEntryLayout(),
-        this.legendLayout =
-            legendLayout ?? TabularLegendLayout.horizontalFirst();
+        legendLayout = legendLayout ?? TabularLegendLayout.horizontalFirst();
 
   @override
-  bool operator ==(Object o) {
-    return o is TabularLegendContentBuilder &&
-        legendEntryLayout == o.legendEntryLayout &&
-        legendLayout == o.legendLayout;
+  bool operator ==(Object other) {
+    return other is TabularLegendContentBuilder &&
+        legendEntryLayout == other.legendEntryLayout &&
+        legendLayout == other.legendLayout;
   }
 
   @override
-  int get hashCode => hashValues(legendEntryLayout, legendLayout);
+  int get hashCode => Object.hash(legendEntryLayout, legendLayout);
 }

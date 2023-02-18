@@ -87,16 +87,6 @@ class ConcreteSeriesLegend<D> extends SeriesLegend<D> {
   void showSeries(String seriesId) {
     super.showSeries(seriesId);
   }
-
-  @override
-  bool isSeriesHidden(String seriesId) {
-    return super.isSeriesHidden(seriesId);
-  }
-
-  @override
-  bool isSeriesAlwaysVisible(String seriesId) {
-    return super.isSeriesAlwaysVisible(seriesId);
-  }
 }
 
 void main() {

@@ -191,10 +191,6 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
     final newSeriesMap = LinkedHashMap<String, _AnimatedPoint<D>>();
 
     for (final detail in selectedDatumDetails) {
-      if (detail == null) {
-        continue;
-      }
-
       final series = detail.series!;
       final Object? datum = detail.datum;
 
@@ -317,7 +313,7 @@ class _LinePointLayoutView<D> extends LayoutView {
     required this.drawFollowLinesAcrossChart,
   }) : layoutConfig = LayoutViewConfig(
             paintOrder: LayoutViewPaintOrder.linePointHighlighter,
-            position: LayoutPosition.DrawArea,
+            position: LayoutPosition.drawArea,
             positionOrder: layoutPaintOrder);
 
   set seriesPointMap(LinkedHashMap<String, _AnimatedPoint<D>>? value) {

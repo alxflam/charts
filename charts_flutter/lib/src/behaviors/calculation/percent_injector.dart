@@ -38,7 +38,7 @@ import '../chart_behavior.dart' show ChartBehavior, GestureType;
 @immutable
 class PercentInjector<D> extends ChartBehavior<D> {
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   /// The type of data total to be calculated.
   final common.PercentInjectorTotalType totalType;
@@ -59,8 +59,8 @@ class PercentInjector<D> extends ChartBehavior<D> {
   String get role => 'PercentInjector';
 
   @override
-  bool operator ==(Object o) {
-    return o is PercentInjector && totalType == o.totalType;
+  bool operator ==(Object other) {
+    return other is PercentInjector && totalType == other.totalType;
   }
 
   @override

@@ -796,7 +796,7 @@ void main() {
 
     test('with bar max width', () {
       // Helper to create series list for this test only.
-      List<MutableSeries<String>> _createSeriesList(List<MyRow> data) {
+      List<MutableSeries<String>> createSeriesList(List<MyRow> data) {
         final domainAxis = MockStringAxis();
         when(domainAxis.rangeBand).thenReturn(100.0);
         when(domainAxis.getLocation('MyCampaign1')).thenReturn(20.0);
@@ -834,7 +834,7 @@ void main() {
         MyRow('MyCampaign3', 100),
         MyRow('MyOtherCampaign', 75),
       ];
-      final seriesList = _createSeriesList(data);
+      final seriesList = createSeriesList(data);
 
       final renderer =
           makeFakeRenderer(config: BarRendererConfig(maxBarWidthPx: 40));
@@ -854,7 +854,7 @@ void main() {
   group('null measure', () {
     test('only include null in draw if animating from a non null measure', () {
       // Helper to create series list for this test only.
-      List<MutableSeries<String>> _createSeriesList(List<MyRow> data) {
+      List<MutableSeries<String>> createSeriesList(List<MyRow> data) {
         final domainAxis = MockStringAxis();
         when(domainAxis.rangeBand).thenReturn(100.0);
         when(domainAxis.getLocation('MyCampaign1')).thenReturn(20.0);
@@ -892,7 +892,7 @@ void main() {
         MyRow('MyCampaign3', 100),
         MyRow('MyOtherCampaign', 75),
       ];
-      final seriesListWithNull = _createSeriesList(myDataWithNull);
+      final seriesListWithNull = createSeriesList(myDataWithNull);
 
       final myDataWithMeasures = [
         MyRow('MyCampaign1', 5),
@@ -900,7 +900,7 @@ void main() {
         MyRow('MyCampaign3', 100),
         MyRow('MyOtherCampaign', 75),
       ];
-      final seriesListWithMeasures = _createSeriesList(myDataWithMeasures);
+      final seriesListWithMeasures = createSeriesList(myDataWithMeasures);
 
       final renderer = makeFakeRenderer(
           config: BarRendererConfig(groupingType: BarGroupingType.grouped));

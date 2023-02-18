@@ -25,8 +25,7 @@ import 'package:charts_common/common.dart' as common
         OutsideJustification,
         SelectionModelType,
         TextStyleSpec;
-import 'package:flutter/widgets.dart'
-    show BuildContext, EdgeInsets, Widget, hashValues;
+import 'package:flutter/widgets.dart' show BuildContext, EdgeInsets, Widget;
 import 'package:meta/meta.dart' show immutable;
 import '../../chart_container.dart' show ChartContainerRenderObject;
 import '../chart_behavior.dart'
@@ -48,7 +47,7 @@ class DatumLegend<D> extends ChartBehavior<D> {
   static const defaultInsideJustification = common.InsideJustification.topStart;
 
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.SelectionModelType? selectionModelType;
 
@@ -89,7 +88,7 @@ class DatumLegend<D> extends ChartBehavior<D> {
   /// Styles for legend entry label text.
   final common.TextStyleSpec? entryTextStyle;
 
-  static const defaultCellPadding = const EdgeInsets.all(8.0);
+  static const defaultCellPadding = EdgeInsets.all(8.0);
 
   /// Create a new tabular layout legend.
   ///
@@ -259,23 +258,23 @@ class DatumLegend<D> extends ChartBehavior<D> {
   String get role => 'legend';
 
   @override
-  bool operator ==(Object o) {
-    return o is DatumLegend &&
-        selectionModelType == o.selectionModelType &&
-        contentBuilder == o.contentBuilder &&
-        position == o.position &&
-        outsideJustification == o.outsideJustification &&
-        insideJustification == o.insideJustification &&
-        showMeasures == o.showMeasures &&
-        legendDefaultMeasure == o.legendDefaultMeasure &&
-        measureFormatter == o.measureFormatter &&
-        secondaryMeasureFormatter == o.secondaryMeasureFormatter &&
-        entryTextStyle == o.entryTextStyle;
+  bool operator ==(Object other) {
+    return other is DatumLegend &&
+        selectionModelType == other.selectionModelType &&
+        contentBuilder == other.contentBuilder &&
+        position == other.position &&
+        outsideJustification == other.outsideJustification &&
+        insideJustification == other.insideJustification &&
+        showMeasures == other.showMeasures &&
+        legendDefaultMeasure == other.legendDefaultMeasure &&
+        measureFormatter == other.measureFormatter &&
+        secondaryMeasureFormatter == other.secondaryMeasureFormatter &&
+        entryTextStyle == other.entryTextStyle;
   }
 
   @override
   int get hashCode {
-    return hashValues(
+    return Object.hash(
         selectionModelType,
         contentBuilder,
         position,

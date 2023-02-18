@@ -28,9 +28,9 @@ import '../chart_behavior.dart'
 
 @immutable
 class PanBehavior<D> extends ChartBehavior<D> {
-  final _desiredGestures = Set<GestureType>.from([
+  final _desiredGestures = <GestureType>{
     GestureType.onDrag,
-  ]);
+  };
 
   /// Optional callback that is called when panning is completed.
   ///
@@ -79,8 +79,6 @@ mixin FlutterPanBehaviorMixin<D> on common.PanBehavior<D>
 
   @override
   set chartState(BaseChartState chartState) {
-    assert(chartState != null);
-
     _chartState = chartState;
     _flingAnimator = chartState.getAnimationController(this);
     _flingAnimator?.addListener(_onFlingTick);

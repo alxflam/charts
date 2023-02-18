@@ -21,7 +21,6 @@ import 'package:charts_common/common.dart' as common
         LinePointHighlighterFollowLineType,
         SelectionModelType,
         SymbolRenderer;
-import 'package:flutter/widgets.dart' show hashValues;
 import 'package:meta/meta.dart' show immutable;
 
 import 'chart_behavior.dart' show ChartBehavior, GestureType;
@@ -36,7 +35,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 @immutable
 class LinePointHighlighter<D> extends ChartBehavior<D> {
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.SelectionModelType? selectionModelType;
 
@@ -103,20 +102,20 @@ class LinePointHighlighter<D> extends ChartBehavior<D> {
   String get role => 'LinePointHighlighter-${selectionModelType.toString()}';
 
   @override
-  bool operator ==(Object o) {
-    return o is LinePointHighlighter &&
-        defaultRadiusPx == o.defaultRadiusPx &&
-        radiusPaddingPx == o.radiusPaddingPx &&
-        showHorizontalFollowLine == o.showHorizontalFollowLine &&
-        showVerticalFollowLine == o.showVerticalFollowLine &&
-        selectionModelType == o.selectionModelType &&
-        ListEquality().equals(dashPattern, o.dashPattern) &&
-        drawFollowLinesAcrossChart == o.drawFollowLinesAcrossChart;
+  bool operator ==(Object other) {
+    return other is LinePointHighlighter &&
+        defaultRadiusPx == other.defaultRadiusPx &&
+        radiusPaddingPx == other.radiusPaddingPx &&
+        showHorizontalFollowLine == other.showHorizontalFollowLine &&
+        showVerticalFollowLine == other.showVerticalFollowLine &&
+        selectionModelType == other.selectionModelType &&
+        const ListEquality().equals(dashPattern, other.dashPattern) &&
+        drawFollowLinesAcrossChart == other.drawFollowLinesAcrossChart;
   }
 
   @override
   int get hashCode {
-    return hashValues(
+    return Object.hash(
       selectionModelType,
       defaultRadiusPx,
       radiusPaddingPx,

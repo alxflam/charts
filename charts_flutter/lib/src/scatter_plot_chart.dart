@@ -32,7 +32,7 @@ import 'selection_model_config.dart' show SelectionModelConfig;
 import 'user_managed_state.dart' show UserManagedState;
 
 class ScatterPlotChart extends CartesianChart<num> {
-  ScatterPlotChart(
+  const ScatterPlotChart(
     List<common.Series<dynamic, num>> seriesList, {
     bool? animate,
     Duration? animationDuration,

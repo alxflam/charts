@@ -29,7 +29,7 @@ import 'chart_behavior.dart' show ChartBehavior, GestureType;
 @immutable
 class SlidingViewport<D> extends ChartBehavior<D> {
   @override
-  final desiredGestures = Set<GestureType>();
+  final desiredGestures = <GestureType>{};
 
   final common.SelectionModelType selectionModelType;
 
@@ -46,8 +46,9 @@ class SlidingViewport<D> extends ChartBehavior<D> {
   String get role => 'slidingViewport-${selectionModelType.toString()}';
 
   @override
-  bool operator ==(Object o) =>
-      o is SlidingViewport && selectionModelType == o.selectionModelType;
+  bool operator ==(Object other) =>
+      other is SlidingViewport &&
+      selectionModelType == other.selectionModelType;
 
   @override
   int get hashCode => selectionModelType.hashCode;

@@ -36,7 +36,7 @@ class TreeMapLabelDecorator<D> extends TreeMapRendererDecorator<D> {
       TextStyleSpec(fontSize: _defaultFontSize, color: Color.black);
 
   /// Rotation value of 90 degrees clockwise.
-  static const _90DegreeClockwise = pi / 2;
+  static const ninetyDegreeClockwise = pi / 2;
 
   /// Text style spec for labels.
   final TextStyleSpec labelStyleSpec;
@@ -159,7 +159,7 @@ class TreeMapLabelDecorator<D> extends TreeMapRendererDecorator<D> {
     }
 
     return _TreeMapLabelSegment(labelElement, xOffset.toInt(), yOffset.toInt(),
-        rotate ? _90DegreeClockwise : 0.0);
+        rotate ? ninetyDegreeClockwise : 0.0);
   }
 }
 

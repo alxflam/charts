@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection' show LinkedHashMap;
 import 'dart:math' show Point, Rectangle;
 
 import 'package:charts_common/src/chart/common/chart_canvas.dart';

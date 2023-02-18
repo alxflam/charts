@@ -227,7 +227,7 @@ class SymbolAnnotationRenderer<D> extends PointRenderer<D>
   LayoutViewConfig get layoutConfig {
     return LayoutViewConfig(
         paintOrder: LayoutViewPaintOrder.point,
-        position: LayoutPosition.Bottom,
+        position: LayoutPosition.bottom,
         positionOrder: LayoutViewPositionOrder.symbolAnnotation);
   }
 

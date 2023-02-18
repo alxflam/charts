@@ -40,7 +40,7 @@ abstract class CartesianChart<D> extends BaseChart<D> {
   final LinkedHashMap<String, common.NumericAxisSpec>? disjointMeasureAxes;
   final bool? flipVerticalAxis;
 
-  CartesianChart(
+  const CartesianChart(
     List<common.Series<dynamic, D>> seriesList, {
     bool? animate,
     Duration? animationDuration,
@@ -72,34 +72,34 @@ abstract class CartesianChart<D> extends BaseChart<D> {
         );
 
   @override
-  void updateCommonChart(common.BaseChart<D> baseChart, BaseChart<D>? oldWidget,
+  void updateCommonChart(common.BaseChart<D> chart, BaseChart<D>? oldWidget,
       BaseChartState<D> chartState) {
-    super.updateCommonChart(baseChart, oldWidget, chartState);
+    super.updateCommonChart(chart, oldWidget, chartState);
 
     final prev = oldWidget as CartesianChart?;
-    final chart = baseChart as common.CartesianChart;
+    final cartesianChart = chart as common.CartesianChart;
 
     if (flipVerticalAxis != null) {
-      chart.flipVerticalAxisOutput = flipVerticalAxis!;
+      cartesianChart.flipVerticalAxisOutput = flipVerticalAxis!;
     }
 
     if (domainAxis != null && domainAxis != prev?.domainAxis) {
-      chart.domainAxisSpec = domainAxis!;
+      cartesianChart.domainAxisSpec = domainAxis!;
       chartState.markChartDirty();
     }
 
     if (primaryMeasureAxis != prev?.primaryMeasureAxis) {
-      chart.primaryMeasureAxisSpec = primaryMeasureAxis;
+      cartesianChart.primaryMeasureAxisSpec = primaryMeasureAxis;
       chartState.markChartDirty();
     }
 
     if (secondaryMeasureAxis != prev?.secondaryMeasureAxis) {
-      chart.secondaryMeasureAxisSpec = secondaryMeasureAxis;
+      cartesianChart.secondaryMeasureAxisSpec = secondaryMeasureAxis;
       chartState.markChartDirty();
     }
 
     if (disjointMeasureAxes != prev?.disjointMeasureAxes) {
-      chart.disjointMeasureAxisSpecs = disjointMeasureAxes;
+      cartesianChart.disjointMeasureAxisSpecs = disjointMeasureAxes;
       chartState.markChartDirty();
     }
   }
@@ -107,6 +107,8 @@ abstract class CartesianChart<D> extends BaseChart<D> {
   @protected
   LinkedHashMap<String, common.NumericAxis>? createDisjointMeasureAxes() {
     if (disjointMeasureAxes != null) {
+      // see https://github.com/dart-lang/linter/issues/1649
+      // ignore: prefer_collection_literals
       final disjointAxes = LinkedHashMap<String, common.NumericAxis>();
 
       disjointMeasureAxes!

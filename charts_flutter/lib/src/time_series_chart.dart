@@ -39,7 +39,7 @@ class TimeSeriesChart extends CartesianChart<DateTime> {
   ///
   /// [dateTimeFactory] allows specifying a factory that creates [DateTime] to
   /// be used for the time axis. If none specified, local date time is used.
-  TimeSeriesChart(
+  const TimeSeriesChart(
     List<common.Series<dynamic, DateTime>> seriesList, {
     bool? animate,
     Duration? animationDuration,

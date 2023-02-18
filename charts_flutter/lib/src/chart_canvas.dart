@@ -39,7 +39,7 @@ import 'canvas/polygon_painter.dart' show PolygonPainter;
 
 class ChartCanvas implements common.ChartCanvas {
   /// Pixels to allow to overdraw above the draw area that fades to transparent.
-  static const double rect_top_gradient_pixels = 5;
+  static const double rectTopGradientPixels = 5;
 
   final Canvas canvas;
   @override
@@ -136,7 +136,7 @@ class ChartCanvas implements common.ChartCanvas {
   ui.Gradient _createHintGradient(double left, double top, common.Color fill) {
     return ui.Gradient.linear(
       Offset(left, top),
-      Offset(left, top - rect_top_gradient_pixels),
+      Offset(left, top - rectTopGradientPixels),
       [
         Color.fromARGB(fill.a, fill.r, fill.g, fill.b),
         Color.fromARGB(0, fill.r, fill.g, fill.b)
@@ -297,7 +297,7 @@ class ChartCanvas implements common.ChartCanvas {
       canvas.translate(offsetX.toDouble(), offsetY.toDouble());
       canvas.rotate(rotation);
 
-      textElement.textPainter!.paint(canvas, Offset(0.0, 0.0));
+      textElement.textPainter!.paint(canvas, const Offset(0.0, 0.0));
 
       canvas.restore();
     } else {

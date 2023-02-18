@@ -249,13 +249,10 @@ class BasicDateTimeTickFormatterSpec implements DateTimeTickFormatterSpec {
   final DateTimeFormatterFunction? formatter;
   final DateFormat? dateFormat;
 
-  const BasicDateTimeTickFormatterSpec(DateTimeFormatterFunction formatter)
-      : formatter = formatter,
-        dateFormat = null;
+  const BasicDateTimeTickFormatterSpec(this.formatter) : dateFormat = null;
 
-  const BasicDateTimeTickFormatterSpec.fromDateFormat(DateFormat dateFormat)
-      : formatter = null,
-        dateFormat = dateFormat;
+  const BasicDateTimeTickFormatterSpec.fromDateFormat(this.dateFormat)
+      : formatter = null;
 
   /// A formatter will be created with the [DateFormat] if it is not null.
   /// Otherwise, it will create one with the provided
@@ -309,23 +306,23 @@ class AutoDateTimeTickFormatterSpec implements DateTimeTickFormatterSpec {
     final map = <int, TimeTickFormatter>{};
 
     if (minute != null) {
-      map[DateTimeTickFormatter.MINUTE] =
+      map[DateTimeTickFormatter.minute] =
           _makeFormatter(minute!, CalendarField.hourOfDay, context);
     }
     if (hour != null) {
-      map[DateTimeTickFormatter.HOUR] =
+      map[DateTimeTickFormatter.hour] =
           _makeFormatter(hour!, CalendarField.date, context);
     }
     if (day != null) {
-      map[23 * DateTimeTickFormatter.HOUR] =
+      map[23 * DateTimeTickFormatter.hour] =
           _makeFormatter(day!, CalendarField.month, context);
     }
     if (month != null) {
-      map[28 * DateTimeTickFormatter.DAY] =
+      map[28 * DateTimeTickFormatter.day] =
           _makeFormatter(month!, CalendarField.year, context);
     }
     if (year != null) {
-      map[364 * DateTimeTickFormatter.DAY] =
+      map[364 * DateTimeTickFormatter.day] =
           _makeFormatter(year!, CalendarField.year, context);
     }
 

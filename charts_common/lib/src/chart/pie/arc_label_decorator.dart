@@ -214,7 +214,7 @@ class ArcLabelDecorator<D> extends ArcRendererDecorator<D> {
       TextStyle labelStyle,
       int insideArcWidth,
       int outsideArcWidth,
-      ArcRendererElement arcRendererelement,
+      ArcRendererElement arcRendererElement,
       ArcLabelPosition labelPosition) {
     if (labelPosition == ArcLabelPosition.auto) {
       // For auto, first try to fit the text inside the arc.

@@ -398,13 +398,9 @@ class _ChartTitleLayoutView<D> extends LayoutView {
         break;
 
       case BehaviorPosition.inside:
-        preferredWidth = _drawAreaBounds != null
-            ? min(_drawAreaBounds.width, maxWidth)
-            : maxWidth;
+        preferredWidth = min(_drawAreaBounds.width, maxWidth);
 
-        preferredHeight = _drawAreaBounds != null
-            ? min(_drawAreaBounds.height, maxHeight)
-            : maxHeight;
+        preferredHeight = min(_drawAreaBounds.height, maxHeight);
         break;
     }
 
@@ -706,8 +702,8 @@ class _ChartTitleLayoutView<D> extends LayoutView {
     }
 
     // labelX is always relative to the component bounds.
-    if (_layoutPosition == LayoutPosition.Right ||
-        _layoutPosition == LayoutPosition.FullRight) {
+    if (_layoutPosition == LayoutPosition.right ||
+        _layoutPosition == LayoutPosition.fullRight) {
       final padding = _config.outerPadding +
           (isPrimaryTitle ? 0 : _config.titlePadding + titleHeight);
 

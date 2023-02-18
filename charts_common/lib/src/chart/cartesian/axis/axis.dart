@@ -456,16 +456,16 @@ abstract class Axis<D> extends ImmutableAxis<D> implements LayoutView {
     LayoutPosition? position;
     switch (axisOrientation) {
       case AxisOrientation.top:
-        position = LayoutPosition.Top;
+        position = LayoutPosition.top;
         break;
       case AxisOrientation.right:
-        position = LayoutPosition.Right;
+        position = LayoutPosition.right;
         break;
       case AxisOrientation.bottom:
-        position = LayoutPosition.Bottom;
+        position = LayoutPosition.bottom;
         break;
       case AxisOrientation.left:
-        position = LayoutPosition.Left;
+        position = LayoutPosition.left;
         break;
       case null:
         break;

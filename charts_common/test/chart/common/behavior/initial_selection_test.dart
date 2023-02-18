@@ -75,7 +75,7 @@ void main() {
   late MutableSeries series4;
   final infoSelectionType = SelectionModelType.info;
 
-  InitialSelection _makeBehavior(SelectionModelType selectionModelType,
+  InitialSelection makeBehavior(SelectionModelType selectionModelType,
       {List<String>? selectedSeries, List<SeriesDatumConfig>? selectedData}) {
     InitialSelection behavior = InitialSelection(
         selectionModelType: selectionModelType,
@@ -116,7 +116,7 @@ void main() {
   });
 
   test('selects initial datum', () {
-    _makeBehavior(infoSelectionType,
+    makeBehavior(infoSelectionType,
         selectedData: [SeriesDatumConfig('mySeries1', 'C')]);
 
     chart.requestOnDraw([series1, series2]);
@@ -131,7 +131,7 @@ void main() {
   });
 
   test('selects multiple initial data', () {
-    _makeBehavior(infoSelectionType, selectedData: [
+    makeBehavior(infoSelectionType, selectedData: [
       SeriesDatumConfig('mySeries1', 'C'),
       SeriesDatumConfig('mySeries1', 'D')
     ]);
@@ -150,7 +150,7 @@ void main() {
   });
 
   test('selects initial series', () {
-    _makeBehavior(infoSelectionType, selectedSeries: ['mySeries2']);
+    makeBehavior(infoSelectionType, selectedSeries: ['mySeries2']);
 
     chart.requestOnDraw([series1, series2, series3, series4]);
 
@@ -162,8 +162,7 @@ void main() {
   });
 
   test('selects multiple series', () {
-    _makeBehavior(infoSelectionType,
-        selectedSeries: ['mySeries2', 'mySeries4']);
+    makeBehavior(infoSelectionType, selectedSeries: ['mySeries2', 'mySeries4']);
 
     chart.requestOnDraw([series1, series2, series3, series4]);
 
@@ -176,7 +175,7 @@ void main() {
   });
 
   test('selects series and datum', () {
-    _makeBehavior(infoSelectionType,
+    makeBehavior(infoSelectionType,
         selectedData: [SeriesDatumConfig('mySeries1', 'C')],
         selectedSeries: ['mySeries4']);
 
@@ -192,7 +191,7 @@ void main() {
   });
 
   test('selection model is reset when a new series is drawn', () {
-    _makeBehavior(infoSelectionType, selectedSeries: ['mySeries2']);
+    makeBehavior(infoSelectionType, selectedSeries: ['mySeries2']);
 
     chart.requestOnDraw([series1, series2, series3, series4]);
 

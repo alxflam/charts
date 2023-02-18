@@ -35,7 +35,7 @@ import '../selection_model_config.dart' show SelectionModelConfig;
 /// not expose a separate DateTimeComboChart because it would just be a copy of
 /// that chart.
 class NumericComboChart extends CartesianChart<num> {
-  NumericComboChart(
+  const NumericComboChart(
     List<common.Series<dynamic, num>> seriesList, {
     bool? animate,
     Duration? animationDuration,
@@ -80,7 +80,7 @@ class NumericComboChart extends CartesianChart<num> {
 /// An ordinal combo chart supports rendering each series of data with different
 /// series renderers.
 class OrdinalComboChart extends CartesianChart<String> {
-  OrdinalComboChart(
+  const OrdinalComboChart(
     List<common.Series<dynamic, String>> seriesList, {
     bool? animate,
     Duration? animationDuration,
