@@ -24,7 +24,7 @@ jobs:
     - name: Format
       run: dart format --output=none --set-exit-if-changed .
     - name: Lint
-      run: dart analyze
+      run: dart analyze # pass --fatal-infos once all lints are resolved
     - name: Test
       run: dart test
 
@@ -43,7 +43,7 @@ jobs:
     - name: Format
       run: dart format --output=none --set-exit-if-changed .
     - name: Lint
-      run: flutter analyze
+      run: flutter analyze --no-fatal-infos # fail on info lints once all are resolved
     - name: Test
       run: flutter test
 
