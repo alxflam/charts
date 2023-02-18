@@ -23,25 +23,25 @@ import 'rtl_series_legend.dart';
 List<GalleryScaffold> buildGallery() {
   return [
     GalleryScaffold(
-      listTileIcon: Icon(Icons.flag),
+      listTileIcon: const Icon(Icons.flag),
       title: 'RTL Bar Chart',
       subtitle: 'Simple bar chart in RTL',
       childBuilder: () => RTLBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.flag),
+      listTileIcon: const Icon(Icons.flag),
       title: 'RTL Line Chart',
       subtitle: 'Simple line chart in RTL',
       childBuilder: () => RTLLineChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.flag),
+      listTileIcon: const Icon(Icons.flag),
       title: 'RTL Line Segments',
       subtitle: 'Stacked area chart with style segments in RTL',
       childBuilder: () => RTLLineSegments.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.flag),
+      listTileIcon: const Icon(Icons.flag),
       title: 'RTL Series Legend',
       subtitle: 'Series legend in RTL',
       childBuilder: () => RTLSeriesLegend.withRandomData(),

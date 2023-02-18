@@ -27,7 +27,8 @@ class TimeSeriesConfidenceInterval extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
 
-  TimeSeriesConfidenceInterval(this.seriesList, {this.animate = false});
+  const TimeSeriesConfidenceInterval(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory TimeSeriesConfidenceInterval.withSampleData() {

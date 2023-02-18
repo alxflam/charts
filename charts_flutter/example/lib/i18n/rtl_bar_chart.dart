@@ -24,7 +24,7 @@ class RTLBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  RTLBarChart(this.seriesList, {this.animate = false});
+  const RTLBarChart(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory RTLBarChart.withSampleData() {

@@ -26,7 +26,8 @@ class StackedFillColorBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  StackedFillColorBarChart(this.seriesList, {this.animate = false});
+  const StackedFillColorBarChart(this.seriesList,
+      {super.key, this.animate = false});
 
   factory StackedFillColorBarChart.withSampleData() {
     return StackedFillColorBarChart(

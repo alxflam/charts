@@ -20,7 +20,7 @@ class GalleryDrawer extends StatelessWidget {
   final bool showPerformanceOverlay;
   final ValueChanged<bool> onShowPerformanceOverlayChanged;
 
-  GalleryDrawer(
+  const GalleryDrawer(
       {Key? key,
       this.showPerformanceOverlay = false,
       required this.onShowPerformanceOverlayChanged})
@@ -32,8 +32,8 @@ class GalleryDrawer extends StatelessWidget {
       child: ListView(children: <Widget>[
         // Performance overlay toggle.
         ListTile(
-          leading: Icon(Icons.assessment),
-          title: Text('Performance Overlay'),
+          leading: const Icon(Icons.assessment),
+          title: const Text('Performance Overlay'),
           onTap: () {
             onShowPerformanceOverlayChanged(!showPerformanceOverlay);
           },

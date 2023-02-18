@@ -25,7 +25,8 @@ class ScatterPlotAnimationZoomChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  ScatterPlotAnimationZoomChart(this.seriesList, {this.animate = false});
+  const ScatterPlotAnimationZoomChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [ScatterPlotChart] with sample data and no transition.
   factory ScatterPlotAnimationZoomChart.withSampleData() {
@@ -50,7 +51,7 @@ class ScatterPlotAnimationZoomChart extends StatelessWidget {
 
     final data = <LinearSales>[];
 
-    final makeRadius = (int value) => (random.nextInt(value) + 2).toDouble();
+    makeRadius(int value) => (random.nextInt(value) + 2).toDouble();
 
     for (var i = 0; i < 100; i++) {
       data.add(LinearSales(i, random.nextInt(100), makeRadius(4)));

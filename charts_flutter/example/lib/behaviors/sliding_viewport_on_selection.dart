@@ -25,7 +25,8 @@ class SlidingViewportOnSelection extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  SlidingViewportOnSelection(this.seriesList, {this.animate = false});
+  const SlidingViewportOnSelection(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory SlidingViewportOnSelection.withSampleData() {

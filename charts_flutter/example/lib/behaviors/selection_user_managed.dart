@@ -32,7 +32,8 @@ class SelectionUserManaged extends StatefulWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  SelectionUserManaged(this.seriesList, {this.animate = false});
+  const SelectionUserManaged(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory SelectionUserManaged.withSampleData() {
@@ -126,7 +127,7 @@ class SelectionUserManagedState extends State<SelectionUserManaged> {
     );
 
     final clearSelection = MaterialButton(
-        onPressed: _handleClearSelection, child: Text('Clear Selection'));
+        onPressed: _handleClearSelection, child: const Text('Clear Selection'));
 
     return Column(
         children: [SizedBox(height: 150.0, child: chart), clearSelection]);

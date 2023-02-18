@@ -32,7 +32,7 @@ class FlippedVerticalAxis extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  FlippedVerticalAxis(this.seriesList, {this.animate = false});
+  const FlippedVerticalAxis(this.seriesList, {super.key, this.animate = false});
 
   factory FlippedVerticalAxis.withSampleData() {
     return FlippedVerticalAxis(

@@ -37,7 +37,8 @@ class StaticallyProvidedTicks extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  StaticallyProvidedTicks(this.seriesList, {this.animate = false});
+  const StaticallyProvidedTicks(this.seriesList,
+      {super.key, this.animate = false});
 
   factory StaticallyProvidedTicks.withSampleData() {
     return StaticallyProvidedTicks(
@@ -81,7 +82,7 @@ class StaticallyProvidedTicks extends StatelessWidget {
   Widget build(BuildContext context) {
     // Create the ticks to be used the domain axis.
     final staticTicks = <charts.TickSpec<String>>[
-      charts.TickSpec(
+      const charts.TickSpec(
           // Value must match the domain value.
           '2014',
           // Optional label for this tick, defaults to domain value if not set.
@@ -91,9 +92,9 @@ class StaticallyProvidedTicks extends StatelessWidget {
               color: charts.Color(r: 0x4C, g: 0xAF, b: 0x50))),
       // If no text style is specified - the style from renderSpec will be used
       // if one is specified.
-      charts.TickSpec('2015'),
-      charts.TickSpec('2016'),
-      charts.TickSpec('2017'),
+      const charts.TickSpec('2015'),
+      const charts.TickSpec('2016'),
+      const charts.TickSpec('2017'),
     ];
 
     return charts.BarChart(

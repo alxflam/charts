@@ -24,7 +24,8 @@ class VerticalBarLabelChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  VerticalBarLabelChart(this.seriesList, {this.animate = false});
+  const VerticalBarLabelChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory VerticalBarLabelChart.withSampleData() {
@@ -61,8 +62,7 @@ class VerticalBarLabelChart extends StatelessWidget {
           measureFn: (OrdinalSales sales, _) => sales.sales,
           data: data,
           // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (OrdinalSales sales, _) =>
-              '${sales.sales.toString()}')
+          labelAccessorFn: (OrdinalSales sales, _) => sales.sales.toString())
     ];
   }
   // EXCLUDE_FROM_GALLERY_DOCS_END
@@ -85,7 +85,7 @@ class VerticalBarLabelChart extends StatelessWidget {
       //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
       //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
       barRendererDecorator: charts.BarLabelDecorator<String>(),
-      domainAxis: charts.OrdinalAxisSpec(),
+      domainAxis: const charts.OrdinalAxisSpec(),
     );
   }
 

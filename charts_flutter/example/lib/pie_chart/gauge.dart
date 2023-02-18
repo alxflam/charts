@@ -25,7 +25,7 @@ class GaugeChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  GaugeChart(this.seriesList, {this.animate = false});
+  const GaugeChart(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [PieChart] with sample data and no transition.
   factory GaugeChart.withSampleData() {

@@ -28,7 +28,8 @@ class PercentOfDomainByCategoryBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  PercentOfDomainByCategoryBarChart(this.seriesList, {this.animate = false});
+  const PercentOfDomainByCategoryBarChart(this.seriesList,
+      {super.key, this.animate = false});
 
   factory PercentOfDomainByCategoryBarChart.withSampleData() {
     return PercentOfDomainByCategoryBarChart(

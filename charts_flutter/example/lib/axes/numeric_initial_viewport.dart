@@ -32,7 +32,8 @@ class NumericInitialViewport extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  NumericInitialViewport(this.seriesList, {this.animate = false});
+  const NumericInitialViewport(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory NumericInitialViewport.withSampleData() {
@@ -86,7 +87,7 @@ class NumericInitialViewport extends StatelessWidget {
     return charts.LineChart(
       seriesList,
       animate: animate,
-      domainAxis: charts.NumericAxisSpec(
+      domainAxis: const charts.NumericAxisSpec(
           // Set the initial viewport by providing a new AxisSpec with the
           // desired viewport, in NumericExtents.
           viewport: charts.NumericExtents(3.0, 7.0)),

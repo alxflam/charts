@@ -30,7 +30,7 @@ class ShortTickLengthAxis extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  ShortTickLengthAxis(this.seriesList, {this.animate = false});
+  const ShortTickLengthAxis(this.seriesList, {super.key, this.animate = false});
 
   factory ShortTickLengthAxis.withSampleData() {
     return ShortTickLengthAxis(
@@ -79,7 +79,7 @@ class ShortTickLengthAxis extends StatelessWidget {
       /// Customize the primary measure axis using a small tick renderer.
       /// Note: use String instead of num for ordinal domain axis
       /// (typically bar charts).
-      primaryMeasureAxis: charts.NumericAxisSpec(
+      primaryMeasureAxis: const charts.NumericAxisSpec(
           renderSpec: charts.SmallTickRendererSpec(
               // Tick and Label styling here.
               )),

@@ -24,7 +24,7 @@ class HorizontalBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  HorizontalBarChart(this.seriesList, {this.animate = false});
+  const HorizontalBarChart(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory HorizontalBarChart.withSampleData() {

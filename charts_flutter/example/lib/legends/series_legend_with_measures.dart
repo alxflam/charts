@@ -32,7 +32,7 @@ class LegendWithMeasures extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  LegendWithMeasures(this.seriesList, {this.animate = false});
+  const LegendWithMeasures(this.seriesList, {super.key, this.animate = false});
 
   factory LegendWithMeasures.withSampleData() {
     return LegendWithMeasures(
@@ -146,7 +146,7 @@ class LegendWithMeasures extends StatelessWidget {
           // legend entries will grow as new rows first instead of a new column.
           horizontalFirst: false,
           // This defines the padding around each legend entry.
-          cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
+          cellPadding: const EdgeInsets.only(right: 4.0, bottom: 4.0),
           // Set show measures to true to display measures in series legend,
           // when the datum is selected.
           showMeasures: true,

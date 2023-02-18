@@ -39,7 +39,8 @@ class BarChartWithSecondaryAxis extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  BarChartWithSecondaryAxis(this.seriesList, {this.animate = false});
+  const BarChartWithSecondaryAxis(this.seriesList,
+      {super.key, this.animate = false});
 
   factory BarChartWithSecondaryAxis.withSampleData() {
     return BarChartWithSecondaryAxis(
@@ -104,10 +105,10 @@ class BarChartWithSecondaryAxis extends StatelessWidget {
       // It is important when using both primary and secondary axes to choose
       // the same number of ticks for both sides to get the gridlines to line
       // up.
-      primaryMeasureAxis: charts.NumericAxisSpec(
+      primaryMeasureAxis: const charts.NumericAxisSpec(
           tickProviderSpec:
               charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
-      secondaryMeasureAxis: charts.NumericAxisSpec(
+      secondaryMeasureAxis: const charts.NumericAxisSpec(
           tickProviderSpec:
               charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
     );

@@ -24,7 +24,8 @@ class GroupedBarSingleTargetLineChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  GroupedBarSingleTargetLineChart(this.seriesList, {this.animate = false});
+  const GroupedBarSingleTargetLineChart(this.seriesList,
+      {super.key, this.animate = false});
 
   factory GroupedBarSingleTargetLineChart.withSampleData() {
     return GroupedBarSingleTargetLineChart(

@@ -24,7 +24,7 @@ class SimpleDatumLegend extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  SimpleDatumLegend(this.seriesList, {this.animate = false});
+  const SimpleDatumLegend(this.seriesList, {super.key, this.animate = false});
 
   factory SimpleDatumLegend.withSampleData() {
     return SimpleDatumLegend(

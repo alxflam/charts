@@ -26,7 +26,8 @@ class MeasureAxisLabelAlignment extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  MeasureAxisLabelAlignment(this.seriesList, {this.animate = false});
+  const MeasureAxisLabelAlignment(this.seriesList,
+      {super.key, this.animate = false});
 
   factory MeasureAxisLabelAlignment.withSampleData() {
     return MeasureAxisLabelAlignment(
@@ -75,7 +76,7 @@ class MeasureAxisLabelAlignment extends StatelessWidget {
       /// Customize the primary measure axis using a small tick renderer.
       /// Use String instead of num for ordinal domain axis
       /// (typically bar charts).
-      primaryMeasureAxis: charts.NumericAxisSpec(
+      primaryMeasureAxis: const charts.NumericAxisSpec(
           renderSpec: charts.GridlineRendererSpec(
         // Display the measure axis labels below the gridline.
         //

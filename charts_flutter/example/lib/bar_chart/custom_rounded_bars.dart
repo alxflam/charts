@@ -24,7 +24,7 @@ class CustomRoundedBars extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  CustomRoundedBars(this.seriesList, {this.animate = false});
+  const CustomRoundedBars(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [BarChart] with custom rounded bars.
   factory CustomRoundedBars.withSampleData() {

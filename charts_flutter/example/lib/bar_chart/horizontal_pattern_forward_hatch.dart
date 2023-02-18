@@ -28,8 +28,8 @@ class HorizontalPatternForwardHatchBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  HorizontalPatternForwardHatchBarChart(this.seriesList,
-      {this.animate = false});
+  const HorizontalPatternForwardHatchBarChart(this.seriesList,
+      {super.key, this.animate = false});
 
   factory HorizontalPatternForwardHatchBarChart.withSampleData() {
     return HorizontalPatternForwardHatchBarChart(

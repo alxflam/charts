@@ -24,7 +24,7 @@ class AreaAndLineChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  AreaAndLineChart(this.seriesList, {this.animate = false});
+  const AreaAndLineChart(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory AreaAndLineChart.withSampleData() {

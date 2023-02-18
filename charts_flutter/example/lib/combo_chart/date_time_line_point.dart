@@ -30,7 +30,8 @@ class DateTimeComboLinePointChart extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
 
-  DateTimeComboLinePointChart(this.seriesList, {this.animate = false});
+  const DateTimeComboLinePointChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory DateTimeComboLinePointChart.withSampleData() {

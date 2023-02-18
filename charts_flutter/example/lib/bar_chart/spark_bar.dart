@@ -25,7 +25,7 @@ class SparkBar extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  SparkBar(this.seriesList, {this.animate = false});
+  const SparkBar(this.seriesList, {super.key, this.animate = false});
 
   factory SparkBar.withSampleData() {
     return SparkBar(
@@ -83,12 +83,12 @@ class SparkBar extends StatelessWidget {
       /// The NoneRenderSpec only draws an axis line (and even that can be hidden
       /// with showAxisLine=false).
       primaryMeasureAxis:
-          charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
+          const charts.NumericAxisSpec(renderSpec: charts.NoneRenderSpec()),
 
       /// This is an OrdinalAxisSpec to match up with BarChart's default
       /// ordinal domain axis (use NumericAxisSpec or DateTimeAxisSpec for
       /// other charts).
-      domainAxis: charts.OrdinalAxisSpec(
+      domainAxis: const charts.OrdinalAxisSpec(
           // Make sure that we draw the domain axis line.
           showAxisLine: true,
           // But don't draw anything else.

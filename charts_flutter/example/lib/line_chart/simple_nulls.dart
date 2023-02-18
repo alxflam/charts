@@ -28,7 +28,8 @@ class SimpleNullsLineChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  SimpleNullsLineChart(this.seriesList, {this.animate = false});
+  const SimpleNullsLineChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory SimpleNullsLineChart.withSampleData() {

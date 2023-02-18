@@ -38,123 +38,123 @@ import 'vertical_bar_label.dart';
 List<GalleryScaffold> buildGallery() {
   return [
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Simple Bar Chart',
       subtitle: 'Simple bar chart with a single series',
       childBuilder: () => SimpleBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Stacked Bar Chart',
       subtitle: 'Stacked bar chart with multiple series',
       childBuilder: () => StackedBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Grouped Bar Chart',
       subtitle: 'Grouped bar chart with multiple series',
       childBuilder: () => GroupedBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Grouped Stacked Bar Chart',
       subtitle: 'Grouped and stacked bar chart with multiple series',
       childBuilder: () => GroupedStackedBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Grouped Bar Target Line Chart',
       subtitle: 'Grouped bar target line chart with multiple series',
       childBuilder: () => GroupedBarTargetLineChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Grouped Bar Single Target Line Chart',
       subtitle:
           'Grouped bar target line chart with multiple series and a single target',
       childBuilder: () => GroupedBarSingleTargetLineChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Stacked Bar Target Line Chart',
       subtitle: 'Stacked bar target line chart with multiple series',
       childBuilder: () => StackedBarTargetLineChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon:
-          Transform.rotate(angle: 1.5708, child: Icon(Icons.insert_chart)),
+      listTileIcon: Transform.rotate(
+          angle: 1.5708, child: const Icon(Icons.insert_chart)),
       title: 'Horizontal Bar Chart',
       subtitle: 'Horizontal bar chart with a single series',
       childBuilder: () => HorizontalBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon:
-          Transform.rotate(angle: 1.5708, child: Icon(Icons.insert_chart)),
+      listTileIcon: Transform.rotate(
+          angle: 1.5708, child: const Icon(Icons.insert_chart)),
       title: 'Stacked Horizontal Bar Chart',
       subtitle: 'Stacked horizontal bar chart with multiple series',
       childBuilder: () => StackedHorizontalBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon:
-          Transform.rotate(angle: 1.5708, child: Icon(Icons.insert_chart)),
+      listTileIcon: Transform.rotate(
+          angle: 1.5708, child: const Icon(Icons.insert_chart)),
       title: 'Horizontal Bar Chart with Bar Labels',
       subtitle: 'Horizontal bar chart with a single series and bar labels',
       childBuilder: () => HorizontalBarLabelChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon:
-          Transform.rotate(angle: 1.5708, child: Icon(Icons.insert_chart)),
+      listTileIcon: Transform.rotate(
+          angle: 1.5708, child: const Icon(Icons.insert_chart)),
       title: 'Horizontal Bar Chart with Custom Bar Labels',
       subtitle: 'Bar labels with customized styling',
       childBuilder: () => HorizontalBarLabelCustomChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon:
-          Transform.rotate(angle: 1.5708, child: Icon(Icons.insert_chart)),
+      listTileIcon: Transform.rotate(
+          angle: 1.5708, child: const Icon(Icons.insert_chart)),
       title: 'Vertical Bar Chart with Bar Labels',
       subtitle: 'Vertical bar chart with a single series and bar labels',
       childBuilder: () => VerticalBarLabelChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Spark Bar Chart',
       subtitle: 'Spark Bar Chart',
       childBuilder: () => SparkBar.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Grouped Fill Color Bar Chart',
       subtitle: 'Grouped bar chart with fill colors',
       childBuilder: () => GroupedFillColorBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Stacked Fill Color Bar Chart',
       subtitle: 'Stacked bar chart with fill colors',
       childBuilder: () => StackedFillColorBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Pattern Forward Hatch Bar Chart',
       subtitle: 'Pattern Forward Hatch Bar Chart',
       childBuilder: () => PatternForwardHatchBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon:
-          Transform.rotate(angle: 1.5708, child: Icon(Icons.insert_chart)),
+      listTileIcon: Transform.rotate(
+          angle: 1.5708, child: const Icon(Icons.insert_chart)),
       title: 'Horizontal Pattern Forward Hatch Bar Chart',
       subtitle: 'Horizontal Pattern Forward Hatch Bar Chart',
       childBuilder: () =>
           HorizontalPatternForwardHatchBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Weight Pattern Bar Chart',
       subtitle: 'Grouped and stacked bar chart with a weight pattern',
       childBuilder: () => GroupedStackedWeightPatternBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Bar Chart with custom bar radius',
       subtitle: 'Custom rounded bar corners',
       childBuilder: () => CustomRoundedBars.withRandomData(),

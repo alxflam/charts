@@ -51,7 +51,8 @@ class InitialHintAnimation extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  InitialHintAnimation(this.seriesList, {this.animate = false});
+  const InitialHintAnimation(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory InitialHintAnimation.withSampleData() {

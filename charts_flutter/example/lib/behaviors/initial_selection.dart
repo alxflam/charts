@@ -34,7 +34,7 @@ class InitialSelection extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  InitialSelection(this.seriesList, {this.animate = false});
+  const InitialSelection(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [BarChart] with initial selection behavior.
   factory InitialSelection.withSampleData() {

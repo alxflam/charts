@@ -29,7 +29,8 @@ class BucketingAxisScatterPlotChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  BucketingAxisScatterPlotChart(this.seriesList, {this.animate = false});
+  const BucketingAxisScatterPlotChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [ScatterPlotChart] with sample data and no transition.
   factory BucketingAxisScatterPlotChart.withSampleData() {
@@ -52,7 +53,7 @@ class BucketingAxisScatterPlotChart extends StatelessWidget {
   static List<charts.Series<LinearSales, num>> _createRandomData() {
     final random = Random();
 
-    final makeRadius = (int value) => (random.nextInt(value) + 6).toDouble();
+    makeRadius(int value) => (random.nextInt(value) + 6).toDouble();
 
     // Make sure that the measure values for the first five series are well
     // above the threshold. This simulates the grouping of the small values into
@@ -155,8 +156,8 @@ class BucketingAxisScatterPlotChart extends StatelessWidget {
         // threshold.
         primaryMeasureAxis: charts.BucketingAxisSpec(
             threshold: 0.1,
-            tickProviderSpec:
-                charts.BucketingNumericTickProviderSpec(desiredTickCount: 3)),
+            tickProviderSpec: const charts.BucketingNumericTickProviderSpec(
+                desiredTickCount: 3)),
         // Add a series legend to display the series names.
         behaviors: [
           charts.SeriesLegend(position: charts.BehaviorPosition.end),

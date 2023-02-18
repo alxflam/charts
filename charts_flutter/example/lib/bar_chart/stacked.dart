@@ -24,7 +24,7 @@ class StackedBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  StackedBarChart(this.seriesList, {this.animate = false});
+  const StackedBarChart(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a stacked [BarChart] with sample data and no transition.
   factory StackedBarChart.withSampleData() {

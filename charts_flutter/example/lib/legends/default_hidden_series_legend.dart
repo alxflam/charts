@@ -24,7 +24,8 @@ class DefaultHiddenSeriesLegend extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  DefaultHiddenSeriesLegend(this.seriesList, {this.animate = false});
+  const DefaultHiddenSeriesLegend(this.seriesList,
+      {super.key, this.animate = false});
 
   factory DefaultHiddenSeriesLegend.withSampleData() {
     return DefaultHiddenSeriesLegend(
@@ -114,7 +115,7 @@ class DefaultHiddenSeriesLegend extends StatelessWidget {
       behaviors: [
         charts.SeriesLegend(
           // Configures the "Other" series to be hidden on first chart draw.
-          defaultHiddenSeries: ['Other'],
+          defaultHiddenSeries: const ['Other'],
         )
       ],
     );

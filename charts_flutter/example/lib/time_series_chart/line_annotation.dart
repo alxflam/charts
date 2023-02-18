@@ -31,7 +31,8 @@ class TimeSeriesLineAnnotationChart extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
 
-  TimeSeriesLineAnnotationChart(this.seriesList, {this.animate = false});
+  const TimeSeriesLineAnnotationChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory TimeSeriesLineAnnotationChart.withSampleData() {

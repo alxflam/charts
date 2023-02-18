@@ -28,7 +28,8 @@ class StackedAreaCustomColorLineChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  StackedAreaCustomColorLineChart(this.seriesList, {this.animate = false});
+  const StackedAreaCustomColorLineChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory StackedAreaCustomColorLineChart.withSampleData() {

@@ -33,7 +33,8 @@ class BarChartWithSecondaryAxisOnly extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  BarChartWithSecondaryAxisOnly(this.seriesList, {this.animate = false});
+  const BarChartWithSecondaryAxisOnly(this.seriesList,
+      {super.key, this.animate = false});
 
   factory BarChartWithSecondaryAxisOnly.withSampleData() {
     return BarChartWithSecondaryAxisOnly(

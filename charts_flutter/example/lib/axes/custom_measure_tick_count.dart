@@ -28,7 +28,8 @@ class CustomMeasureTickCount extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
 
-  CustomMeasureTickCount(this.seriesList, {this.animate = false});
+  const CustomMeasureTickCount(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory CustomMeasureTickCount.withSampleData() {
@@ -82,7 +83,7 @@ class CustomMeasureTickCount extends StatelessWidget {
         animate: animate,
 
         /// Customize the measure axis to have 2 ticks,
-        primaryMeasureAxis: charts.NumericAxisSpec(
+        primaryMeasureAxis: const charts.NumericAxisSpec(
             tickProviderSpec:
                 charts.BasicNumericTickProviderSpec(desiredTickCount: 2)));
   }

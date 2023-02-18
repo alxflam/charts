@@ -35,7 +35,7 @@ class SliderLine extends StatefulWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  SliderLine(this.seriesList, {this.animate = false});
+  const SliderLine(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory SliderLine.withSampleData() {
@@ -167,19 +167,19 @@ class _SliderCallbackState extends State<SliderLine> {
     // If there is a slider change event, then include the details.
     if (_sliderDomainValue != null) {
       children.add(Padding(
-          padding: EdgeInsets.only(top: 5.0),
-          child: Text('Slider domain value: ${_sliderDomainValue}')));
+          padding: const EdgeInsets.only(top: 5.0),
+          child: Text('Slider domain value: $_sliderDomainValue')));
     }
     if (_sliderPosition != null) {
       children.add(Padding(
-          padding: EdgeInsets.only(top: 5.0),
+          padding: const EdgeInsets.only(top: 5.0),
           child: Text(
               'Slider position: ${_sliderPosition!.x}, ${_sliderPosition!.y}')));
     }
     if (_sliderDragState != null) {
       children.add(Padding(
-          padding: EdgeInsets.only(top: 5.0),
-          child: Text('Slider drag state: ${_sliderDragState}')));
+          padding: const EdgeInsets.only(top: 5.0),
+          child: Text('Slider drag state: $_sliderDragState')));
     }
 
     return Column(children: children);

@@ -24,7 +24,7 @@ class GroupedBarChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  GroupedBarChart(this.seriesList, {this.animate = false});
+  const GroupedBarChart(this.seriesList, {super.key, this.animate = false});
 
   factory GroupedBarChart.withSampleData() {
     return GroupedBarChart(

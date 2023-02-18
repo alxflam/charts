@@ -26,7 +26,8 @@ class EndPointsAxisTimeSeriesChart extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
 
-  EndPointsAxisTimeSeriesChart(this.seriesList, {this.animate = false});
+  const EndPointsAxisTimeSeriesChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory EndPointsAxisTimeSeriesChart.withSampleData() {
@@ -77,7 +78,7 @@ class EndPointsAxisTimeSeriesChart extends StatelessWidget {
       // end of the axis range, anchored "inside" the axis. The start tick label
       // will be left-aligned with its tick mark, and the end tick label will be
       // right-aligned with its tick mark.
-      domainAxis: charts.EndPointsTimeAxisSpec(),
+      domainAxis: const charts.EndPointsTimeAxisSpec(),
     );
   }
 

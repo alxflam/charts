@@ -15,7 +15,7 @@
 
 import 'package:flutter/material.dart';
 
-typedef Widget GalleryWidgetBuilder();
+typedef GalleryWidgetBuilder = Widget Function();
 
 /// Helper to build gallery.
 class GalleryScaffold extends StatefulWidget {
@@ -25,7 +25,8 @@ class GalleryScaffold extends StatefulWidget {
   final String subtitle;
   final GalleryWidgetBuilder childBuilder;
 
-  GalleryScaffold({
+  const GalleryScaffold({
+    super.key,
     required this.listTileIcon,
     required this.title,
     required this.subtitle,
@@ -42,10 +43,10 @@ class GalleryScaffold extends StatefulWidget {
       });
 
   @override
-  _GalleryScaffoldState createState() => _GalleryScaffoldState();
+  GalleryScaffoldState createState() => GalleryScaffoldState();
 }
 
-class _GalleryScaffoldState extends State<GalleryScaffold> {
+class GalleryScaffoldState extends State<GalleryScaffold> {
   void _handleButtonPress() {
     setState(() {});
   }
@@ -60,7 +61,7 @@ class _GalleryScaffoldState extends State<GalleryScaffold> {
             SizedBox(height: 250.0, child: widget.childBuilder()),
           ])),
       floatingActionButton: FloatingActionButton(
-          onPressed: _handleButtonPress, child: Icon(Icons.refresh)),
+          onPressed: _handleButtonPress, child: const Icon(Icons.refresh)),
     );
   }
 }

@@ -29,7 +29,8 @@ class CustomFontSizeAndColor extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  CustomFontSizeAndColor(this.seriesList, {this.animate = false});
+  const CustomFontSizeAndColor(this.seriesList,
+      {super.key, this.animate = false});
 
   factory CustomFontSizeAndColor.withSampleData() {
     return CustomFontSizeAndColor(
@@ -80,7 +81,7 @@ class CustomFontSizeAndColor extends StatelessWidget {
       /// This is an OrdinalAxisSpec to match up with BarChart's default
       /// ordinal domain axis (use NumericAxisSpec or DateTimeAxisSpec for
       /// other charts).
-      domainAxis: charts.OrdinalAxisSpec(
+      domainAxis: const charts.OrdinalAxisSpec(
           renderSpec: charts.SmallTickRendererSpec(
 
               // Tick and Label styling here.
@@ -93,7 +94,7 @@ class CustomFontSizeAndColor extends StatelessWidget {
                   charts.LineStyleSpec(color: charts.MaterialPalette.black))),
 
       /// Assign a custom style for the measure axis.
-      primaryMeasureAxis: charts.NumericAxisSpec(
+      primaryMeasureAxis: const charts.NumericAxisSpec(
           renderSpec: charts.GridlineRendererSpec(
 
               // Tick and Label styling here.

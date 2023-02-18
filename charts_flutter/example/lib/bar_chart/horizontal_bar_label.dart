@@ -24,7 +24,8 @@ class HorizontalBarLabelChart extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  HorizontalBarLabelChart(this.seriesList, {this.animate = false});
+  const HorizontalBarLabelChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [BarChart] with sample data and no transition.
   factory HorizontalBarLabelChart.withSampleData() {
@@ -87,7 +88,8 @@ class HorizontalBarLabelChart extends StatelessWidget {
       //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
       barRendererDecorator: charts.BarLabelDecorator<String>(),
       // Hide domain axis.
-      domainAxis: charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
+      domainAxis:
+          const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
   }
 

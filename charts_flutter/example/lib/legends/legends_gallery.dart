@@ -27,51 +27,51 @@ import 'simple_series_legend.dart';
 List<GalleryScaffold> buildGallery() {
   return [
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Series Legend',
       subtitle: 'A series legend for a bar chart with default settings',
       childBuilder: () => SimpleSeriesLegend.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Series Legend Options',
       subtitle:
           'A series legend with custom positioning and spacing for a bar chart',
       childBuilder: () => LegendOptions.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Series Legend Custom Symbol',
       subtitle: 'A series legend using a custom symbol renderer',
       childBuilder: () => LegendWithCustomSymbol.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Default Hidden Series Legend',
       subtitle: 'A series legend showing a series hidden by default',
       childBuilder: () => DefaultHiddenSeriesLegend.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Series legend with measures',
       subtitle: 'Series legend with measures and measure formatting',
       childBuilder: () => LegendWithMeasures.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.pie_chart),
+      listTileIcon: const Icon(Icons.pie_chart),
       title: 'Datum Legend',
       subtitle: 'A datum legend for a pie chart with default settings',
       childBuilder: () => SimpleDatumLegend.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.pie_chart),
+      listTileIcon: const Icon(Icons.pie_chart),
       title: 'Datum Legend Options',
       subtitle:
           'A datum legend with custom positioning and spacing for a pie chart',
       childBuilder: () => DatumLegendOptions.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.pie_chart),
+      listTileIcon: const Icon(Icons.pie_chart),
       title: 'Datum legend with measures',
       subtitle: 'Datum legend with measures and measure formatting',
       childBuilder: () => DatumLegendWithMeasures.withRandomData(),

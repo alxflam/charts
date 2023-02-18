@@ -28,7 +28,7 @@ class LegendOptions extends StatelessWidget {
   final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
-  LegendOptions(this.seriesList, {this.animate = false});
+  const LegendOptions(this.seriesList, {super.key, this.animate = false});
 
   factory LegendOptions.withSampleData() {
     return LegendOptions(
@@ -136,7 +136,7 @@ class LegendOptions extends StatelessWidget {
           // rows before adding a new column.
           desiredMaxRows: 2,
           // This defines the padding around each legend entry.
-          cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
+          cellPadding: const EdgeInsets.only(right: 4.0, bottom: 4.0),
           // Render the legend entry text with custom styles.
           entryTextStyle: charts.TextStyleSpec(
               color: charts.MaterialPalette.purple.shadeDefault,

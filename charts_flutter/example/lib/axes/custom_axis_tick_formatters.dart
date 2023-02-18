@@ -25,7 +25,8 @@ class CustomAxisTickFormatters extends StatelessWidget {
   final List<charts.Series<dynamic, DateTime>> seriesList;
   final bool animate;
 
-  CustomAxisTickFormatters(this.seriesList, {this.animate = false});
+  const CustomAxisTickFormatters(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [TimeSeriesChart] with sample data and no transition.
   factory CustomAxisTickFormatters.withSampleData() {
@@ -103,7 +104,7 @@ class CustomAxisTickFormatters extends StatelessWidget {
         ///
         /// minute, hour, day, month, and year are all provided by default and
         /// you can override them following this pattern.
-        domainAxis: charts.DateTimeAxisSpec(
+        domainAxis: const charts.DateTimeAxisSpec(
             tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
                 day: charts.TimeFormatterSpec(
                     format: 'd', transitionFormat: 'MM/dd/yyyy'))));

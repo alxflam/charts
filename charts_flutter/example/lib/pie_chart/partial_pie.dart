@@ -25,7 +25,7 @@ class PartialPieChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  PartialPieChart(this.seriesList, {this.animate = false});
+  const PartialPieChart(this.seriesList, {super.key, this.animate = false});
 
   /// Creates a [PieChart] with sample data and no transition.
   factory PartialPieChart.withSampleData() {

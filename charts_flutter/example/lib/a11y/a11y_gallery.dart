@@ -19,7 +19,7 @@ import 'domain_a11y_explore_bar_chart.dart';
 List<GalleryScaffold> buildGallery() {
   return [
     GalleryScaffold(
-      listTileIcon: Icon(Icons.accessibility),
+      listTileIcon: const Icon(Icons.accessibility),
       title: 'Screen reader enabled bar chart',
       subtitle: 'Requires TalkBack or Voiceover turned on to work. '
           'Bar chart with domain selection explore mode behavior.',

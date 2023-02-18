@@ -24,34 +24,34 @@ import 'simple.dart';
 List<GalleryScaffold> buildGallery() {
   return [
     GalleryScaffold(
-      listTileIcon: Icon(Icons.scatter_plot),
+      listTileIcon: const Icon(Icons.scatter_plot),
       title: 'Simple Scatter Plot Chart',
       subtitle: 'With a single series',
       childBuilder: () => SimpleScatterPlotChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.scatter_plot),
+      listTileIcon: const Icon(Icons.scatter_plot),
       title: 'Shapes Scatter Plot Chart',
       subtitle: 'With custom shapes',
       childBuilder: () => ShapesScatterPlotChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.scatter_plot),
+      listTileIcon: const Icon(Icons.scatter_plot),
       title: 'Comparison Points Scatter Plot Chart',
       subtitle: 'Scatter plot chart with comparison points',
       childBuilder: () => ComparisonPointsScatterPlotChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.scatter_plot),
+      listTileIcon: const Icon(Icons.scatter_plot),
       title: 'Pan and Zoom Scatter Plot Chart',
       subtitle: 'Simple scatter plot chart pan and zoom behaviors enabled',
       childBuilder: () => ScatterPlotAnimationZoomChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.scatter_plot),
+      listTileIcon: const Icon(Icons.scatter_plot),
       title: 'Bucketing Axis Scatter Plot Chart',
-      subtitle: 'Scatter plot with a measure axis that buckets values less ' +
-          'than 10% into a single region below the draw area',
+      subtitle:
+          'Scatter plot with a measure axis that buckets values less than 10% into a single region below the draw area',
       childBuilder: () => BucketingAxisScatterPlotChart.withRandomData(),
     ),
   ];

@@ -31,7 +31,8 @@ class DisjointMeasureAxisLineChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  DisjointMeasureAxisLineChart(this.seriesList, {this.animate = false});
+  const DisjointMeasureAxisLineChart(this.seriesList,
+      {super.key, this.animate = false});
 
   /// Creates a [LineChart] with sample data and no transition.
   factory DisjointMeasureAxisLineChart.withSampleData() {
@@ -148,7 +149,7 @@ class DisjointMeasureAxisLineChart extends StatelessWidget {
         //
         // We do this because disjoint measure axes do not draw any tick
         // elements on the chart.
-        primaryMeasureAxis: charts.NumericAxisSpec(
+        primaryMeasureAxis: const charts.NumericAxisSpec(
             tickProviderSpec: charts.StaticNumericTickProviderSpec(
           // Create the ticks to be used the domain axis.
           <charts.TickSpec<num>>[
@@ -165,10 +166,10 @@ class DisjointMeasureAxisLineChart extends StatelessWidget {
         // without drawing any tick elements on either side of the chart.
         disjointMeasureAxes:
             LinkedHashMap<String, charts.NumericAxisSpec>.from({
-          'axis 1': charts.NumericAxisSpec(),
-          'axis 2': charts.NumericAxisSpec(),
-          'axis 3': charts.NumericAxisSpec(),
-          'axis 4': charts.NumericAxisSpec(),
+          'axis 1': const charts.NumericAxisSpec(),
+          'axis 2': const charts.NumericAxisSpec(),
+          'axis 3': const charts.NumericAxisSpec(),
+          'axis 4': const charts.NumericAxisSpec(),
         }));
   }
 

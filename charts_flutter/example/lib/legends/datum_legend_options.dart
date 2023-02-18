@@ -28,7 +28,7 @@ class DatumLegendOptions extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  DatumLegendOptions(this.seriesList, {this.animate = false});
+  const DatumLegendOptions(this.seriesList, {super.key, this.animate = false});
 
   factory DatumLegendOptions.withSampleData() {
     return DatumLegendOptions(
@@ -96,7 +96,7 @@ class DatumLegendOptions extends StatelessWidget {
           // rows before adding a new column.
           desiredMaxRows: 2,
           // This defines the padding around each legend entry.
-          cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
+          cellPadding: const EdgeInsets.only(right: 4.0, bottom: 4.0),
           // Render the legend entry text with custom styles.
           entryTextStyle: charts.TextStyleSpec(
               color: charts.MaterialPalette.purple.shadeDefault,

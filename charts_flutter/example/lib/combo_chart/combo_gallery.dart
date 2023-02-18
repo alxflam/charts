@@ -24,31 +24,31 @@ import 'scatter_plot_line.dart';
 List<GalleryScaffold> buildGallery() {
   return [
     GalleryScaffold(
-      listTileIcon: Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.insert_chart),
       title: 'Ordinal Combo Chart',
       subtitle: 'Ordinal combo chart with bars and lines',
       childBuilder: () => OrdinalComboBarLineChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.show_chart),
+      listTileIcon: const Icon(Icons.show_chart),
       title: 'Numeric Line Bar Combo Chart',
       subtitle: 'Numeric combo chart with lines and bars',
       childBuilder: () => NumericComboLineBarChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.show_chart),
+      listTileIcon: const Icon(Icons.show_chart),
       title: 'Numeric Line Points Combo Chart',
       subtitle: 'Numeric combo chart with lines and points',
       childBuilder: () => NumericComboLinePointChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.show_chart),
+      listTileIcon: const Icon(Icons.show_chart),
       title: 'Time Series Combo Chart',
       subtitle: 'Time series combo chart with lines and points',
       childBuilder: () => DateTimeComboLinePointChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: Icon(Icons.scatter_plot),
+      listTileIcon: const Icon(Icons.scatter_plot),
       title: 'Scatter Plot Combo Chart',
       subtitle: 'Scatter plot combo chart with a line',
       childBuilder: () => ScatterPlotComboLineChart.withRandomData(),
