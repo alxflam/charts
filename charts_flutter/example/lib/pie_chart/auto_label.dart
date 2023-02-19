@@ -70,7 +70,7 @@ class DonutAutoLabelChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return charts.PieChart(seriesList,
+    return charts.PieChart<num>(seriesList,
         animate: animate,
         // Configure the width of the pie slices to 60px. The remaining space in
         // the chart will be left as a hole in the center.
@@ -87,7 +87,7 @@ class DonutAutoLabelChart extends StatelessWidget {
         //       new charts.ArcLabelDecorator(
         //          insideLabelStyleSpec: new charts.TextStyleSpec(...),
         //          outsideLabelStyleSpec: new charts.TextStyleSpec(...)),
-        defaultRenderer: charts.ArcRendererConfig(
+        defaultRenderer: charts.ArcRendererConfig<num>(
             arcWidth: 60, arcRendererDecorators: [charts.ArcLabelDecorator()]));
   }
 

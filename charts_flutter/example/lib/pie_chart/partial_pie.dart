@@ -70,9 +70,9 @@ class PartialPieChart extends StatelessWidget {
   Widget build(BuildContext context) {
     // Configure the pie to display the data across only 3/4 instead of the full
     // revolution.
-    return charts.PieChart(seriesList,
+    return charts.PieChart<num>(seriesList,
         animate: animate,
-        defaultRenderer: charts.ArcRendererConfig(arcLength: 3 / 2 * pi));
+        defaultRenderer: charts.ArcRendererConfig<num>(arcLength: 3 / 2 * pi));
   }
 
   /// Create one series with sample hard coded data.
