@@ -10,7 +10,7 @@ void main() {
   /// rendering should have succeded.
   group("verify every example can be shown", () {
     for (var example in Home.galleryScaffolds) {
-      testWidgets('${example.title} ', (WidgetTester tester) async {
+      testWidgets(example.title, (WidgetTester tester) async {
         await tester.pumpWidget(
           MaterialApp(
             home: example.childBuilder(),
