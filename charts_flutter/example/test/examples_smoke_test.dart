@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:charts_flutter/flutter.dart';
 import 'package:example/home.dart';
 import 'package:flutter/material.dart';
