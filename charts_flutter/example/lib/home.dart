@@ -38,19 +38,22 @@ import 'legends/legends_gallery.dart' as legends show buildGallery;
 class Home extends StatelessWidget {
   final bool showPerformanceOverlay;
   final ValueChanged<bool> onShowPerformanceOverlayChanged;
-  final a11yGalleries = a11y.buildGallery();
-  final barGalleries = bar.buildGallery();
-  final timeSeriesGalleries = time_series.buildGallery();
-  final lineGalleries = line.buildGallery();
-  final scatterPlotGalleries = scatter_plot.buildGallery();
-  final comboGalleries = combo.buildGallery();
-  final pieGalleries = pie.buildGallery();
-  final axesGalleries = axes.buildGallery();
-  final behaviorsGalleries = behaviors.buildGallery();
-  final i18nGalleries = i18n.buildGallery();
-  final legendsGalleries = legends.buildGallery();
 
-  Home(
+  static final galleryScaffolds = {
+    ...a11y.buildGallery(),
+    ...bar.buildGallery(),
+    ...time_series.buildGallery(),
+    ...line.buildGallery(),
+    ...scatter_plot.buildGallery(),
+    ...combo.buildGallery(),
+    ...pie.buildGallery(),
+    ...axes.buildGallery(),
+    ...behaviors.buildGallery(),
+    ...i18n.buildGallery(),
+    ...legends.buildGallery()
+  };
+
+  const Home(
       {Key? key,
       this.showPerformanceOverlay = false,
       required this.onShowPerformanceOverlayChanged})
@@ -58,49 +61,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var galleries = <Widget>[];
-
-    galleries.addAll(
-        a11yGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example bar charts.
-    galleries.addAll(
-        barGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example time series charts.
-    galleries.addAll(timeSeriesGalleries
-        .map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example line charts.
-    galleries.addAll(
-        lineGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example scatter plot charts.
-    galleries.addAll(scatterPlotGalleries
-        .map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example pie charts.
-    galleries.addAll(
-        comboGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example pie charts.
-    galleries.addAll(
-        pieGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add example custom axis.
-    galleries.addAll(
-        axesGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
-
-    galleries.addAll(behaviorsGalleries
-        .map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add legends examples
-    galleries.addAll(legendsGalleries
-        .map((gallery) => gallery.buildGalleryListTile(context)));
-
-    // Add examples for i18n.
-    galleries.addAll(
-        i18nGalleries.map((gallery) => gallery.buildGalleryListTile(context)));
+    var galleries =
+        galleryScaffolds.map((g) => g.buildGalleryListTile(context)).toList();
 
     _setupPerformance();
 
