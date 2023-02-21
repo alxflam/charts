@@ -15,6 +15,7 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'datum_legend_options.dart';
 import 'datum_legend_with_measures.dart';
 import 'default_hidden_series_legend.dart';
@@ -23,6 +24,13 @@ import 'series_legend_options.dart';
 import 'series_legend_with_measures.dart';
 import 'simple_datum_legend.dart';
 import 'simple_series_legend.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.insert_chart),
+      title: 'Legends',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

@@ -18,19 +18,19 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'app_config.dart';
 import 'drawer.dart';
-import 'a11y/a11y_gallery.dart' as a11y show buildGallery;
-import 'bar_chart/bar_gallery.dart' as bar show buildGallery;
+import 'a11y/a11y_gallery.dart' as a11y show buildGalleryGroup;
+import 'bar_chart/bar_gallery.dart' as bar show buildGalleryGroup;
 import 'time_series_chart/time_series_gallery.dart' as time_series
-    show buildGallery;
-import 'line_chart/line_gallery.dart' as line show buildGallery;
+    show buildGalleryGroup;
+import 'line_chart/line_gallery.dart' as line show buildGalleryGroup;
 import 'scatter_plot_chart/scatter_plot_gallery.dart' as scatter_plot
-    show buildGallery;
-import 'combo_chart/combo_gallery.dart' as combo show buildGallery;
-import 'pie_chart/pie_gallery.dart' as pie show buildGallery;
-import 'axes/axes_gallery.dart' as axes show buildGallery;
-import 'behaviors/behaviors_gallery.dart' as behaviors show buildGallery;
-import 'i18n/i18n_gallery.dart' as i18n show buildGallery;
-import 'legends/legends_gallery.dart' as legends show buildGallery;
+    show buildGalleryGroup;
+import 'combo_chart/combo_gallery.dart' as combo show buildGalleryGroup;
+import 'pie_chart/pie_gallery.dart' as pie show buildGalleryGroup;
+import 'axes/axes_gallery.dart' as axes show buildGalleryGroup;
+import 'behaviors/behaviors_gallery.dart' as behaviors show buildGalleryGroup;
+import 'i18n/i18n_gallery.dart' as i18n show buildGalleryGroup;
+import 'legends/legends_gallery.dart' as legends show buildGalleryGroup;
 
 /// Main entry point of the gallery app.
 ///
@@ -40,17 +40,17 @@ class Home extends StatelessWidget {
   final ValueChanged<bool> onShowPerformanceOverlayChanged;
 
   static final galleryScaffolds = {
-    ...a11y.buildGallery(),
-    ...bar.buildGallery(),
-    ...time_series.buildGallery(),
-    ...line.buildGallery(),
-    ...scatter_plot.buildGallery(),
-    ...combo.buildGallery(),
-    ...pie.buildGallery(),
-    ...axes.buildGallery(),
-    ...behaviors.buildGallery(),
-    ...i18n.buildGallery(),
-    ...legends.buildGallery()
+    a11y.buildGalleryGroup(),
+    bar.buildGalleryGroup(),
+    time_series.buildGalleryGroup(),
+    line.buildGalleryGroup(),
+    scatter_plot.buildGalleryGroup(),
+    combo.buildGalleryGroup(),
+    pie.buildGalleryGroup(),
+    axes.buildGalleryGroup(),
+    behaviors.buildGalleryGroup(),
+    i18n.buildGalleryGroup(),
+    legends.buildGalleryGroup()
   };
 
   const Home(
@@ -61,8 +61,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var galleries =
-        galleryScaffolds.map((g) => g.buildGalleryListTile(context)).toList();
+    var galleries = galleryScaffolds
+        .map((g) => g.buildGalleryGroupListTile(context))
+        .toList();
 
     _setupPerformance();
 

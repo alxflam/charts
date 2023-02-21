@@ -15,6 +15,7 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'animation_zoom.dart';
 import 'area_and_line.dart';
 import 'dash_pattern.dart';
@@ -28,6 +29,13 @@ import 'simple_nulls.dart';
 import 'stacked_area.dart';
 import 'stacked_area_custom_color.dart';
 import 'stacked_area_nulls.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.show_chart),
+      title: 'Line Charts',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

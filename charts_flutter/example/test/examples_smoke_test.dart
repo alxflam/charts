@@ -8,19 +8,17 @@ void main() {
   /// some examples were broken at runtime. these smoke tests
   /// verify that at least a chart is shown, hence the
   /// rendering should have succeded.
-  group("verify every example can be shown", () {
-    for (var example in Home.galleryScaffolds) {
-      testWidgets(example.title, (WidgetTester tester) async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: example.childBuilder(),
-          ),
-        );
+  group("verify example can be shown", () {
+    for (var group in Home.galleryScaffolds) {
+      for (var widget in group.children) {
+        testWidgets(widget.title, (WidgetTester tester) async {
+          await tester.pumpWidget(MaterialApp(home: widget.childBuilder()));
 
-        /// a chart should be displayed
-        final chart = find.byElementPredicate((a) => a.widget is BaseChart);
-        expect(chart, findsOneWidget);
-      });
+          /// a chart should be displayed
+          final chart = find.byElementPredicate((a) => a.widget is BaseChart);
+          expect(chart, findsOneWidget);
+        });
+      }
     }
   });
 }

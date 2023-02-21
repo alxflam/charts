@@ -15,11 +15,19 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'animation_zoom.dart';
 import 'bucketing_axis.dart';
 import 'comparison_points.dart';
 import 'shapes.dart';
 import 'simple.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.scatter_plot),
+      title: 'Scatter Plot Charts',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

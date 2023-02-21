@@ -15,6 +15,7 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'bar_secondary_axis.dart';
 import 'bar_secondary_axis_only.dart';
 import 'custom_axis_tick_formatters.dart';
@@ -31,6 +32,13 @@ import 'nonzero_bound_measure_axis.dart';
 import 'ordinal_initial_viewport.dart';
 import 'short_tick_length_axis.dart';
 import 'statically_provided_ticks.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.insert_chart),
+      title: 'Axis',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

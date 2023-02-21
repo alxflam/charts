@@ -15,12 +15,20 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'auto_label.dart';
 import 'donut.dart';
 import 'gauge.dart';
 import 'simple.dart';
 import 'outside_label.dart';
 import 'partial_pie.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.insert_chart),
+      title: 'Pie Charts',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

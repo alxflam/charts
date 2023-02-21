@@ -15,10 +15,18 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'rtl_bar_chart.dart';
 import 'rtl_line_chart.dart';
 import 'rtl_line_segments.dart';
 import 'rtl_series_legend.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.flag),
+      title: 'i18n',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

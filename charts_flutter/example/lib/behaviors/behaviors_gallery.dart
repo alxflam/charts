@@ -15,6 +15,7 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'chart_title.dart';
 import 'initial_hint_animation.dart';
 import 'initial_selection.dart';
@@ -29,6 +30,13 @@ import 'selection_scatter_plot_highlight.dart';
 import 'selection_user_managed.dart';
 import 'slider.dart';
 import 'sliding_viewport_on_selection.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.flag),
+      title: 'Behaviors',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

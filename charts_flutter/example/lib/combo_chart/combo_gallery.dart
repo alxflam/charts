@@ -15,11 +15,19 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'date_time_line_point.dart';
 import 'numeric_line_bar.dart';
 import 'numeric_line_point.dart';
 import 'ordinal_bar_line.dart';
 import 'scatter_plot_line.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.insert_chart),
+      title: 'Combo Charts',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

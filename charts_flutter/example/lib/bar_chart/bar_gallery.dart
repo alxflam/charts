@@ -15,6 +15,7 @@
 
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
+import '../gallery_scaffold_group.dart';
 import 'custom_rounded_bars.dart';
 import 'grouped.dart';
 import 'grouped_fill_color.dart';
@@ -34,6 +35,13 @@ import 'stacked_horizontal.dart';
 import 'stacked_target_line.dart';
 import 'spark_bar.dart';
 import 'vertical_bar_label.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.insert_chart),
+      title: 'Bar Charts',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [

@@ -12,9 +12,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+import 'package:example/gallery_scaffold_group.dart';
 import 'package:flutter/material.dart';
 import '../gallery_scaffold.dart';
 import 'domain_a11y_explore_bar_chart.dart';
+
+GalleryScaffoldGroup buildGalleryGroup() {
+  return GalleryScaffoldGroup(
+      listTileIcon: const Icon(Icons.accessibility),
+      title: 'Accessibility',
+      children: buildGallery());
+}
 
 List<GalleryScaffold> buildGallery() {
   return [
