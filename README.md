@@ -1,31 +1,27 @@
-# Discontinued
+# Charts
 
-**This project is no longer maintained**, and will not receive further updates. Community members interested in collaborating on a community-maintained fork can coordinate in [this issue](https://github.com/google/charts/issues/798).
+[![Build](https://github.com/alxflam/charts/actions/workflows/build.yml/badge.svg)](https://github.com/alxflam/charts/actions/workflows/build.yml)
 
----
+This is a maintained fork of the discontinued google/charts repository. See the [archival issue](https://github.com/google/charts/issues/798) for Googles archival announcement of the original repository.
 
 Charts is a general charting library, currently enabled for the
-[Flutter mobile UI framework](https://flutter.io).
+[Flutter UI framework](https://flutter.io).
 
-See the [online gallery](https://google.github.io/charts/flutter/gallery.html) for supported chart
-types and examples of how to custom components of the chart.
+See the Flutter example app for supported chart
+types and examples of how to customize charts.
 
-*Note*: This is not an official Google product.
+*Note*: This is not an official Google product. Google archived the original repository, this is a fork.
 
-[![Travis CI Build Status](https://travis-ci.org/google/charts.svg?branch=master)](https://travis-ci.org/google/charts)
+## Packages
 
-## charts_common
-
-[![charts_common pub package](https://img.shields.io/pub/v/charts_common.svg)](https://pub.dartlang.org/packages/charts_common)
+### charts_common
 
 A common library for charting packages.
 
-## charts_flutter
+### charts_flutter
 
-[![charts_flutter pub package](https://img.shields.io/pub/v/charts_flutter.svg)](https://pub.dartlang.org/packages/charts_flutter)
+The [Flutter](https://flutter.io) implementation of charts_common.
 
-A charting package for [Flutter](https://flutter.io), supporting both Android
-and iOS.
-
+## License 
 All charts packages are licensed under the Apache 2 license, see the
 [LICENSE](LICENSE) and [AUTHORS](AUTHORS) files for details.
