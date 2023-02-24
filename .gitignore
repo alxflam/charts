@@ -10,3 +10,6 @@ build/
 **/ios/Flutter/Generated.xcconfig
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/**/flutter_export_environment.sh
+
+**/coverage/
+**/coverage.lcov
