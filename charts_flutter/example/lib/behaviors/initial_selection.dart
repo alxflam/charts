@@ -24,9 +24,7 @@
 /// The selection will remain on the chart unless another behavior is added
 /// that updates the selection.
 
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -36,19 +34,6 @@ class InitialSelection extends StatelessWidget {
 
   const InitialSelection(this.seriesList, {super.key, this.animate = false});
 
-  /// Creates a [BarChart] with initial selection behavior.
-  factory InitialSelection.withSampleData() {
-    return InitialSelection(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory InitialSelection.withRandomData() {
     return InitialSelection(_createRandomData());
   }
@@ -74,7 +59,6 @@ class InitialSelection extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -97,26 +81,6 @@ class InitialSelection extends StatelessWidget {
         ])
       ],
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

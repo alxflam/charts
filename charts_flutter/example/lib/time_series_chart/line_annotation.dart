@@ -21,9 +21,7 @@
 ///
 /// Additional annotations may be added simply by adding additional
 /// [Charts.RangeAnnotationSegment] items to the list.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -34,19 +32,6 @@ class TimeSeriesLineAnnotationChart extends StatelessWidget {
   const TimeSeriesLineAnnotationChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory TimeSeriesLineAnnotationChart.withSampleData() {
-    return TimeSeriesLineAnnotationChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory TimeSeriesLineAnnotationChart.withRandomData() {
     return TimeSeriesLineAnnotationChart(_createRandomData());
   }
@@ -71,7 +56,6 @@ class TimeSeriesLineAnnotationChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -85,25 +69,6 @@ class TimeSeriesLineAnnotationChart extends StatelessWidget {
             endLabel: 'Oct 15'),
       ]),
     ]);
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 5),
-      TimeSeriesSales(DateTime(2017, 9, 26), 25),
-      TimeSeriesSales(DateTime(2017, 10, 3), 100),
-      TimeSeriesSales(DateTime(2017, 10, 10), 75),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

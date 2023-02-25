@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// RTL Bar chart example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -26,19 +24,6 @@ class RTLBarChart extends StatelessWidget {
 
   const RTLBarChart(this.seriesList, {super.key, this.animate = false});
 
-  /// Creates a [BarChart] with sample data and no transition.
-  factory RTLBarChart.withSampleData() {
-    return RTLBarChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory RTLBarChart.withRandomData() {
     return RTLBarChart(_createRandomData());
   }
@@ -63,7 +48,6 @@ class RTLBarChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -88,25 +72,6 @@ class RTLBarChart extends StatelessWidget {
           animate: animate,
           vertical: false,
         ));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Sales',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

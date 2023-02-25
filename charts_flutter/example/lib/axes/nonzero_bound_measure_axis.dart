@@ -15,9 +15,7 @@
 
 /// Example of timeseries chart that has a measure axis that does NOT include
 /// zero. It starts at 100 and goes to 140.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -28,19 +26,6 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
   const NonzeroBoundMeasureAxis(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory NonzeroBoundMeasureAxis.withSampleData() {
-    return NonzeroBoundMeasureAxis(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory NonzeroBoundMeasureAxis.withRandomData() {
     return NonzeroBoundMeasureAxis(_createRandomData());
   }
@@ -72,7 +57,6 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -83,32 +67,6 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
         primaryMeasureAxis: const charts.NumericAxisSpec(
             tickProviderSpec:
                 charts.BasicNumericTickProviderSpec(zeroBound: false)));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<MyRow, DateTime>> _createSampleData() {
-    final data = [
-      MyRow(DateTime(2017, 9, 25), 106),
-      MyRow(DateTime(2017, 9, 26), 108),
-      MyRow(DateTime(2017, 9, 27), 106),
-      MyRow(DateTime(2017, 9, 28), 109),
-      MyRow(DateTime(2017, 9, 29), 111),
-      MyRow(DateTime(2017, 9, 30), 115),
-      MyRow(DateTime(2017, 10, 01), 125),
-      MyRow(DateTime(2017, 10, 02), 133),
-      MyRow(DateTime(2017, 10, 03), 127),
-      MyRow(DateTime(2017, 10, 04), 131),
-      MyRow(DateTime(2017, 10, 05), 123),
-    ];
-
-    return [
-      charts.Series<MyRow, DateTime>(
-        id: 'Headcount',
-        domainFn: (MyRow row, _) => row.timeStamp,
-        measureFn: (MyRow row, _) => row.headcount,
-        data: data,
-      )
-    ];
   }
 }
 

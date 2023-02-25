@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Bar chart example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -29,18 +27,6 @@ class GroupedFillColorBarChart extends StatelessWidget {
   const GroupedFillColorBarChart(this.seriesList,
       {super.key, this.animate = false});
 
-  factory GroupedFillColorBarChart.withSampleData() {
-    return GroupedFillColorBarChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory GroupedFillColorBarChart.withRandomData() {
     return GroupedFillColorBarChart(_createRandomData());
   }
@@ -101,7 +87,6 @@ class GroupedFillColorBarChart extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -112,61 +97,6 @@ class GroupedFillColorBarChart extends StatelessWidget {
       defaultRenderer: charts.BarRendererConfig(
           groupingType: charts.BarGroupingType.grouped, strokeWidthPx: 2.0),
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final desktopSalesData = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    final tableSalesData = [
-      OrdinalSales('2014', 25),
-      OrdinalSales('2015', 50),
-      OrdinalSales('2016', 10),
-      OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesData = [
-      OrdinalSales('2014', 10),
-      OrdinalSales('2015', 50),
-      OrdinalSales('2016', 50),
-      OrdinalSales('2017', 45),
-    ];
-
-    return [
-      // Blue bars with a lighter center color.
-      charts.Series<OrdinalSales, String>(
-        id: 'Desktop',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesData,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        fillColorFn: (_, __) =>
-            charts.MaterialPalette.blue.shadeDefault.lighter,
-      ),
-      // Solid red bars. Fill color will default to the series color if no
-      // fillColorFn is configured.
-      charts.Series<OrdinalSales, String>(
-        id: 'Tablet',
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesData,
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-      ),
-      // Hollow green bars.
-      charts.Series<OrdinalSales, String>(
-        id: 'Mobile',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesData,
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        fillColorFn: (_, __) => charts.MaterialPalette.transparent,
-      ),
-    ];
   }
 }
 

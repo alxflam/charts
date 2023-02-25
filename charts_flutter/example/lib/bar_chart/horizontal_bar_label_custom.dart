@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Horizontal bar chart with custom style for each datum in the bar label.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -27,19 +25,6 @@ class HorizontalBarLabelCustomChart extends StatelessWidget {
   const HorizontalBarLabelCustomChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [BarChart] with sample data and no transition.
-  static HorizontalBarLabelCustomChart createWithSampleData() {
-    return HorizontalBarLabelCustomChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory HorizontalBarLabelCustomChart.withRandomData() {
     return HorizontalBarLabelCustomChart(_createRandomData());
   }
@@ -79,7 +64,6 @@ class HorizontalBarLabelCustomChart extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   // The [BarLabelDecorator] has settings to set the text style for all labels
   // for inside the bar and outside the bar. To be able to control each datum's
@@ -95,40 +79,6 @@ class HorizontalBarLabelCustomChart extends StatelessWidget {
       domainAxis:
           const charts.OrdinalAxisSpec(renderSpec: charts.NoneRenderSpec()),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Sales',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: data,
-        // Set a label accessor to control the text of the bar label.
-        labelAccessorFn: (OrdinalSales sales, _) =>
-            '${sales.year}: \$${sales.sales.toString()}',
-        insideLabelStyleAccessorFn: (OrdinalSales sales, _) {
-          final color = (sales.year == '2014')
-              ? charts.MaterialPalette.red.shadeDefault
-              : charts.MaterialPalette.yellow.shadeDefault.darker;
-          return charts.TextStyleSpec(color: color);
-        },
-        outsideLabelStyleAccessorFn: (OrdinalSales sales, _) {
-          final color = (sales.year == '2014')
-              ? charts.MaterialPalette.red.shadeDefault
-              : charts.MaterialPalette.yellow.shadeDefault.darker;
-          return charts.TextStyleSpec(color: color);
-        },
-      ),
-    ];
   }
 }
 

@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Example of a time series chart using a bar renderer.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -26,19 +24,6 @@ class TimeSeriesBar extends StatelessWidget {
 
   const TimeSeriesBar(this.seriesList, {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory TimeSeriesBar.withSampleData() {
-    return TimeSeriesBar(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory TimeSeriesBar.withRandomData() {
     return TimeSeriesBar(_createRandomData());
   }
@@ -81,7 +66,6 @@ class TimeSeriesBar extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -99,43 +83,6 @@ class TimeSeriesBar extends StatelessWidget {
       // and the domain highlighter that are typical for bar charts.
       behaviors: [charts.SelectNearest(), charts.DomainHighlighter()],
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      TimeSeriesSales(DateTime(2017, 9, 1), 5),
-      TimeSeriesSales(DateTime(2017, 9, 2), 5),
-      TimeSeriesSales(DateTime(2017, 9, 3), 25),
-      TimeSeriesSales(DateTime(2017, 9, 4), 100),
-      TimeSeriesSales(DateTime(2017, 9, 5), 75),
-      TimeSeriesSales(DateTime(2017, 9, 6), 88),
-      TimeSeriesSales(DateTime(2017, 9, 7), 65),
-      TimeSeriesSales(DateTime(2017, 9, 8), 91),
-      TimeSeriesSales(DateTime(2017, 9, 9), 100),
-      TimeSeriesSales(DateTime(2017, 9, 10), 111),
-      TimeSeriesSales(DateTime(2017, 9, 11), 90),
-      TimeSeriesSales(DateTime(2017, 9, 12), 50),
-      TimeSeriesSales(DateTime(2017, 9, 13), 40),
-      TimeSeriesSales(DateTime(2017, 9, 14), 30),
-      TimeSeriesSales(DateTime(2017, 9, 15), 40),
-      TimeSeriesSales(DateTime(2017, 9, 16), 50),
-      TimeSeriesSales(DateTime(2017, 9, 17), 30),
-      TimeSeriesSales(DateTime(2017, 9, 18), 35),
-      TimeSeriesSales(DateTime(2017, 9, 19), 40),
-      TimeSeriesSales(DateTime(2017, 9, 20), 32),
-      TimeSeriesSales(DateTime(2017, 9, 21), 31),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

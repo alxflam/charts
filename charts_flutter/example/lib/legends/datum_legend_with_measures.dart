@@ -18,9 +18,7 @@
 /// to use the customizations, they do not necessary have to be used together in
 /// this way. Choosing [end] as the position does not require the justification
 /// to also be [endDrawArea].
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -34,18 +32,6 @@ class DatumLegendWithMeasures extends StatelessWidget {
   const DatumLegendWithMeasures(this.seriesList,
       {super.key, this.animate = false});
 
-  factory DatumLegendWithMeasures.withSampleData() {
-    return DatumLegendWithMeasures(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory DatumLegendWithMeasures.withRandomData() {
     return DatumLegendWithMeasures(_createRandomData());
   }
@@ -70,7 +56,6 @@ class DatumLegendWithMeasures extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +66,6 @@ class DatumLegendWithMeasures extends StatelessWidget {
       // This example shows how to optionally show measure and provide a custom
       // formatter.
       behaviors: [
-        // EXCLUDE_FROM_GALLERY_DOCS_START
-        // This section is excluded from being copied to the gallery.
         // This is added in order to generate the image for the gallery to show
         // an initial selection so that measure values are shown in the gallery.
         charts.InitialSelection(
@@ -90,7 +73,6 @@ class DatumLegendWithMeasures extends StatelessWidget {
             charts.SeriesDatumConfig('Sales', 0),
           ],
         ),
-        // EXCLUDE_FROM_GALLERY_DOCS_END
         charts.DatumLegend(
           // Positions for "start" and "end" will be left and right respectively
           // for widgets with a build context that has directionality ltr.
@@ -116,25 +98,6 @@ class DatumLegendWithMeasures extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  /// Create series list with one series
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(2014, 100),
-      LinearSales(2015, 75),
-      LinearSales(2016, 25),
-      LinearSales(2017, 5),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

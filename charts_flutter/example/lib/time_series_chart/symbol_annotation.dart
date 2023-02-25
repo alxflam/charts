@@ -25,9 +25,7 @@
 /// shape between the domainLowerBound and domainUpperBound positions along the
 /// chart's domain axis. Point annotations are drawn on top of range
 /// annotations.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -38,19 +36,6 @@ class TimeSeriesSymbolAnnotationChart extends StatelessWidget {
   const TimeSeriesSymbolAnnotationChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory TimeSeriesSymbolAnnotationChart.withSampleData() {
-    return TimeSeriesSymbolAnnotationChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory TimeSeriesSymbolAnnotationChart.withRandomData() {
     return TimeSeriesSymbolAnnotationChart(_createRandomData());
   }
@@ -160,7 +145,6 @@ class TimeSeriesSymbolAnnotationChart extends StatelessWidget {
         ..setAttribute(charts.boundsLineRadiusPxKey, 3.5),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -178,108 +162,6 @@ class TimeSeriesSymbolAnnotationChart extends StatelessWidget {
       // specified, the default creates local date time.
       dateTimeFactory: const charts.LocalDateTimeFactory(),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final myDesktopData = [
-      TimeSeriesSales(timeCurrent: DateTime(2017, 9, 19), sales: 5),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 9, 26), sales: 25),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 10, 3), sales: 100),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 10, 10), sales: 75),
-    ];
-
-    final myTabletData = [
-      TimeSeriesSales(timeCurrent: DateTime(2017, 9, 19), sales: 10),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 9, 26), sales: 50),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 10, 3), sales: 200),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 10, 10), sales: 150),
-    ];
-
-    // Example of a series with two range annotations. A regular point shape
-    // will be drawn at the current domain value, and a range shape will be
-    // drawn between the previous and target domain values.
-    //
-    // Note that these series do not contain any measure values. They are
-    // positioned automatically in rows.
-    final myAnnotationDataTop = [
-      TimeSeriesSales(
-        timeCurrent: DateTime(2017, 9, 24),
-        timePrevious: DateTime(2017, 9, 19),
-        timeTarget: DateTime(2017, 9, 24),
-      ),
-      TimeSeriesSales(
-        timeCurrent: DateTime(2017, 9, 29),
-        timePrevious: DateTime(2017, 9, 29),
-        timeTarget: DateTime(2017, 10, 4),
-      ),
-    ];
-
-    // Example of a series with one range annotation and two single point
-    // annotations. Omitting the previous and target domain values causes that
-    // datum to be drawn as a single point.
-    final myAnnotationDataBottom = [
-      TimeSeriesSales(
-        timeCurrent: DateTime(2017, 9, 25),
-        timePrevious: DateTime(2017, 9, 21),
-        timeTarget: DateTime(2017, 9, 25),
-      ),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 9, 31)),
-      TimeSeriesSales(timeCurrent: DateTime(2017, 10, 5)),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Desktop',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.timeCurrent,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: myDesktopData,
-      ),
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Tablet',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.timeCurrent,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: myTabletData,
-      ),
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Annotation Series 1',
-        colorFn: (_, __) => charts.MaterialPalette.gray.shadeDefault,
-        // A point shape will be drawn at the location of the domain.
-        domainFn: (TimeSeriesSales sales, _) => sales.timeCurrent,
-        // A range shape will be drawn between the lower and upper domain
-        // bounds. The range will be drawn underneath the domain point.
-        domainLowerBoundFn: (TimeSeriesSales row, _) => row.timePrevious,
-        domainUpperBoundFn: (TimeSeriesSales row, _) => row.timeTarget,
-        // No measure values are needed for symbol annotations.
-        measureFn: (_, __) => null,
-        data: myAnnotationDataTop,
-      )
-        // Configure our custom symbol annotation renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customSymbolAnnotation')
-        // Optional radius for the annotation range. If not specified, this will
-        // default to the same radius as the domain point.
-        ..setAttribute(charts.boundsLineRadiusPxKey, 3.5),
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Annotation Series 2',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        // A point shape will be drawn at the location of the domain.
-        domainFn: (TimeSeriesSales sales, _) => sales.timeCurrent,
-        // A range shape will be drawn between the lower and upper domain
-        // bounds. The range will be drawn underneath the domain point.
-        domainLowerBoundFn: (TimeSeriesSales row, _) => row.timePrevious,
-        domainUpperBoundFn: (TimeSeriesSales row, _) => row.timeTarget,
-        // No measure values are needed for symbol annotations.
-        measureFn: (_, __) => null,
-        data: myAnnotationDataBottom,
-      )
-        // Configure our custom symbol annotation renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customSymbolAnnotation')
-        // Optional radius for the annotation range. If not specified, this will
-        // default to the same radius as the domain point.
-        ..setAttribute(charts.boundsLineRadiusPxKey, 3.5),
-    ];
   }
 }
 

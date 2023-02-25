@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Simple pie chart with outside labels example.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -27,19 +25,6 @@ class PieOutsideLabelChart extends StatelessWidget {
   const PieOutsideLabelChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [PieChart] with sample data and no transition.
-  factory PieOutsideLabelChart.withSampleData() {
-    return PieOutsideLabelChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory PieOutsideLabelChart.withRandomData() {
     return PieOutsideLabelChart(_createRandomData());
   }
@@ -66,7 +51,6 @@ class PieOutsideLabelChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -86,27 +70,6 @@ class PieOutsideLabelChart extends StatelessWidget {
           charts.ArcLabelDecorator(
               labelPosition: charts.ArcLabelPosition.outside)
         ]));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(0, 100),
-      LinearSales(1, 75),
-      LinearSales(2, 25),
-      LinearSales(3, 5),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-        // Set a label accessor to control the text of the arc label.
-        labelAccessorFn: (LinearSales row, _) => '${row.year}: ${row.sales}',
-      )
-    ];
   }
 }
 

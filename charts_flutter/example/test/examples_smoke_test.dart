@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:example/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:example/main.dart' as app;
 
 void main() {
   /// after google updated this repository to sound null safety
@@ -20,5 +21,11 @@ void main() {
         });
       }
     }
+  });
+
+  testWidgets('verify app can be started', (tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+    expect(find.byType(ListView), findsOneWidget);
   });
 }

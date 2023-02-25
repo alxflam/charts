@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Line chart with line annotations example.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -27,23 +25,6 @@ class LineLineAnnotationChart extends StatelessWidget {
   const LineLineAnnotationChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [LineChart] with sample data and line annotations.
-  ///
-  /// The second annotation extends beyond the range of the series data,
-  /// demonstrating the effect of the [Charts.RangeAnnotation.extendAxis] flag.
-  /// This can be set to false to disable range extension.
-  factory LineLineAnnotationChart.withSampleData() {
-    return LineLineAnnotationChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory LineLineAnnotationChart.withRandomData() {
     return LineLineAnnotationChart(_createRandomData());
   }
@@ -70,7 +51,6 @@ class LineLineAnnotationChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -90,25 +70,6 @@ class LineLineAnnotationChart extends StatelessWidget {
             color: charts.MaterialPalette.gray.shade400),
       ]),
     ]);
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(0, 5),
-      LinearSales(1, 25),
-      LinearSales(2, 100),
-      LinearSales(3, 75),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

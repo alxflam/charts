@@ -16,9 +16,7 @@
 /// Example of a time series chart with an end points domain axis.
 ///
 /// An end points axis generates two ticks, one at each end of the axis range.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -29,19 +27,6 @@ class EndPointsAxisTimeSeriesChart extends StatelessWidget {
   const EndPointsAxisTimeSeriesChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory EndPointsAxisTimeSeriesChart.withSampleData() {
-    return EndPointsAxisTimeSeriesChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory EndPointsAxisTimeSeriesChart.withRandomData() {
     return EndPointsAxisTimeSeriesChart(_createRandomData());
   }
@@ -67,7 +52,6 @@ class EndPointsAxisTimeSeriesChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -80,26 +64,6 @@ class EndPointsAxisTimeSeriesChart extends StatelessWidget {
       // right-aligned with its tick mark.
       domainAxis: const charts.EndPointsTimeAxisSpec(),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 5),
-      TimeSeriesSales(DateTime(2017, 9, 26), 25),
-      TimeSeriesSales(DateTime(2017, 10, 3), 100),
-      TimeSeriesSales(DateTime(2017, 10, 10), 75),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

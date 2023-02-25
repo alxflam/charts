@@ -18,9 +18,7 @@
 ///
 /// Each bar stack shows the percentage of each measure out of the total measure
 /// value of the stack.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -31,18 +29,6 @@ class PercentOfDomainByCategoryBarChart extends StatelessWidget {
   const PercentOfDomainByCategoryBarChart(this.seriesList,
       {super.key, this.animate = false});
 
-  factory PercentOfDomainByCategoryBarChart.withSampleData() {
-    return PercentOfDomainByCategoryBarChart(
-      createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory PercentOfDomainByCategoryBarChart.withRandomData() {
     return PercentOfDomainByCategoryBarChart(_createRandomData());
   }
@@ -138,7 +124,6 @@ class PercentOfDomainByCategoryBarChart extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -160,96 +145,6 @@ class PercentOfDomainByCategoryBarChart extends StatelessWidget {
       // Configure the axis spec to show percentage values.
       primaryMeasureAxis: charts.PercentAxisSpec(),
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> createSampleData() {
-    final desktopSalesDataA = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    final tableSalesDataA = [
-      OrdinalSales('2014', 25),
-      OrdinalSales('2015', 50),
-      OrdinalSales('2016', 10),
-      OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesDataA = [
-      OrdinalSales('2014', 10),
-      OrdinalSales('2015', 15),
-      OrdinalSales('2016', 50),
-      OrdinalSales('2017', 45),
-    ];
-
-    final desktopSalesDataB = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    final tableSalesDataB = [
-      OrdinalSales('2014', 25),
-      OrdinalSales('2015', 50),
-      OrdinalSales('2016', 10),
-      OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesDataB = [
-      OrdinalSales('2014', 10),
-      OrdinalSales('2015', 15),
-      OrdinalSales('2016', 50),
-      OrdinalSales('2017', 45),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Desktop A',
-        seriesCategory: 'A',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesDataA,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Tablet A',
-        seriesCategory: 'A',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesDataA,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Mobile A',
-        seriesCategory: 'A',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesDataA,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Desktop B',
-        seriesCategory: 'B',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesDataB,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Tablet B',
-        seriesCategory: 'B',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesDataB,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Mobile B',
-        seriesCategory: 'B',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesDataB,
-      ),
-    ];
   }
 }
 

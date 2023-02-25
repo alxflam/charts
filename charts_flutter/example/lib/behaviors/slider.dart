@@ -12,9 +12,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -37,19 +35,6 @@ class SliderLine extends StatefulWidget {
 
   const SliderLine(this.seriesList, {super.key, this.animate = false});
 
-  /// Creates a [LineChart] with sample data and no transition.
-  factory SliderLine.withSampleData() {
-    return SliderLine(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory SliderLine.withRandomData() {
     return SliderLine(_createRandomData());
   }
@@ -74,31 +59,11 @@ class SliderLine extends StatefulWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   // We need a Stateful widget to build the selection details with the current
   // selection as the state.
   @override
   State<StatefulWidget> createState() => _SliderCallbackState();
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(0, 5),
-      LinearSales(1, 25),
-      LinearSales(2, 100),
-      LinearSales(3, 75),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
-  }
 }
 
 class _SliderCallbackState extends State<SliderLine> {

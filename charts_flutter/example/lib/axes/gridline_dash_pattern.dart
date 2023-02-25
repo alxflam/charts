@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Example of timeseries chart with gridlines that have a dash pattern.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -26,19 +24,6 @@ class GridlineDashPattern extends StatelessWidget {
 
   const GridlineDashPattern(this.seriesList, {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory GridlineDashPattern.withSampleData() {
-    return GridlineDashPattern(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory GridlineDashPattern.withRandomData() {
     return GridlineDashPattern(_createRandomData());
   }
@@ -70,7 +55,6 @@ class GridlineDashPattern extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -83,32 +67,6 @@ class GridlineDashPattern extends StatelessWidget {
                 lineStyle: charts.LineStyleSpec(
           dashPattern: [4, 4],
         ))));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<MyRow, DateTime>> _createSampleData() {
-    final data = [
-      MyRow(DateTime(2017, 9, 25), 6),
-      MyRow(DateTime(2017, 9, 26), 8),
-      MyRow(DateTime(2017, 9, 27), 6),
-      MyRow(DateTime(2017, 9, 28), 9),
-      MyRow(DateTime(2017, 9, 29), 11),
-      MyRow(DateTime(2017, 9, 30), 15),
-      MyRow(DateTime(2017, 10, 01), 25),
-      MyRow(DateTime(2017, 10, 02), 33),
-      MyRow(DateTime(2017, 10, 03), 27),
-      MyRow(DateTime(2017, 10, 04), 31),
-      MyRow(DateTime(2017, 10, 05), 23),
-    ];
-
-    return [
-      charts.Series<MyRow, DateTime>(
-        id: 'Cost',
-        domainFn: (MyRow row, _) => row.timeStamp,
-        measureFn: (MyRow row, _) => row.cost,
-        data: data,
-      )
-    ];
   }
 }
 

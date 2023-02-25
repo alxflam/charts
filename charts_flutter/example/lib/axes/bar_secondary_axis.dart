@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Bar chart example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -42,18 +40,6 @@ class BarChartWithSecondaryAxis extends StatelessWidget {
   const BarChartWithSecondaryAxis(this.seriesList,
       {super.key, this.animate = false});
 
-  factory BarChartWithSecondaryAxis.withSampleData() {
-    return BarChartWithSecondaryAxis(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory BarChartWithSecondaryAxis.withRandomData() {
     return BarChartWithSecondaryAxis(_createRandomData());
   }
@@ -94,7 +80,6 @@ class BarChartWithSecondaryAxis extends StatelessWidget {
       // All other series will use the primary measure axis.
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -112,41 +97,6 @@ class BarChartWithSecondaryAxis extends StatelessWidget {
           tickProviderSpec:
               charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final globalSalesData = [
-      OrdinalSales('2014', 5000),
-      OrdinalSales('2015', 25000),
-      OrdinalSales('2016', 100000),
-      OrdinalSales('2017', 750000),
-    ];
-
-    final losAngelesSalesData = [
-      OrdinalSales('2014', 25),
-      OrdinalSales('2015', 50),
-      OrdinalSales('2016', 10),
-      OrdinalSales('2017', 20),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Global Revenue',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: globalSalesData,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Los Angeles Revenue',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: losAngelesSalesData,
-      )..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId)
-      // Set the 'Los Angeles Revenue' series to use the secondary measure axis.
-      // All series that have this set will use the secondary measure axis.
-      // All other series will use the primary measure axis.
-    ];
   }
 }
 

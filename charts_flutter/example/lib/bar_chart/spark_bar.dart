@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Spark Bar Example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -27,18 +25,6 @@ class SparkBar extends StatelessWidget {
 
   const SparkBar(this.seriesList, {super.key, this.animate = false});
 
-  factory SparkBar.withSampleData() {
-    return SparkBar(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory SparkBar.withRandomData() {
     return SparkBar(_createRandomData());
   }
@@ -70,7 +56,6 @@ class SparkBar extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -102,32 +87,6 @@ class SparkBar extends StatelessWidget {
           rightMarginSpec: charts.MarginSpec.fixedPixel(0),
           bottomMarginSpec: charts.MarginSpec.fixedPixel(0)),
     );
-  }
-
-  /// Create series list with single series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final globalSalesData = [
-      OrdinalSales('2007', 3100),
-      OrdinalSales('2008', 3500),
-      OrdinalSales('2009', 5000),
-      OrdinalSales('2010', 2500),
-      OrdinalSales('2011', 3200),
-      OrdinalSales('2012', 4500),
-      OrdinalSales('2013', 4400),
-      OrdinalSales('2014', 5000),
-      OrdinalSales('2015', 5000),
-      OrdinalSales('2016', 4500),
-      OrdinalSales('2017', 4300),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Global Revenue',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: globalSalesData,
-      ),
-    ];
   }
 }
 

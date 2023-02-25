@@ -26,9 +26,7 @@
 ///
 /// See [SelectNearest] behavior on setting the different ways of triggering
 /// [SelectionModel] updates from hover & click events.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -39,19 +37,6 @@ class SelectionCallbackExample extends StatefulWidget {
   const SelectionCallbackExample(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [charts.TimeSeriesChart] with sample data and no transition.
-  factory SelectionCallbackExample.withSampleData() {
-    return SelectionCallbackExample(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory SelectionCallbackExample.withRandomData() {
     return SelectionCallbackExample(_createRandomData());
   }
@@ -89,44 +74,11 @@ class SelectionCallbackExample extends StatefulWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   // We need a Stateful widget to build the selection details with the current
   // selection as the state.
   @override
   State<StatefulWidget> createState() => _SelectionCallbackState();
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final usData = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 5),
-      TimeSeriesSales(DateTime(2017, 9, 26), 25),
-      TimeSeriesSales(DateTime(2017, 10, 3), 78),
-      TimeSeriesSales(DateTime(2017, 10, 10), 54),
-    ];
-
-    final ukData = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 15),
-      TimeSeriesSales(DateTime(2017, 9, 26), 33),
-      TimeSeriesSales(DateTime(2017, 10, 3), 68),
-      TimeSeriesSales(DateTime(2017, 10, 10), 48),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'US Sales',
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: usData,
-      ),
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'UK Sales',
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: ukData,
-      )
-    ];
-  }
 }
 
 class _SelectionCallbackState extends State<SelectionCallbackExample> {

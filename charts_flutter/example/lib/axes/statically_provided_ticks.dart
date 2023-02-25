@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Example of axis using statically provided ticks.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -40,18 +38,6 @@ class StaticallyProvidedTicks extends StatelessWidget {
   const StaticallyProvidedTicks(this.seriesList,
       {super.key, this.animate = false});
 
-  factory StaticallyProvidedTicks.withSampleData() {
-    return StaticallyProvidedTicks(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory StaticallyProvidedTicks.withRandomData() {
     return StaticallyProvidedTicks(_createRandomData());
   }
@@ -76,7 +62,6 @@ class StaticallyProvidedTicks extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -103,25 +88,6 @@ class StaticallyProvidedTicks extends StatelessWidget {
       domainAxis: charts.OrdinalAxisSpec(
           tickProviderSpec: charts.StaticOrdinalTickProviderSpec(staticTicks)),
     );
-  }
-
-  /// Create series list with single series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final globalSalesData = [
-      OrdinalSales('2014', 5000),
-      OrdinalSales('2015', 25000),
-      OrdinalSales('2016', 100000),
-      OrdinalSales('2017', 750000),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Global Revenue',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: globalSalesData,
-      ),
-    ];
   }
 }
 

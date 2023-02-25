@@ -15,9 +15,7 @@
 
 /// Example of a line chart with range annotations configured to render labels
 /// in the chart margin area.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -28,23 +26,6 @@ class LineRangeAnnotationMarginChart extends StatelessWidget {
   const LineRangeAnnotationMarginChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [LineChart] with sample data and range annotations.
-  ///
-  /// The second annotation extends beyond the range of the series data,
-  /// demonstrating the effect of the [Charts.RangeAnnotation.extendAxis] flag.
-  /// This can be set to false to disable range extension.
-  factory LineRangeAnnotationMarginChart.withSampleData() {
-    return LineRangeAnnotationMarginChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory LineRangeAnnotationMarginChart.withRandomData() {
     return LineRangeAnnotationMarginChart(_createRandomData());
   }
@@ -71,7 +52,6 @@ class LineRangeAnnotationMarginChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -111,25 +91,6 @@ class LineRangeAnnotationMarginChart extends StatelessWidget {
                 color: charts.MaterialPalette.gray.shade400),
           ], defaultLabelPosition: charts.AnnotationLabelPosition.margin),
         ]);
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(0, 5),
-      LinearSales(1, 25),
-      LinearSales(2, 100),
-      LinearSales(3, 75),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

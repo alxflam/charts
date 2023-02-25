@@ -15,9 +15,7 @@
 
 /// Example of a percentage bar chart which shows each bar as the percentage of
 /// the total series measure value.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -28,19 +26,6 @@ class PercentOfSeriesBarChart extends StatelessWidget {
   const PercentOfSeriesBarChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a stacked [BarChart] with sample data and no transition.
-  factory PercentOfSeriesBarChart.withSampleData() {
-    return PercentOfSeriesBarChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory PercentOfSeriesBarChart.withRandomData() {
     return PercentOfSeriesBarChart(_createRandomData());
   }
@@ -69,7 +54,6 @@ class PercentOfSeriesBarChart extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -86,29 +70,6 @@ class PercentOfSeriesBarChart extends StatelessWidget {
       // Configure the axis spec to show percentage values.
       primaryMeasureAxis: charts.PercentAxisSpec(),
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final desktopSalesData = [
-      OrdinalSales('2011', 5),
-      OrdinalSales('2012', 25),
-      OrdinalSales('2013', 50),
-      OrdinalSales('2014', 75),
-      OrdinalSales('2015', 100),
-      OrdinalSales('2016', 125),
-      OrdinalSales('2017', 200),
-      OrdinalSales('2018', 150),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Desktop',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesData,
-      ),
-    ];
   }
 }
 

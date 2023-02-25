@@ -15,9 +15,7 @@
 
 /// Example of a combo scatter plot chart with a second series rendered as a
 /// line.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -28,19 +26,6 @@ class ScatterPlotComboLineChart extends StatelessWidget {
   const ScatterPlotComboLineChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [ScatterPlotChart] with sample data and no transition.
-  factory ScatterPlotComboLineChart.withSampleData() {
-    return ScatterPlotComboLineChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory ScatterPlotComboLineChart.withRandomData() {
     return ScatterPlotComboLineChart(_createRandomData());
   }
@@ -106,7 +91,6 @@ class ScatterPlotComboLineChart extends StatelessWidget {
         ..setAttribute(charts.rendererIdKey, 'customLine'),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -129,63 +113,6 @@ class ScatterPlotComboLineChart extends StatelessWidget {
               // top of those drawn by a line renderer.
               layoutPaintOrder: charts.LayoutViewPaintOrder.point + 1)
         ]);
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final desktopSalesData = [
-      LinearSales(0, 5, 3.0),
-      LinearSales(10, 25, 5.0),
-      LinearSales(12, 75, 4.0),
-      LinearSales(13, 225, 5.0),
-      LinearSales(16, 50, 4.0),
-      LinearSales(24, 75, 3.0),
-      LinearSales(25, 100, 3.0),
-      LinearSales(34, 150, 5.0),
-      LinearSales(37, 10, 4.5),
-      LinearSales(45, 300, 8.0),
-      LinearSales(52, 15, 4.0),
-      LinearSales(56, 200, 7.0),
-    ];
-
-    var myRegressionData = [
-      LinearSales(0, 5, 3.5),
-      LinearSales(56, 240, 3.5),
-    ];
-
-    const maxMeasure = 300;
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        // Providing a color function is optional.
-        colorFn: (LinearSales sales, _) {
-          // Bucket the measure column value into 3 distinct colors.
-          final bucket = sales.sales / maxMeasure;
-
-          if (bucket < 1 / 3) {
-            return charts.MaterialPalette.blue.shadeDefault;
-          } else if (bucket < 2 / 3) {
-            return charts.MaterialPalette.red.shadeDefault;
-          } else {
-            return charts.MaterialPalette.green.shadeDefault;
-          }
-        },
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        // Providing a radius function is optional.
-        radiusPxFn: (LinearSales sales, _) => sales.radius,
-        data: desktopSalesData,
-      ),
-      charts.Series<LinearSales, int>(
-          id: 'Mobile',
-          colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
-          domainFn: (LinearSales sales, _) => sales.year,
-          measureFn: (LinearSales sales, _) => sales.sales,
-          data: myRegressionData)
-        // Configure our custom line renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customLine'),
-    ];
   }
 }
 

@@ -18,9 +18,7 @@
 /// an example of how to use the customizations, they do not necessary have to
 /// be used together in this way. Choosing [end] as the position does not
 /// require the justification to also be [endDrawArea].
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -30,18 +28,6 @@ class DatumLegendOptions extends StatelessWidget {
 
   const DatumLegendOptions(this.seriesList, {super.key, this.animate = false});
 
-  factory DatumLegendOptions.withSampleData() {
-    return DatumLegendOptions(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory DatumLegendOptions.withRandomData() {
     return DatumLegendOptions(_createRandomData());
   }
@@ -66,7 +52,6 @@ class DatumLegendOptions extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -105,25 +90,6 @@ class DatumLegendOptions extends StatelessWidget {
         )
       ],
     );
-  }
-
-  /// Create series list with one series
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(0, 100),
-      LinearSales(1, 75),
-      LinearSales(2, 25),
-      LinearSales(3, 5),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

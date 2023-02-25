@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Bar chart example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -36,18 +34,6 @@ class BarChartWithSecondaryAxisOnly extends StatelessWidget {
   const BarChartWithSecondaryAxisOnly(this.seriesList,
       {super.key, this.animate = false});
 
-  factory BarChartWithSecondaryAxisOnly.withSampleData() {
-    return BarChartWithSecondaryAxisOnly(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory BarChartWithSecondaryAxisOnly.withRandomData() {
     return BarChartWithSecondaryAxisOnly(_createRandomData());
   }
@@ -74,7 +60,6 @@ class BarChartWithSecondaryAxisOnly extends StatelessWidget {
         ..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -82,27 +67,6 @@ class BarChartWithSecondaryAxisOnly extends StatelessWidget {
       seriesList,
       animate: animate,
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final globalSalesData = [
-      OrdinalSales('2014', 500),
-      OrdinalSales('2015', 2500),
-      OrdinalSales('2016', 1000),
-      OrdinalSales('2017', 7500),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Global Revenue',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: globalSalesData,
-      )
-        // Set series to use the secondary measure axis.
-        ..setAttribute(charts.measureAxisIdKey, secondaryMeasureAxisId),
-    ];
   }
 }
 

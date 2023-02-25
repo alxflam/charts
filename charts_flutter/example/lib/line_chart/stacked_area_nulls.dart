@@ -27,9 +27,7 @@
 /// This will also result in an isolated point being rendered for the domain
 /// value 3 in the Mobile series, because that series also contains a null at
 /// domain 4.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -40,19 +38,6 @@ class StackedAreaNullsLineChart extends StatelessWidget {
   const StackedAreaNullsLineChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [LineChart] with sample data and no transition.
-  factory StackedAreaNullsLineChart.withSampleData() {
-    return StackedAreaNullsLineChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory StackedAreaNullsLineChart.withRandomData() {
     return StackedAreaNullsLineChart(_createRandomData());
   }
@@ -115,7 +100,6 @@ class StackedAreaNullsLineChart extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -123,63 +107,6 @@ class StackedAreaNullsLineChart extends StatelessWidget {
         defaultRenderer:
             charts.LineRendererConfig(includeArea: true, stacked: true),
         animate: animate);
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final myFakeDesktopData = [
-      LinearSales(0, 5),
-      LinearSales(1, 15),
-      LinearSales(2, null),
-      LinearSales(3, 75),
-      LinearSales(4, 100),
-      LinearSales(5, 90),
-      LinearSales(6, 75),
-    ];
-
-    final myFakeTabletData = [
-      LinearSales(0, 5),
-      LinearSales(1, 15),
-      LinearSales(2, 25),
-      LinearSales(3, 75),
-      LinearSales(4, 100),
-      LinearSales(5, 90),
-      LinearSales(6, 75),
-    ];
-
-    final myFakeMobileData = [
-      LinearSales(0, 5),
-      LinearSales(1, 15),
-      LinearSales(2, 25),
-      LinearSales(3, 75),
-      LinearSales(4, null),
-      LinearSales(5, 90),
-      LinearSales(6, 75),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Desktop',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: myFakeDesktopData,
-      ),
-      charts.Series<LinearSales, int>(
-        id: 'Tablet',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: myFakeTabletData,
-      ),
-      charts.Series<LinearSales, int>(
-        id: 'Mobile',
-        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: myFakeMobileData,
-      ),
-    ];
   }
 }
 

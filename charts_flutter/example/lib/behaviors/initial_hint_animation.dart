@@ -41,9 +41,7 @@
 /// 2022 as the first value and the viewport will animate by panning values to
 /// the right until 2018 is the first value in the viewport.
 
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -54,19 +52,6 @@ class InitialHintAnimation extends StatelessWidget {
   const InitialHintAnimation(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [BarChart] with sample data and no transition.
-  factory InitialHintAnimation.withSampleData() {
-    return InitialHintAnimation(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory InitialHintAnimation.withRandomData() {
     return InitialHintAnimation(_createRandomData());
   }
@@ -105,7 +90,6 @@ class InitialHintAnimation extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -131,39 +115,6 @@ class InitialHintAnimation extends StatelessWidget {
         charts.PanAndZoomBehavior(),
       ],
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-      OrdinalSales('2018', 33),
-      OrdinalSales('2019', 80),
-      OrdinalSales('2020', 21),
-      OrdinalSales('2021', 77),
-      OrdinalSales('2022', 8),
-      OrdinalSales('2023', 12),
-      OrdinalSales('2024', 42),
-      OrdinalSales('2025', 70),
-      OrdinalSales('2026', 77),
-      OrdinalSales('2027', 55),
-      OrdinalSales('2028', 19),
-      OrdinalSales('2029', 66),
-      OrdinalSales('2030', 27),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

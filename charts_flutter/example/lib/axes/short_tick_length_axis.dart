@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Custom Tick Style Example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -32,18 +30,6 @@ class ShortTickLengthAxis extends StatelessWidget {
 
   const ShortTickLengthAxis(this.seriesList, {super.key, this.animate = false});
 
-  factory ShortTickLengthAxis.withSampleData() {
-    return ShortTickLengthAxis(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory ShortTickLengthAxis.withRandomData() {
     return ShortTickLengthAxis(_createRandomData());
   }
@@ -68,7 +54,6 @@ class ShortTickLengthAxis extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -84,25 +69,6 @@ class ShortTickLengthAxis extends StatelessWidget {
               // Tick and Label styling here.
               )),
     );
-  }
-
-  /// Create series list with single series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final globalSalesData = [
-      OrdinalSales('2014', 5000),
-      OrdinalSales('2015', 25000),
-      OrdinalSales('2016', 100000),
-      OrdinalSales('2017', 750000),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Global Revenue',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: globalSalesData,
-      ),
-    ];
   }
 }
 

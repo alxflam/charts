@@ -20,9 +20,7 @@
 /// different color from the main series color. The line renderer supports
 /// drawing points with the "includePoints" option, but those points will share
 /// the same color as the line.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -33,19 +31,6 @@ class DateTimeComboLinePointChart extends StatelessWidget {
   const DateTimeComboLinePointChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory DateTimeComboLinePointChart.withSampleData() {
-    return DateTimeComboLinePointChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory DateTimeComboLinePointChart.withRandomData() {
     return DateTimeComboLinePointChart(_createRandomData());
   }
@@ -100,7 +85,6 @@ class DateTimeComboLinePointChart extends StatelessWidget {
         ..setAttribute(charts.rendererIdKey, 'customPoint'),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -123,55 +107,6 @@ class DateTimeComboLinePointChart extends StatelessWidget {
       // specified, the default creates local date time.
       dateTimeFactory: const charts.LocalDateTimeFactory(),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final desktopSalesData = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 5),
-      TimeSeriesSales(DateTime(2017, 9, 26), 25),
-      TimeSeriesSales(DateTime(2017, 10, 3), 100),
-      TimeSeriesSales(DateTime(2017, 10, 10), 75),
-    ];
-
-    final tableSalesData = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 10),
-      TimeSeriesSales(DateTime(2017, 9, 26), 50),
-      TimeSeriesSales(DateTime(2017, 10, 3), 200),
-      TimeSeriesSales(DateTime(2017, 10, 10), 150),
-    ];
-
-    final mobileSalesData = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 10),
-      TimeSeriesSales(DateTime(2017, 9, 26), 50),
-      TimeSeriesSales(DateTime(2017, 10, 3), 200),
-      TimeSeriesSales(DateTime(2017, 10, 10), 150),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Desktop',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: desktopSalesData,
-      ),
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Tablet',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: tableSalesData,
-      ),
-      charts.Series<TimeSeriesSales, DateTime>(
-          id: 'Mobile',
-          colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-          domainFn: (TimeSeriesSales sales, _) => sales.time,
-          measureFn: (TimeSeriesSales sales, _) => sales.sales,
-          data: mobileSalesData)
-        // Configure our custom point renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customPoint'),
-    ];
   }
 }
 

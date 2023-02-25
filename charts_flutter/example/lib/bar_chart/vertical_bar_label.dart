@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Vertical bar chart with bar label renderer example.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -27,19 +25,6 @@ class VerticalBarLabelChart extends StatelessWidget {
   const VerticalBarLabelChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [BarChart] with sample data and no transition.
-  factory VerticalBarLabelChart.withSampleData() {
-    return VerticalBarLabelChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory VerticalBarLabelChart.withRandomData() {
     return VerticalBarLabelChart(_createRandomData());
   }
@@ -65,7 +50,6 @@ class VerticalBarLabelChart extends StatelessWidget {
           labelAccessorFn: (OrdinalSales sales, _) => sales.sales.toString())
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   // [BarLabelDecorator] will automatically position the label
   // inside the bar if the label will fit. If the label will not fit,
@@ -87,27 +71,6 @@ class VerticalBarLabelChart extends StatelessWidget {
       barRendererDecorator: charts.BarLabelDecorator<String>(),
       domainAxis: const charts.OrdinalAxisSpec(),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-          id: 'Sales',
-          domainFn: (OrdinalSales sales, _) => sales.year,
-          measureFn: (OrdinalSales sales, _) => sales.sales,
-          data: data,
-          // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (OrdinalSales sales, _) =>
-              '\$${sales.sales.toString()}')
-    ];
   }
 }
 

@@ -18,9 +18,7 @@
 /// to use the customizations, they do not necessary have to be used together in
 /// this way. Choosing [end] as the position does not require the justification
 /// to also be [endDrawArea].
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -34,18 +32,6 @@ class LegendWithMeasures extends StatelessWidget {
 
   const LegendWithMeasures(this.seriesList, {super.key, this.animate = false});
 
-  factory LegendWithMeasures.withSampleData() {
-    return LegendWithMeasures(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory LegendWithMeasures.withRandomData() {
     return LegendWithMeasures(_createRandomData());
   }
@@ -109,7 +95,6 @@ class LegendWithMeasures extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -121,8 +106,6 @@ class LegendWithMeasures extends StatelessWidget {
       // This example shows how to optionally show measure and provide a custom
       // formatter.
       behaviors: [
-        // EXCLUDE_FROM_GALLERY_DOCS_START
-        // This section is excluded from being copied to the gallery.
         // This is added in order to generate the image for the gallery to show
         // an initial selection so that measure values are shown in the gallery.
         charts.InitialSelection(
@@ -133,7 +116,6 @@ class LegendWithMeasures extends StatelessWidget {
             charts.SeriesDatumConfig('Other', '2016'),
           ],
         ),
-        // EXCLUDE_FROM_GALLERY_DOCS_END
         charts.SeriesLegend(
           // Positions for "start" and "end" will be left and right respectively
           // for widgets with a build context that has directionality ltr.
@@ -158,64 +140,6 @@ class LegendWithMeasures extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final desktopSalesData = [
-      OrdinalSales('2014', 5),
-      OrdinalSales('2015', 25),
-      OrdinalSales('2016', 100),
-      OrdinalSales('2017', 75),
-    ];
-
-    final tabletSalesData = [
-      OrdinalSales('2014', 25),
-      OrdinalSales('2015', 50),
-      // Purposely have a missing datum for 2016 to show the null measure format
-      OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesData = [
-      OrdinalSales('2014', 10),
-      OrdinalSales('2015', 15),
-      OrdinalSales('2016', 50),
-      OrdinalSales('2017', 45),
-    ];
-
-    final otherSalesData = [
-      OrdinalSales('2014', 20),
-      OrdinalSales('2015', 35),
-      OrdinalSales('2016', 15),
-      OrdinalSales('2017', 10),
-    ];
-
-    return [
-      charts.Series<OrdinalSales, String>(
-        id: 'Desktop',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesData,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Tablet',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tabletSalesData,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Mobile',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesData,
-      ),
-      charts.Series<OrdinalSales, String>(
-        id: 'Other',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: otherSalesData,
-      ),
-    ];
   }
 }
 

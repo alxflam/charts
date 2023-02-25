@@ -15,9 +15,7 @@
 
 /// Gauge chart example, where the data does not cover a full revolution in the
 /// chart.
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -27,19 +25,6 @@ class GaugeChart extends StatelessWidget {
 
   const GaugeChart(this.seriesList, {super.key, this.animate = false});
 
-  /// Creates a [PieChart] with sample data and no transition.
-  factory GaugeChart.withSampleData() {
-    return GaugeChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory GaugeChart.withRandomData() {
     return GaugeChart(_createRandomData());
   }
@@ -64,7 +49,6 @@ class GaugeChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -75,25 +59,6 @@ class GaugeChart extends StatelessWidget {
         // angle and the arc length of the pie so it resembles a gauge.
         defaultRenderer: charts.ArcRendererConfig<String>(
             arcWidth: 30, startAngle: 4 / 5 * pi, arcLength: 7 / 5 * pi));
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<GaugeSegment, String>> _createSampleData() {
-    final data = [
-      GaugeSegment('Low', 75),
-      GaugeSegment('Acceptable', 100),
-      GaugeSegment('High', 50),
-      GaugeSegment('Highly Unusual', 5),
-    ];
-
-    return [
-      charts.Series<GaugeSegment, String>(
-        id: 'Segments',
-        domainFn: (GaugeSegment segment, _) => segment.segment,
-        measureFn: (GaugeSegment segment, _) => segment.size,
-        data: data,
-      )
-    ];
   }
 }
 

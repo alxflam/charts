@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Timeseries chart example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
@@ -27,19 +25,6 @@ class SimpleTimeSeriesChart extends StatelessWidget {
   const SimpleTimeSeriesChart(this.seriesList,
       {super.key, this.animate = false});
 
-  /// Creates a [TimeSeriesChart] with sample data and no transition.
-  factory SimpleTimeSeriesChart.withSampleData() {
-    return SimpleTimeSeriesChart(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory SimpleTimeSeriesChart.withRandomData() {
     return SimpleTimeSeriesChart(_createRandomData());
   }
@@ -65,7 +50,6 @@ class SimpleTimeSeriesChart extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -77,26 +61,6 @@ class SimpleTimeSeriesChart extends StatelessWidget {
       // specified, the default creates local date time.
       dateTimeFactory: const charts.LocalDateTimeFactory(),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<TimeSeriesSales, DateTime>> _createSampleData() {
-    final data = [
-      TimeSeriesSales(DateTime(2017, 9, 19), 5),
-      TimeSeriesSales(DateTime(2017, 9, 26), 25),
-      TimeSeriesSales(DateTime(2017, 10, 3), 100),
-      TimeSeriesSales(DateTime(2017, 10, 10), 75),
-    ];
-
-    return [
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'Sales',
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 

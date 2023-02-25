@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Bar chart example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -34,18 +32,6 @@ class FlippedVerticalAxis extends StatelessWidget {
 
   const FlippedVerticalAxis(this.seriesList, {super.key, this.animate = false});
 
-  factory FlippedVerticalAxis.withSampleData() {
-    return FlippedVerticalAxis(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory FlippedVerticalAxis.withRandomData() {
     return FlippedVerticalAxis(_createRandomData());
   }
@@ -73,7 +59,6 @@ class FlippedVerticalAxis extends StatelessWidget {
       ),
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   // Known Issue, the bar chart cannot render negative direction bars at this
   // time so the result is an empty chart.
@@ -85,24 +70,6 @@ class FlippedVerticalAxis extends StatelessWidget {
       animate: animate,
       flipVerticalAxis: true,
     );
-  }
-
-  /// Create series list with multiple series
-  static List<charts.Series<RunnerRank, String>> _createSampleData() {
-    final raceData = [
-      RunnerRank('Smith', 1),
-      RunnerRank('Jones', 2),
-      RunnerRank('Brown', 3),
-      RunnerRank('Doe', 4),
-    ];
-
-    return [
-      charts.Series<RunnerRank, String>(
-          id: 'Race Results',
-          domainFn: (RunnerRank row, _) => row.name,
-          measureFn: (RunnerRank row, _) => row.place,
-          data: raceData),
-    ];
   }
 }
 

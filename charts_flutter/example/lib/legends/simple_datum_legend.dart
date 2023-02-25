@@ -14,9 +14,7 @@
 // limitations under the License.
 
 /// Bar chart with series legend example
-// EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
-// EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -26,18 +24,6 @@ class SimpleDatumLegend extends StatelessWidget {
 
   const SimpleDatumLegend(this.seriesList, {super.key, this.animate = false});
 
-  factory SimpleDatumLegend.withSampleData() {
-    return SimpleDatumLegend(
-      _createSampleData(),
-      // Disable animations for image tests.
-      animate: false,
-    );
-  }
-
-  // EXCLUDE_FROM_GALLERY_DOCS_START
-  // This section is excluded from being copied to the gallery.
-  // It is used for creating random series data to demonstrate animation in
-  // the example app only.
   factory SimpleDatumLegend.withRandomData() {
     return SimpleDatumLegend(_createRandomData());
   }
@@ -62,7 +48,6 @@ class SimpleDatumLegend extends StatelessWidget {
       )
     ];
   }
-  // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
@@ -73,25 +58,6 @@ class SimpleDatumLegend extends StatelessWidget {
       // By default the legend will display above the chart.
       behaviors: [charts.DatumLegend()],
     );
-  }
-
-  /// Create series list with one series
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final data = [
-      LinearSales(0, 100),
-      LinearSales(1, 75),
-      LinearSales(2, 25),
-      LinearSales(3, 5),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 }
 
