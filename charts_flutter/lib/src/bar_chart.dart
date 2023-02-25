@@ -42,6 +42,7 @@ class BarChart extends CartesianChart<String> {
 
   BarChart(
     List<common.Series<dynamic, String>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,

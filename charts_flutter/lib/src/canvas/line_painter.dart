@@ -126,11 +126,11 @@ class LinePainter {
 
     // Gets the next segment in the dash pattern, looping back to the
     // beginning once the end has been reached.
-    var getNextDashPatternSegment = () {
+    getNextDashPatternSegment() {
       final dashSegment = localDashPattern[dashPatternIndex];
       dashPatternIndex = (dashPatternIndex + 1) % localDashPattern.length;
       return dashSegment;
-    };
+    }
 
     // Array of points that is used to draw a connecting path when only a
     // partial dash pattern segment can be drawn in the remaining length of a

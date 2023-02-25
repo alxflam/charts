@@ -42,6 +42,7 @@ abstract class CartesianChart<D> extends BaseChart<D> {
 
   const CartesianChart(
     List<common.Series<dynamic, D>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     this.domainAxis,

@@ -37,6 +37,7 @@ import '../selection_model_config.dart' show SelectionModelConfig;
 class NumericComboChart extends CartesianChart<num> {
   const NumericComboChart(
     List<common.Series<dynamic, num>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,
@@ -82,6 +83,7 @@ class NumericComboChart extends CartesianChart<num> {
 class OrdinalComboChart extends CartesianChart<String> {
   const OrdinalComboChart(
     List<common.Series<dynamic, String>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,

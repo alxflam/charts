@@ -52,7 +52,7 @@ jobs:
     - name: Format
       run: dart format --output=none --set-exit-if-changed .
     - name: Lint
-      run: flutter analyze --no-fatal-infos # fail on info lints once all are resolved
+      run: flutter analyze
     - name: Test
       run: flutter test --coverage
     - name: Upload Code Coverage

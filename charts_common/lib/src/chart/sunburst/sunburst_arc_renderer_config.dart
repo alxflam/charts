@@ -25,7 +25,7 @@ import '../../data/tree.dart' show TreeNode;
 
 /// Given the selected node and a list of currently expanded node, returns the
 /// new set of node to be expanded (shown beyond the initialDisplayLevel).
-typedef List<TreeNode<dynamic>> ExpandNodeCallback(
+typedef ExpandNodeCallback = List<TreeNode<dynamic>> Function(
     TreeNode<dynamic> node, List<TreeNode<dynamic>> expandedNode);
 
 /// Configuration for an [ArcRenderer].

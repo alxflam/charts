@@ -216,7 +216,10 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
 
     // If the currentIndex is the same as the firstSelectedDetail we don't have
     // to do a linear seach to find the domain.
-    final firstDomain = details.first.domain!;
+    final firstDomain = details.first.domain;
+    if (firstDomain == null) {
+      return noSelection;
+    }
 
     if (0 <= _currentIndex &&
         _currentIndex <= domains.length - 1 &&
@@ -260,10 +263,8 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
       // the details with null measure are skipped, the next domain visited
       // after a datum with null measure will always be the first one, making
       // all data after a datum with null measure not accessible by keyboard.
-      // LINT.IfChange
-      if (datumDetails.measure != null) {
-        final domain = datumDetails.domain!;
-
+      final domain = datumDetails.domain;
+      if (datumDetails.measure != null && domain != null) {
         if (detailsByDomain[domain] == null) {
           _domains!.add(domain);
           detailsByDomain[domain] = [];
@@ -272,7 +273,6 @@ abstract class KeyboardDomainNavigator<D> implements ChartBehavior<D> {
         detailsByDomain[domain]!
             .add(SeriesDatum<D>(datumDetails.series!, datumDetails.datum));
       }
-      // LINT.ThenChange(//depot/google3/third_party/dart/charts_web/lib/src/common/behaviors/hovercard/hovercard.dart)
     }
 
     _datumPairs = <int, List<SeriesDatum<D>>>{};

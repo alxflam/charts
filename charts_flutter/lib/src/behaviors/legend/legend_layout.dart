@@ -124,7 +124,8 @@ class TabularLegendLayout implements LegendLayout {
         ? legendEntries.length
         : min(legendEntries.length, desiredMaxRows);
 
-    // ignore: prefer_const_constructors table row needs to be mutable
+    // table row and children need to be mutable
+    // ignore: prefer_const_constructors, prefer_const_literals_to_create_immutables
     final rows = List.generate(maxRows, (_) => TableRow(children: <Widget>[]));
     for (var i = 0; i < legendEntries.length; i++) {
       rows[i % maxRows].children!.add(legendEntries[i]);

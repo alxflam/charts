@@ -35,6 +35,7 @@ import 'user_managed_state.dart' show UserManagedState;
 class LineChart extends CartesianChart<num> {
   const LineChart(
     List<common.Series<dynamic, num>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,

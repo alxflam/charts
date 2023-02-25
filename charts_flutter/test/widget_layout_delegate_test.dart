@@ -86,7 +86,7 @@ void main() {
 
       final container = Align(
           alignment: Alignment.topLeft,
-          child: Container(
+          child: SizedBox(
               width: chartSize.width, height: chartSize.height, child: layout));
 
       return container;

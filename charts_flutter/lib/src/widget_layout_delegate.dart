@@ -120,19 +120,19 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
           getOutsideJustification(outsideJustification, isRTL);
 
       switch (horizontalJustification) {
-        case _HorizontalJustification.leftDrawArea:
+        case HorizontalJustification.leftDrawArea:
           behaviorOffset =
               Offset(behavior.drawAreaBounds!.left.toDouble(), heightOffset);
           break;
-        case _HorizontalJustification.left:
+        case HorizontalJustification.left:
           behaviorOffset = Offset(0.0, heightOffset);
           break;
-        case _HorizontalJustification.rightDrawArea:
+        case HorizontalJustification.rightDrawArea:
           behaviorOffset = Offset(
               behavior.drawAreaBounds!.right - behaviorSize.width,
               heightOffset);
           break;
-        case _HorizontalJustification.right:
+        case HorizontalJustification.right:
           behaviorOffset =
               Offset(chartSize.width - behaviorSize.width, heightOffset);
           break;
@@ -180,32 +180,32 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
     return behaviorOffset;
   }
 
-  _HorizontalJustification getOutsideJustification(
+  HorizontalJustification getOutsideJustification(
       common.OutsideJustification justification, bool isRTL) {
-    _HorizontalJustification mappedJustification;
+    HorizontalJustification mappedJustification;
 
     switch (justification) {
       case common.OutsideJustification.startDrawArea:
       case common.OutsideJustification.middleDrawArea:
         mappedJustification = isRTL
-            ? _HorizontalJustification.rightDrawArea
-            : _HorizontalJustification.leftDrawArea;
+            ? HorizontalJustification.rightDrawArea
+            : HorizontalJustification.leftDrawArea;
         break;
       case common.OutsideJustification.start:
       case common.OutsideJustification.middle:
         mappedJustification = isRTL
-            ? _HorizontalJustification.right
-            : _HorizontalJustification.left;
+            ? HorizontalJustification.right
+            : HorizontalJustification.left;
         break;
       case common.OutsideJustification.endDrawArea:
         mappedJustification = isRTL
-            ? _HorizontalJustification.leftDrawArea
-            : _HorizontalJustification.rightDrawArea;
+            ? HorizontalJustification.leftDrawArea
+            : HorizontalJustification.rightDrawArea;
         break;
       case common.OutsideJustification.end:
         mappedJustification = isRTL
-            ? _HorizontalJustification.left
-            : _HorizontalJustification.right;
+            ? HorizontalJustification.left
+            : HorizontalJustification.right;
         break;
     }
 
@@ -213,7 +213,7 @@ class WidgetLayoutDelegate extends MultiChildLayoutDelegate {
   }
 }
 
-enum _HorizontalJustification {
+enum HorizontalJustification {
   leftDrawArea,
   left,
   rightDrawArea,

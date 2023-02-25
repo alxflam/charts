@@ -41,6 +41,7 @@ class TimeSeriesChart extends CartesianChart<DateTime> {
   /// be used for the time axis. If none specified, local date time is used.
   const TimeSeriesChart(
     List<common.Series<dynamic, DateTime>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,

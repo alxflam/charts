@@ -23,6 +23,7 @@ import 'selection_model_config.dart' show SelectionModelConfig;
 class PieChart<D> extends BaseChart<D> {
   const PieChart(
     List<common.Series<dynamic, D>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.ArcRendererConfig<D>? defaultRenderer,

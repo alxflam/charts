@@ -67,6 +67,7 @@ class TestChart extends StatefulWidget {
 
   @override
   TestChartState createState() {
+    // ignore: no_logic_in_create_state
     return TestChartState(selectionChangedListener, onTapSelection);
   }
 }

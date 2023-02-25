@@ -70,7 +70,8 @@ abstract class BaseChart<D> extends StatefulWidget {
   final UserManagedState<D>? userManagedState;
 
   const BaseChart(this.seriesList,
-      {bool? animate,
+      {super.key,
+      bool? animate,
       Duration? animationDuration,
       this.defaultRenderer,
       this.customSeriesRenderers,

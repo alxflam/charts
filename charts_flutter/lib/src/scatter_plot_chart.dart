@@ -34,6 +34,7 @@ import 'user_managed_state.dart' show UserManagedState;
 class ScatterPlotChart extends CartesianChart<num> {
   const ScatterPlotChart(
     List<common.Series<dynamic, num>> seriesList, {
+    super.key,
     bool? animate,
     Duration? animationDuration,
     common.AxisSpec? domainAxis,

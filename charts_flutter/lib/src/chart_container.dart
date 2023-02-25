@@ -48,7 +48,8 @@ class ChartContainer<D> extends CustomPaint {
   final UserManagedState<D>? userManagedState;
 
   const ChartContainer(
-      {this.oldChartWidget,
+      {super.key,
+      this.oldChartWidget,
       required this.chartWidget,
       required this.chartState,
       required this.animationValue,
