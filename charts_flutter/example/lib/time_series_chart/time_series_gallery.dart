@@ -19,6 +19,7 @@ import '../gallery_scaffold_group.dart';
 import 'confidence_interval.dart';
 import 'end_points_axis.dart';
 import 'line_annotation.dart';
+import 'log_scale.dart';
 import 'range_annotation.dart';
 import 'range_annotation_margin.dart';
 import 'simple.dart';
@@ -82,6 +83,18 @@ List<GalleryScaffold> buildGallery() {
       title: 'Time Series Chart with Confidence Interval',
       subtitle: 'Draws area around the confidence interval',
       childBuilder: () => TimeSeriesConfidenceInterval.withRandomData(),
+    ),
+    GalleryScaffold(
+      listTileIcon: const Icon(Icons.date_range),
+      title: 'Time Series Chart with Log Scale (Base 10) Axis',
+      subtitle: 'Common logarithm scaled measure axis',
+      childBuilder: () => TimeSeriesLogScale.commonLogarithmWithRandomData(),
+    ),
+    GalleryScaffold(
+      listTileIcon: const Icon(Icons.date_range),
+      title: 'Time Series Chart with Log Scale (Base e) Axis',
+      subtitle: 'Natural Logarithm scaled measure axis',
+      childBuilder: () => TimeSeriesLogScale.naturalLogarithmWithRandomData(),
     ),
   ];
 }
