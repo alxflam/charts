@@ -19,15 +19,19 @@ import 'package:flutter/material.dart';
 class GalleryDrawer extends StatelessWidget {
   final bool showPerformanceOverlay;
   final ValueChanged<bool> onShowPerformanceOverlayChanged;
+  final ValueChanged<Brightness> onBrightnessChanged;
 
   const GalleryDrawer(
       {Key? key,
       this.showPerformanceOverlay = false,
-      required this.onShowPerformanceOverlayChanged})
+      required this.onShowPerformanceOverlayChanged,
+      required this.onBrightnessChanged})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isBrightTheme = Theme.of(context).brightness == Brightness.light;
+
     return Drawer(
       child: ListView(children: <Widget>[
         // Performance overlay toggle.
@@ -44,6 +48,16 @@ class GalleryDrawer extends StatelessWidget {
               onShowPerformanceOverlayChanged(!showPerformanceOverlay);
             },
           ),
+        ),
+        ListTile(
+          leading: isBrightTheme
+              ? const Icon(Icons.dark_mode_outlined)
+              : const Icon(Icons.light_mode_outlined),
+          title: const Text('Theme Brightness'),
+          onTap: () {
+            onBrightnessChanged(
+                isBrightTheme ? Brightness.dark : Brightness.light);
+          },
         ),
       ]),
     );

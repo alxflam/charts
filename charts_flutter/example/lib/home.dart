@@ -16,7 +16,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'app_config.dart';
 import 'drawer.dart';
 import 'a11y/a11y_gallery.dart' as a11y show buildGalleryGroup;
 import 'bar_chart/bar_gallery.dart' as bar show buildGalleryGroup;
@@ -38,6 +37,7 @@ import 'legends/legends_gallery.dart' as legends show buildGalleryGroup;
 class Home extends StatelessWidget {
   final bool showPerformanceOverlay;
   final ValueChanged<bool> onShowPerformanceOverlayChanged;
+  final ValueChanged<Brightness> onBrightnessChanged;
 
   static final galleryScaffolds = {
     a11y.buildGalleryGroup(),
@@ -56,7 +56,8 @@ class Home extends StatelessWidget {
   const Home(
       {Key? key,
       this.showPerformanceOverlay = false,
-      required this.onShowPerformanceOverlayChanged})
+      required this.onShowPerformanceOverlayChanged,
+      required this.onBrightnessChanged})
       : super(key: key);
 
   @override
@@ -69,9 +70,11 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       drawer: GalleryDrawer(
-          showPerformanceOverlay: showPerformanceOverlay,
-          onShowPerformanceOverlayChanged: onShowPerformanceOverlayChanged),
-      appBar: AppBar(title: Text(defaultConfig.appName)),
+        showPerformanceOverlay: showPerformanceOverlay,
+        onShowPerformanceOverlayChanged: onShowPerformanceOverlayChanged,
+        onBrightnessChanged: onBrightnessChanged,
+      ),
+      appBar: AppBar(title: const Text('Charts Gallery')),
       body: ListView(padding: kMaterialListPadding, children: galleries),
     );
   }

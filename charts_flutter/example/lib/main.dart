@@ -14,7 +14,6 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
-import 'app_config.dart';
 import 'home.dart';
 
 /// The main gallery app widget.
@@ -30,13 +29,31 @@ class GalleryApp extends StatefulWidget {
 /// Controls performance overlay, and instantiates a [Home] widget.
 class GalleryAppState extends State<GalleryApp> {
   // Initialize app settings from the default configuration.
-  bool _showPerformanceOverlay = defaultConfig.showPerformanceOverlay;
+  bool _showPerformanceOverlay = false;
+  ThemeMode _themeMode = ThemeMode.system;
+
+  void handleBrightnessChange(Brightness brightness) {
+    setState(() {
+      _themeMode =
+          brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: defaultConfig.appName,
-        theme: defaultConfig.theme,
+        title: 'Charts Gallery',
+        themeMode: _themeMode,
+        theme: ThemeData(
+          colorSchemeSeed: Colors.blue,
+          useMaterial3: true,
+          brightness: Brightness.light,
+        ),
+        darkTheme: ThemeData(
+          colorSchemeSeed: Colors.blue,
+          useMaterial3: true,
+          brightness: Brightness.dark,
+        ),
         showPerformanceOverlay: _showPerformanceOverlay,
         home: Home(
           showPerformanceOverlay: _showPerformanceOverlay,
@@ -45,6 +62,7 @@ class GalleryAppState extends State<GalleryApp> {
               _showPerformanceOverlay = value;
             });
           },
+          onBrightnessChanged: handleBrightnessChange,
         ));
   }
 }
