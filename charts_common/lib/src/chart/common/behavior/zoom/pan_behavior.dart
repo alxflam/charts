@@ -91,7 +91,7 @@ class PanBehavior<D> implements ChartBehavior<D> {
 
     // Wrap domain axis tick provider with the panning behavior one.
     _domainAxisTickProvider =
-        PanningTickProvider<D>(chart.domainAxis!.tickProvider!);
+        PanningTickProvider<D>(chart.domainAxis!.tickProvider);
     chart.domainAxis!.tickProvider = _domainAxisTickProvider;
   }
 

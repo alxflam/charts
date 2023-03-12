@@ -76,10 +76,10 @@ abstract class Axis<D> extends ImmutableAxis<D> implements LayoutView {
   /// Previous [Scale] of this axis, used to calculate tick animation.
   MutableScale<D>? _previousScale;
 
-  final TickProvider<D>? _defaultTickProvider;
+  final TickProvider<D> _defaultTickProvider;
 
   /// [TickProvider] for this axis.
-  TickProvider<D>? tickProvider;
+  TickProvider<D> tickProvider;
 
   final TickFormatter<D>? _defaultTickFormatter;
 
@@ -142,7 +142,8 @@ abstract class Axis<D> extends ImmutableAxis<D> implements LayoutView {
   /// If true, a collision has occurred between ticks on this axis.
   bool hasTickCollision = false;
 
-  Axis({this.tickProvider, TickFormatter<D>? tickFormatter, this.scale})
+  Axis(
+      {required this.tickProvider, TickFormatter<D>? tickFormatter, this.scale})
       : _defaultScale = scale,
         _defaultTickProvider = tickProvider,
         _defaultTickFormatter = tickFormatter,
@@ -282,7 +283,7 @@ abstract class Axis<D> extends ImmutableAxis<D> implements LayoutView {
 
     // TODO: Ensure that tick providers take manually configured
     // viewport settings into account, so that we still get the right number.
-    _providedTicks = tickProvider!.getTicks(
+    _providedTicks = tickProvider.getTicks(
         context: context,
         graphicsFactory: graphicsFactory!,
         scale: scale!,
