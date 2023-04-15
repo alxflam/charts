@@ -25,7 +25,7 @@ import 'partial_pie.dart';
 
 GalleryScaffoldGroup buildGalleryGroup() {
   return GalleryScaffoldGroup(
-      listTileIcon: const Icon(Icons.insert_chart),
+      listTileIcon: const Icon(Icons.pie_chart),
       title: 'Pie Charts',
       children: buildGallery());
 }
@@ -51,20 +51,20 @@ List<GalleryScaffold> buildGallery() {
       childBuilder: () => PartialPieChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: const Icon(Icons.pie_chart),
+      listTileIcon: const Icon(Icons.donut_large),
       title: 'Simple Donut Chart',
       subtitle: 'With a single series and a hole in the middle',
       childBuilder: () => DonutPieChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: const Icon(Icons.pie_chart),
+      listTileIcon: const Icon(Icons.donut_large),
       title: 'Auto Label Donut Chart',
       subtitle:
           'With a single series, a hole in the middle, and auto-positioned labels',
       childBuilder: () => DonutAutoLabelChart.withRandomData(),
     ),
     GalleryScaffold(
-      listTileIcon: const Icon(Icons.pie_chart),
+      listTileIcon: const Icon(Icons.donut_large),
       title: 'Gauge Chart',
       subtitle: 'That doesn\'t cover a full revolution',
       childBuilder: () => GaugeChart.withRandomData(),
