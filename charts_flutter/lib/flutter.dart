@@ -144,18 +144,24 @@ export 'package:charts_common/common.dart'
         StaticNumericTickProviderSpec,
         StaticOrdinalTickProviderSpec,
         StyleFactory,
+        SunburstArcRendererConfig,
         SymbolAnnotationRenderer,
         SymbolAnnotationRendererConfig,
         TextDirection,
         TextElement,
         TextStyle,
         TextStyleSpec,
+        TreeMapRendererConfig,
+        TreeMapTileType,
+        TreeMapLabelDecorator,
         TickFormatter,
         TickFormatterSpec,
         TickLabelAnchor,
         TickLabelJustification,
         TickSpec,
         TimeFormatterSpec,
+        Tree,
+        TreeNode,
         TypedAccessorFn,
         UTCDateTimeFactory,
         ViewMargin,
@@ -196,3 +202,6 @@ export 'src/time_series_chart.dart';
 export 'src/user_managed_state.dart'
     show UserManagedState, UserManagedSelectionModel;
 export 'src/util/color.dart' show ColorUtil;
+export 'src/tree_map_chart.dart';
+export 'src/sunburst_chart.dart';
+export 'src/behaviors/sunburst_ring_expander.dart';
