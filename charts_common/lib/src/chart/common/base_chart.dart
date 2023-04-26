@@ -228,11 +228,13 @@ abstract class BaseChart<D> {
 
     // Special case, if we are asking for the default and we haven't made it
     // yet, then make it now.
+    if (SeriesRenderer.defaultRendererId == rendererId && renderer == null) {
+      defaultRenderer = makeDefaultRenderer();
+      renderer = defaultRenderer;
+    }
+
     if (renderer == null) {
-      // TODO: Throw an error if
-      // `rendererId != SeriesRenderer.defaultRendererId`?
-      renderer = makeDefaultRenderer();
-      defaultRenderer = renderer;
+      throw 'Renderer with ID $rendererId not found';
     }
 
     return renderer;
