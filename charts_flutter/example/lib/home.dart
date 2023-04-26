@@ -30,6 +30,7 @@ import 'axes/axes_gallery.dart' as axes show buildGalleryGroup;
 import 'behaviors/behaviors_gallery.dart' as behaviors show buildGalleryGroup;
 import 'i18n/i18n_gallery.dart' as i18n show buildGalleryGroup;
 import 'legends/legends_gallery.dart' as legends show buildGalleryGroup;
+import 'treemap/treemap_gallery.dart' as treemap show buildGalleryGroup;
 
 /// Main entry point of the gallery app.
 ///
@@ -47,6 +48,7 @@ class Home extends StatelessWidget {
     scatter_plot.buildGalleryGroup(),
     combo.buildGalleryGroup(),
     pie.buildGalleryGroup(),
+    treemap.buildGalleryGroup(),
     axes.buildGalleryGroup(),
     behaviors.buildGalleryGroup(),
     i18n.buildGalleryGroup(),
