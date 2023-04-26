@@ -86,10 +86,6 @@ void main() {
           graph_structure.Node(myMockNodes[0]),
           graph_structure.Node(myMockNodes[1]),
           myMockLinks[0]);
-      var secondLink = graph_structure.Link<MyNode, MyLink>(
-          graph_structure.Node(myMockNodes[1]),
-          graph_structure.Node(myMockNodes[2]),
-          myMockLinks[1]);
 
       expect(domainFn(firstLink, graph_structure.indexNotRelevant),
           getDomain(myMockLinks[0], graph_structure.indexNotRelevant));
