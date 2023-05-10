@@ -128,7 +128,7 @@ class TabularLegendLayout implements LegendLayout {
     // ignore: prefer_const_constructors, prefer_const_literals_to_create_immutables
     final rows = List.generate(maxRows, (_) => TableRow(children: <Widget>[]));
     for (var i = 0; i < legendEntries.length; i++) {
-      rows[i % maxRows].children!.add(legendEntries[i]);
+      rows[i % maxRows].children.add(legendEntries[i]);
     }
 
     return _buildTableFromRows(rows);
@@ -140,12 +140,12 @@ class TabularLegendLayout implements LegendLayout {
     // Pad rows to the max column count, because each TableRow in a table is
     // required to have the same number of children.
     final columnCount = rows
-        .map((r) => r.children!.length)
+        .map((r) => r.children.length)
         .fold<int>(0, (max, current) => (current > max) ? current : max);
 
     for (var i = 0; i < rows.length; i++) {
       final rowChildren = rows[i].children;
-      final padCount = columnCount - rowChildren!.length;
+      final padCount = columnCount - rowChildren.length;
       if (padCount > 0) {
         rowChildren
             .addAll(Iterable<Padding>.generate(padCount, (_) => padWidget));

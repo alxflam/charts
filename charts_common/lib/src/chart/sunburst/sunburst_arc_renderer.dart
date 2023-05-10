@@ -79,28 +79,10 @@ class SunburstArcRenderer<D> extends BaseArcRenderer<D> {
     for (var series in seriesList) {
       var elements = <SunburstArcRendererElement<D>>[];
 
-      var domainFn = series.domainFn;
-      var measureFn = series.measureFn;
-
-      // The seriesMeasureTotal needs to be computed from currently displayed
-      // top level.
-      var seriesMeasureTotal = 0.0;
-      for (var i = 0; i < series.data.length; i++) {
-        final node = series.data[i] as TreeNode<Object>;
-        final measure = measureFn(i);
-        if (node.depth == 1 && measure != null) {
-          seriesMeasureTotal += measure;
-        }
-      }
-
       // On the canvas, arc measurements are defined as angles from the positive
       // x axis. Start our first slice at the positive y axis instead.
       var startAngle = config.startAngle;
       var arcLength = config.arcLength;
-
-      var totalAngle = 0.0;
-
-      var measures = <num>[];
 
       // No data processing is same as the regular arc renderer.
       if (series.data.isEmpty) {
